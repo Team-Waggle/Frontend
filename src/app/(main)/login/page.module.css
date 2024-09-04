@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    width: 80%;
+    height: 50vh;
+    margin: auto;
+    margin-top: 5em;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+
+}
+
+.container > h2 {
+    margin-bottom: 5em;
+}
+
+.kakao {
+    position: relative;
+    height: 2.5em;
+    width: 5em;
+}
+
+.image {
+    position: absolute;
+    object-fit: cover;
+}
+
+.kakao:hover {
+    cursor: pointer;
+}

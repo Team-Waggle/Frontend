@@ -1,4 +1,3 @@
-
 .container {
     position: relative;
     display: flex;
@@ -10,7 +9,7 @@
 
 .menubar {
     position: absolute;
-    top: 0%;
+    top: 60%;
     height: 100%;
     width: 100%;
     display: flex;
@@ -20,9 +19,14 @@
 
 .menu {
     margin-right: 1em;
+    height: fit-content;
 }
 
 .title {
     font-weight: 600;
     font-size: 24px;
+}
+
+.title:hover {
+    cursor: pointer;
 }

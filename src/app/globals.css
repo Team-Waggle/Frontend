@@ -5,9 +5,37 @@
   font-family: "Custom";
 }
 
+body, html {
+  width: 100dvw;
+  height: 100dvh;
+}
+
+
 .link {
+  position: relative;
   text-decoration: none;
   color: black;
+  transition: 0.4s;
+}
+
+.link:after {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 100%;
+  border-top: 1px solid orange;
+  width: 0%;
+  transition: 0.4s;
+  margin-top: 0.2rem;
+}
+
+.link:hover::after {
+  width: 100%;
+  left: 0%;
+}
+
+.link:hover {
+  color: orange;
 }
 
 @font-face {
