@@ -19,7 +19,28 @@
 }
 
 
+.mainbody {
+    margin: auto;
+    height: 2em;
+    width: 80%;
+    margin-top : 2em;
+}
 
-.image {
-    border-radius: 1em;
+.category {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.category > .link {
+    margin-right: 2em;
+    font-size: 28px;
+    font-weight: bold;
+    background: none;
+    border: none;
+}
+
+.link:hover {
+    cursor: pointer;
 }

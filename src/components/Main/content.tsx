@@ -12,7 +12,7 @@ const defaultContent: ContentType = {
     body: "Body",
 }
 
-const MainContent = ({title, body}: ContentType) => {
+const FavoredContent = ({title, body}: ContentType) => {
     const [content, setContent] = useState<ContentType>(defaultContent)
 
     return(
@@ -23,4 +23,4 @@ const MainContent = ({title, body}: ContentType) => {
     )
 }
 
-export default MainContent;
+export default FavoredContent;
