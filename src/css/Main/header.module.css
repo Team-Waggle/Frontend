@@ -1,0 +1,28 @@
+
+.container {
+    position: relative;
+    display: flex;
+    height: 3em;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.menubar {
+    position: absolute;
+    top: 0%;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1em;
+}
+
+.menu {
+    margin-right: 1em;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 24px;
+}
