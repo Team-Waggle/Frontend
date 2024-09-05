@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./header";
 import Footer from "./footer";
 import ContextProvider from "./context";
+import Provider from "@/lib/chakra";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body>
+        <Provider>
         <ContextProvider>
         <header>
           <Header />
@@ -31,6 +33,7 @@ export default function RootLayout({
           <Footer />
         </footer>
         </ContextProvider>
+        </Provider>
       </body>
     </html>
   );

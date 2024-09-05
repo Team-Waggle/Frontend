@@ -8,8 +8,6 @@ const Header = () => {
             <Link href="/" className={`link ${styles.title}`}>Team Waggle</Link>
             <div className={styles.menubar}>
                 <Link className={`link ${styles.menu}`} href="/login">소셜로그인</Link>
-                <Link className={`link ${styles.menu}`} href="">소셜로그인</Link>
-                <Link className={`link ${styles.menu}`} href="">소셜로그인</Link>
             </div>
         </div>
     )

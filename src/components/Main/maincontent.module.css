@@ -1,0 +1,12 @@
+
+.container {
+    margin-top : 1em;
+}
+
+.selection {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    height: 1.5em;
+}
+
