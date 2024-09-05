@@ -44,3 +44,11 @@
 .link:hover {
     cursor: pointer;
 }
+
+
+
+@media (max-width: 768px) {
+    .category{
+       width: 100dvw;
+    }
+  }

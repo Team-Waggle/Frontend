@@ -42,3 +42,9 @@ body, html {
   font-family: "Custom";
   src: url(/font.ttf);
 }
+
+@media (max-width: 768px) {
+  * {
+    font-size: 16px;
+  }
+}
