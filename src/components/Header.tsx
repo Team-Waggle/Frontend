@@ -21,11 +21,14 @@ const Header = () => {
 export default Header;
 
 const HeaderWrapper = styled.div`
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 34px 24px 34px 36px;
+  width: 1200px;
   height: 32px;
+  padding: 34px 24px 34px 36px;
+  background-color: white;
 `;
 
 const HeaderContents = styled.div`
