@@ -2,16 +2,24 @@ import styled from "styled-components";
 import hamburgerBtn from "../assets/menu.svg";
 import logo from "../assets/logo.svg";
 
-const Header = () => {
+type HeaderProps = {
+  onClick: () => void;
+};
+
+const Header = ({ onClick }: HeaderProps) => {
   return (
     <HeaderWrapper>
       <HeaderContents>
-        <HamburgerBtn src={hamburgerBtn} alt="" />
+        <HamburgerBtn
+          src={hamburgerBtn}
+          alt="필터 목록을 여닫을 수 있는 햄버거 버튼"
+          onClick={onClick}
+        />
         <Logo src={logo} alt="" />
       </HeaderContents>
       <HeaderContents>
         <HeaderButton color="#0066FF">팀원 모집</HeaderButton>
-        <CenterBar></CenterBar>
+        <CenterBar />
         <HeaderButton color="#17171B">로그인</HeaderButton>
       </HeaderContents>
     </HeaderWrapper>
