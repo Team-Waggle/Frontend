@@ -6,6 +6,11 @@ type HeaderProps = {
   onClick: () => void;
 };
 
+type HeaderButtonProps = {
+  color: string;
+  hoverColor: string;
+};
+
 const Header = ({ onClick }: HeaderProps) => {
   return (
     <HeaderWrapper>
@@ -18,9 +23,13 @@ const Header = ({ onClick }: HeaderProps) => {
         <Logo src={logo} alt="" />
       </HeaderContents>
       <HeaderContents>
-        <HeaderButton color="#0066FF">팀원 모집</HeaderButton>
+        <HeaderButton color="#0066FF" hoverColor="#F2F7FF">
+          팀원 모집
+        </HeaderButton>
         <CenterBar />
-        <HeaderButton color="#17171B">로그인</HeaderButton>
+        <HeaderButton color="#17171B" hoverColor="#F3F3F3">
+          로그인
+        </HeaderButton>
       </HeaderContents>
     </HeaderWrapper>
   );
@@ -47,23 +56,30 @@ const HeaderContents = styled.div`
 
 const HamburgerBtn = styled.img`
   padding: 16px 13px;
+  cursor: pointer;
 `;
 
 const Logo = styled.img`
   padding: 10px;
 `;
 
-const HeaderButton = styled.button`
+const HeaderButton = styled.button<HeaderButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 32px;
   padding: 4px 16px;
   border: none;
+  border-radius: 8px;
   background-color: white;
   font-size: 16px;
   font-weight: 600;
+  color: ${({ color }) => color};
+  cursor: pointer;
 
-  ${({ color }) => color && `color: ${color}`}
+  &:hover {
+    background-color: ${({ hoverColor }) => hoverColor};
+  }
 `;
 
 const CenterBar = styled.div`
