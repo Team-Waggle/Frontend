@@ -1,0 +1,6 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="top-button">
+<circle id="circle" cx="20" cy="20" r="19" transform="rotate(-180 20 20)" fill="white" stroke="#F3F3F3" stroke-width="2"/>
+<path id="arrow" d="M27 22L20.7763 15.7763C20.3476 15.3476 19.6524 15.3476 19.2237 15.7763L13 22" stroke="#5D5D60" stroke-width="2" stroke-linecap="round"/>
+</g>
+</svg>
