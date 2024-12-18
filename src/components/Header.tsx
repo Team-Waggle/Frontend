@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import HamburgerBtn from "../assets/menu.svg";
-import Logo from "../assets/logo.svg";
+import hamburgerBtn from "../assets/menu.svg";
+import logo from "../assets/logo.svg";
 
 const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderContents>
-        <img src={HamburgerBtn} alt="" />
-        <img src={Logo} alt="" />
+        <HamburgerBtn src={hamburgerBtn} alt="" />
+        <Logo src={logo} alt="" />
       </HeaderContents>
       <HeaderContents>
         <HeaderButton color="#0066FF">팀원 모집</HeaderButton>
@@ -35,6 +35,14 @@ const HeaderContents = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+const HamburgerBtn = styled.img`
+  padding: 16px 13px;
+`;
+
+const Logo = styled.img`
+  padding: 10px;
 `;
 
 const HeaderButton = styled.button`
