@@ -1,5 +1,13 @@
+import Main from "./pages/Main";
+import GlobalStyles from "./styles/GlobalStyles";
+
 function App() {
-  return <>Waggle</>;
+  return (
+    <>
+      <GlobalStyles />
+      <Main />
+    </>
+  );
 }
 
 export default App;
