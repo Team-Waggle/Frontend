@@ -3,6 +3,8 @@ import App from "../App";
 import Layout from "../components/layout/Layout";
 import NewApply from "../pages/NewApply";
 import Header from "../components/Header";
+import MainHeader from "../components/Main/MainHeader";
+import Main from "../pages/Main";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +14,10 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Layout />,
         children: [
+          {
+            element: <Main />,
+            path: "/",
+          },
           {
             element: <Header />,
             children: [
