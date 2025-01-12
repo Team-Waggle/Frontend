@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Bookmark from "../../assets/bookmark.svg";
 import OccupationCard from "./OccupationCard";
-import IconTS from "../../assets/icon-ts.svg";
+import Bookmark from "../../assets/images/icon/bookmark.svg";
+import IconTS from "../../assets/images/icon/icon-ts.svg";
 
 const Card = () => {
   return (

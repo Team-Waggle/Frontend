@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import ChevronDown from "../../assets/chevron-down.svg";
-import Position from "../../assets/icon-filter-position.svg";
-import Skills from "../../assets/icon-filter-skill.svg";
-import Industry from "../../assets/icon-filter-industry.svg";
-import Period from "../../assets/icon-filter-period.svg";
-import System from "../../assets/icon-filter-system.svg";
-import Refresh from "../../assets/icon-filter-refresh.svg";
+import ChevronDown from "../../assets/images/icon/chevron-down.svg";
+import Position from "../../assets/images/icon/icon-filter-position.svg";
+import Skills from "../../assets/images/icon/icon-filter-skill.svg";
+import Industry from "../../assets/images/icon/icon-filter-industry.svg";
+import Period from "../../assets/images/icon/icon-filter-period.svg";
+import System from "../../assets/images/icon/icon-filter-system.svg";
+import Refresh from "../../assets/images/icon/icon-filter-refresh.svg";
 
 const SideFilters = () => {
   return (

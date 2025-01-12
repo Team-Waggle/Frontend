@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import background from "../assets/background.svg";
-import Header from "../components/Header";
-import Symbol from "../assets/symbol.svg";
-import Search from "../assets/search.svg";
+import MainHeader from "../components/Main/MainHeader";
 import Card from "../components/Main/Card";
 import SideFilters from "../components/Main/SideFilters";
+import background from "../assets/images/icon/background.svg";
+import Symbol from "../assets/images/icon/symbol.svg";
+import Search from "../assets/images/icon/search.svg";
 
 const Main = () => {
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -17,7 +17,7 @@ const Main = () => {
   return (
     <div className="main">
       <MainWrapper>
-        <Header onClick={handleClickHamburgerBtn} />
+        <MainHeader onClick={handleClickHamburgerBtn} />
 
         {isFiltersOpen && <SideFilters />}
 
