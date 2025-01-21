@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import TriangleDownIcon from "../assets/images/icon/triangleDownIcon.svg";
+import TriangleDownIcon from "../assets/images/icon/triangleDownIcon.svg?react";
 
 interface DropdownProps {
   items: string[];
@@ -42,9 +42,7 @@ const Dropdown = ({ items, title }: DropdownProps) => {
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={toggleDropdown}>
         {selectedItem}
-        <RotateBox isOpen={isOpen}>
-          <img src={TriangleDownIcon} alt="" />
-        </RotateBox>
+        <RotateBox isOpen={isOpen} />
       </DropdownButton>
       {isOpen && (
         <DropdownContent>
@@ -81,12 +79,7 @@ const DropdownButton = styled.button`
   text-align: left;
 `;
 
-const RotateBox = styled.div<{ isOpen: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
+const RotateBox = styled(TriangleDownIcon)<{ isOpen: boolean }>`
   transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
   transition: transform 0.3s ease;
 `;
