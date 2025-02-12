@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import hamburgerBtn from "../../assets/images/icon/menu.svg";
-import logo from "../../assets/images/icon/logo.svg";
+import HambutgerBtnIcon from "../../assets/images/icon/hamburgerBtnIcon.svg";
+import LogoIcon from "../../assets/images/icon/logoIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 type HeaderProps = {
   onClick: () => void;
@@ -12,18 +13,23 @@ type HeaderButtonProps = {
 };
 
 const MainHeader = ({ onClick }: HeaderProps) => {
+  const navigate = useNavigate();
   return (
     <HeaderWrapper>
       <HeaderContents>
         <HamburgerBtn
-          src={hamburgerBtn}
+          src={HambutgerBtnIcon}
           alt="필터 목록을 여닫을 수 있는 햄버거 버튼"
           onClick={onClick}
         />
-        <Logo src={logo} alt="" />
+        <img src={LogoIcon} alt="" />
       </HeaderContents>
       <HeaderContents>
-        <HeaderButton color="#0066FF" hoverColor="#F2F7FF">
+        <HeaderButton
+          color="#0066FF"
+          hoverColor="#F2F7FF"
+          onClick={() => navigate("/newapply")}
+        >
           팀원 모집
         </HeaderButton>
         <CenterBar />
@@ -38,30 +44,28 @@ const MainHeader = ({ onClick }: HeaderProps) => {
 export default MainHeader;
 
 const HeaderWrapper = styled.div`
-  position: fixed;
+  /* position: fixed; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 1200px;
-  height: 32px;
-  padding: 34px 24px 34px 36px;
-  background-color: white;
+  height: 90px;
+  padding: 0 24px 0 36px;
   box-sizing: border-box;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8e8e9;
 `;
 
 const HeaderContents = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 187px;
+  height: 44px;
 `;
 
 const HamburgerBtn = styled.img`
-  padding: 16px 13px;
   cursor: pointer;
-`;
-
-const Logo = styled.img`
-  padding: 10px;
 `;
 
 const HeaderButton = styled.button<HeaderButtonProps>`
