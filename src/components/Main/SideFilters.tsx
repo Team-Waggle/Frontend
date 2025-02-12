@@ -49,12 +49,10 @@ const SideFilters = () => {
 export default SideFilters;
 
 const SideWrapper = styled.ul`
-  position: absolute;
   width: 230px;
   height: 300px;
-  top: 100px;
-  left: 24px;
   background-color: white;
+  margin-left: 34px;
 `;
 
 const Filters = styled.li`
