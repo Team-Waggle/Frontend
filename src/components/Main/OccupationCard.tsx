@@ -26,10 +26,12 @@ const SelectedCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20px;
+  height: 32px;
   padding: 6px 12px;
+  box-sizing: border-box;
   border: 1px solid #bababb;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
+  line-height: 21px;
 `;

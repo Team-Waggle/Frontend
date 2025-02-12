@@ -1,27 +1,37 @@
 import styled from "styled-components";
 import OccupationCard from "./OccupationCard";
-import Bookmark from "../../assets/images/icon/bookmark.svg";
-import IconTS from "../../assets/images/icon/icon-ts.svg";
+import BookmarkIcon from "../../assets/images/icon/bookmarkIcon.svg?react";
+import TSIcon from "../../assets/images/icon/icon-ts.svg?react";
+import ETCIcon from "../../assets/images/icon/etcIcon.svg?react";
+import { useState } from "react";
 
 const Card = () => {
+  const [isSaved, setIsSaved] = useState(false);
+
   return (
     <CardWrapper>
       <TopPart>
-        <Industry>금융</Industry>
-        <DeadLine>D-10</DeadLine>
-        <img src={Bookmark} alt="북마크 아이콘" />
+        <Domain>금융</Domain>
+        <DeadLine>D - 10</DeadLine>
+        <Bookmark isSaved={isSaved} onClick={() => setIsSaved(!isSaved)} />
       </TopPart>
       <Title>
-        와글 팀과 함게할 디자이너, 기획자, 백엔드, 프론트엔드, 데브옵스님...
+        와글 팀과 함께할 디자이너, 기획자, 백엔드, 프론트엔드, 데브옵스님을
+        찾습니다:) 많은 연락과 기대 부탁드립니다.
+        {/* 와글 팀과 함께할 디자이너, 기획자, 백엔드, 프론트엔드, 데브옵스님... */}
       </Title>
       <RecruitMembers>
         <Personnel>5/10명</Personnel>
         <OccupationCard />
       </RecruitMembers>
       <Skills>
-        <img src={IconTS} alt="" />
-        <img src={IconTS} alt="" />
-        <img src={IconTS} alt="" />
+        <TSIcon />
+        <TSIcon />
+        <TSIcon />
+        <TSIcon />
+        <TSIcon />
+        {/* 스킬 5개 초과 시 기타 아이콘 표시 */}
+        <ETCIcon />
       </Skills>
     </CardWrapper>
   );
@@ -30,24 +40,27 @@ const Card = () => {
 export default Card;
 
 const CardWrapper = styled.div`
-  width: 582px;
-  height: 163px;
+  width: 630px;
+  height: 211px;
   padding: 24px;
+  box-sizing: border-box;
   border-radius: 20px;
   background-color: white;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 20px 0px #0000001a;
 `;
 
 const TopPart = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
   height: 24px;
 `;
 
-const Industry = styled.div`
+const Domain = styled.div`
   margin: 0 auto 0 0;
   font-size: 14px;
   font-weight: 600;
+  line-height: 21px;
   color: #0066ff;
 `;
 
@@ -59,17 +72,26 @@ const DeadLine = styled.div`
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
+  color: #747476;
+`;
+
+const Bookmark = styled(BookmarkIcon)<{ isSaved: Boolean }>`
+  fill: ${({ isSaved }) => (isSaved ? "#0066ff" : "#e8e8e9")};
+  cursor: pointer;
 `;
 
 const Title = styled.div`
+  /* Title의 width는 482이나 ellipsis의 ...을 포함하기 위해서 15px를 추가함 */
+  width: 497px;
   height: 27px;
-  margin-top: 11px;
-
+  margin-top: 10px;
   font-size: 18px;
-  font-style: normal;
   font-weight: 600;
   line-height: 27px;
   color: #17171b;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const RecruitMembers = styled.div`
@@ -83,8 +105,8 @@ const Personnel = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 44px;
-  padding: 0 8px;
+  width: 60px;
+  height: 32px;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 700;
