@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import HambutgerBtnIcon from "../../assets/images/icon/hamburgerBtnIcon.svg";
-import LogoIcon from "../../assets/images/icon/logoIcon.svg";
-import { useNavigate } from "react-router-dom";
+import styled from 'styled-components';
+import HambutgerBtnIcon from '../../assets/images/icon/hamburgerBtnIcon.svg';
+import LogoIcon from '../../assets/images/icon/logoIcon.svg';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import LoginModal from '../LoginModal';
 
 type HeaderProps = {
   onClick: () => void;
@@ -14,6 +16,9 @@ type HeaderButtonProps = {
 
 const MainHeader = ({ onClick }: HeaderProps) => {
   const navigate = useNavigate();
+  // 로그인 모달 수정 후 상태 초기값 true로 바꾸기
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   return (
     <HeaderWrapper>
       <HeaderContents>
@@ -28,15 +33,20 @@ const MainHeader = ({ onClick }: HeaderProps) => {
         <HeaderButton
           color="#0066FF"
           hoverColor="#F2F7FF"
-          onClick={() => navigate("/newapply")}
+          onClick={() => navigate('/newapply')}
         >
           팀원 모집
         </HeaderButton>
         <CenterBar />
-        <HeaderButton color="#17171B" hoverColor="#F3F3F3">
+        <HeaderButton
+          color="#17171B"
+          hoverColor="#F3F3F3"
+          onClick={() => setIsModalOpen(true)}
+        >
           로그인
         </HeaderButton>
       </HeaderContents>
+      <LoginModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </HeaderWrapper>
   );
 };
