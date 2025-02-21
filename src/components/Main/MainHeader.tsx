@@ -16,8 +16,7 @@ type HeaderButtonProps = {
 
 const MainHeader = ({ onClick }: HeaderProps) => {
   const navigate = useNavigate();
-  // 로그인 모달 수정 후 상태 초기값 true로 바꾸기
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <HeaderWrapper>
