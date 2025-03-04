@@ -1,36 +1,40 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Layout from '../components/layout/Layout';
-import NewApply from '../pages/NewApply';
 import Header from '../components/Header';
-import MainHeader from '../components/Main/MainHeader';
 import Main from '../pages/Main';
 import Login from '../pages/Login';
+import NewApply from '../pages/NewApply';
 
 export const router = createBrowserRouter([
   {
+    path: '/',
     element: <App />,
     children: [
       {
-        path: '/',
+        element: (
+          <>
+            <Header />
+            <Layout />
+          </>
+        ),
+        children: [
+          {
+            index: true,
+            element: <Main />,
+          },
+          {
+            path: 'newapply',
+            element: <NewApply />,
+          },
+        ],
+      },
+      {
         element: <Layout />,
         children: [
           {
-            element: <Main />,
-            path: '/',
-          },
-          {
+            path: 'login',
             element: <Login />,
-            path: '/login',
-          },
-          {
-            element: <Header />,
-            children: [
-              {
-                path: '/newapply',
-                element: <NewApply />,
-              },
-            ],
           },
         ],
       },

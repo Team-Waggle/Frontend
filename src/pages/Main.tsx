@@ -1,14 +1,13 @@
-import { useState } from "react";
-import styled from "styled-components";
-import MainHeader from "../components/Main/MainHeader";
-import Card from "../components/Main/Card";
-import SideFilters from "../components/Main/SideFilters";
-import Symbol from "../assets/images/icon/symbol.svg";
-import SearchIcon from "../assets/images/icon/searchIcon.svg";
-import XIcon from "../assets/images/icon/xIcon.svg?react";
-import TriangleDownIcon from "../assets/images/icon/triangleDownIcon.svg?react";
-import ArrowLeftIcon from "../assets/images/icon/ic_filter_arrow_left.svg?react";
-import ArrowRightIcon from "../assets/images/icon/ic_filter_arrow_right.svg?react";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Card from '../components/Main/Card';
+import SideFilters from '../components/Main/SideFilters';
+import Symbol from '../assets/images/icon/symbol.svg';
+import SearchIcon from '../assets/images/icon/searchIcon.svg';
+import XIcon from '../assets/images/icon/xIcon.svg?react';
+import TriangleDownIcon from '../assets/images/icon/triangleDownIcon.svg?react';
+import ArrowLeftIcon from '../assets/images/icon/ic_filter_arrow_left.svg?react';
+import ArrowRightIcon from '../assets/images/icon/ic_filter_arrow_right.svg?react';
 
 type TagData = {
   id: number;
@@ -21,55 +20,49 @@ type SortData = {
 };
 
 const tags: TagData[] = [
-  { id: 1, label: "기획자" },
-  { id: 2, label: "React" },
-  { id: 3, label: "Javascript" },
-  { id: 4, label: "헬스케어" },
-  { id: 5, label: "게임" },
-  { id: 6, label: "엔터테인먼트" },
-  { id: 7, label: "게임" },
-  { id: 8, label: "게임" },
-  { id: 9, label: "게임" },
-  { id: 10, label: "게임" },
+  { id: 1, label: '기획자' },
+  { id: 2, label: 'React' },
+  { id: 3, label: 'Javascript' },
+  { id: 4, label: '헬스케어' },
+  { id: 5, label: '게임' },
+  { id: 6, label: '엔터테인먼트' },
+  { id: 7, label: '게임' },
+  { id: 8, label: '게임' },
+  { id: 9, label: '게임' },
+  { id: 10, label: '게임' },
 ];
 
 const sort: SortData[] = [
-  { id: 1, label: "최신순" },
-  { id: 2, label: "인기순" },
-  { id: 3, label: "관심 목록" },
+  { id: 1, label: '최신순' },
+  { id: 2, label: '인기순' },
+  { id: 3, label: '관심 목록' },
 ];
 
 const Main = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : tags.length - 1
+      prevIndex > 0 ? prevIndex - 1 : tags.length - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex < tags.length - 1 ? prevIndex + 1 : 0
+      prevIndex < tags.length - 1 ? prevIndex + 1 : 0,
     );
-  };
-
-  const handleClickHamburgerBtn = () => {
-    setIsFiltersOpen(!isFiltersOpen);
   };
 
   return (
     <MainWrapper>
-      <MainHeader onClick={handleClickHamburgerBtn} />
-      <div style={{ display: "flex" }}>
-        {isFiltersOpen && <SideFilters />}
+      <div style={{ display: 'flex' }}>
+        {/* <SideFilters /> */}
 
         <MainSection>
           <SearchInputWrapper>
             <img src={Symbol} alt="" />
             <SearchInput type="text" placeholder="검색어를 입력해주세요." />
-            <img src={SearchIcon} alt="" style={{ cursor: "pointer" }} />
+            <img src={SearchIcon} alt="" style={{ cursor: 'pointer' }} />
           </SearchInputWrapper>
           <FilterWrapper>
             <Slider>
