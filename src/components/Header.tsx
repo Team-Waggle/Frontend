@@ -1,10 +1,10 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import LoginModal from './LoginModal';
+import LoginModal from './Modal/LoginModal';
 import LogoIcon from '../assets/images/icon/logoIcon.svg?react';
 import BellPlusIcon from '../assets/images/icon/bellPlusIcon.svg?react';
 import UserIcon from '../assets/images/icon/userIcon.svg?react';
+import styled from 'styled-components';
 
 type HeaderButtonProps = {
   color: string;
@@ -59,12 +59,13 @@ const Header = () => {
 export default Header;
 
 const HeaderWrapper = styled.div`
-  /* position: fixed; */
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 730px;
-  width: 1200px;
+  width: 100%;
   height: 70px;
   padding: 0px 20px;
   box-sizing: border-box;

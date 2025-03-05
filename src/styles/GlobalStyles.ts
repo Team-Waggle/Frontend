@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
     html, body, div, span, applet, object, iframe,
@@ -71,6 +71,8 @@ textarea {
 body {
 	width: 100vw;
 	height: 100vh;
+	/* position: fixed;을 위한 상단바 높이만큼의 padding-top값 */
+	padding-top: 70px;
 }
 
 
