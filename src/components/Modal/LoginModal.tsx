@@ -1,7 +1,8 @@
-import GoogleBtn from '../assets/images/icon/btn-google-02.svg?react';
-import KakaoBtn from '../assets/images/icon/btn-kakao-02.svg?react';
-import Logo from '../assets/images/icon/icon-symbol_small.svg?react';
-import CloseBtn from '../assets/images/icon/icon-closeBtn.svg?react';
+import { useEffect } from 'react';
+import CloseBtn from '../../assets/login/icon/icon-close.svg?react';
+import Logo from '../../assets/login/icon/icon-symbol_m.svg?react';
+import GoogleBtn from '../../assets/login/button/btn-google-m.svg?react';
+import KakaoBtn from '../../assets/login/button/btn-kakao-m.svg?react';
 import styled from 'styled-components';
 
 const LoginModal = ({
@@ -13,6 +14,19 @@ const LoginModal = ({
 }) => {
   if (!isOpen) return null;
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
@@ -20,23 +34,19 @@ const LoginModal = ({
         <LogoIcon />
         <Text>Waggle에 오신 것을 환영합니다!</Text>
         <ButtonContainer>
+          {/* 현재는 네이버 로그인으로 진행, 추후 변경할 것 */}
           <GoogleLoginBtn
             onClick={() => {
               window.location.href =
                 'https://waggle.o-r.kr/api/oauth2/authorization/naver';
             }}
-            // onClick={async () => {
-            //   try {
-            //     const response = await axios.get(
-            //       'https://waggle.o-r.kr/api/oauth2/authorization/naver',
-            //     );
-            //     console.log(response);
-            //   } catch (error) {
-            //     console.log(error);
-            //   }
-            // }}
           />
-          <KakaoLoginBtn onClick={() => console.log('kakao')} />
+          <KakaoLoginBtn
+            onClick={() => {
+              window.location.href =
+                'https://waggle.o-r.kr/api/oauth2/authorization/naver';
+            }}
+          />
         </ButtonContainer>
       </ModalContainer>
     </Overlay>
@@ -60,8 +70,11 @@ const ModalContainer = styled.div`
   position: relative;
   background: #ffffff;
   border-radius: 8px;
-  width: 328px;
-  height: 346px;
+  width: 426px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CloseButton = styled(CloseBtn)`
@@ -72,28 +85,22 @@ const CloseButton = styled(CloseBtn)`
 `;
 
 const LogoIcon = styled(Logo)`
-  position: absolute;
-  top: 54px;
-  left: 102px;
+  margin-top: 74px;
 `;
 
 const Text = styled.span`
-  position: absolute;
-  top: 136px;
-  left: 46px;
-  font-size: 18px;
+  margin-top: 29px;
+  font-size: 26px;
   font-weight: 600;
-  line-height: 27px;
+  line-height: 39px;
 `;
 
 const ButtonContainer = styled.div`
   display: grid;
-  position: absolute;
-  width: 242px;
-  height: 102px;
-  top: 190px;
-  left: 43px;
-  gap: 10px;
+  margin-top: 51px;
+  width: 316px;
+  height: 60px;
+  gap: 12px;
 `;
 
 const GoogleLoginBtn = styled(GoogleBtn)`
