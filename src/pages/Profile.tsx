@@ -1,18 +1,11 @@
-import styled from "styled-components";
+
 
 const Profile = () => {
     return (
-        <MainWrapper>
+    <div className="flex flex-col items-center justify-center min-h-screen">
 
-
-        </MainWrapper>
+    </div>
     );
 };
 
 export default Profile;
-
-const MainWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 1200px;
-`;
