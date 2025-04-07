@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import Card from '../components/Main/Card';
 import SideFilters from '../components/Main/SideFilters';
-import Symbol from '../assets/main/icon/icon-symbol_circle.svg';
-import SearchIcon from '../assets/main/icon/icon-search.svg';
-import XIcon from '../assets/main/icon/icon-x.svg?react';
-import TriangleDownIcon from '../assets/images/icon/triangleDownIcon.svg?react';
-import ArrowLeftIcon from '../assets/images/icon/ic_filter_arrow_left.svg?react';
-import ArrowRightIcon from '../assets/images/icon/ic_filter_arrow_right.svg?react';
+import Symbol from '../assets/main/icon/icon-symbol_circle.svg?react';
+import Search from '../assets/main/icon/icon-search.svg?react';
+import X from '../assets/main/icon/icon-x.svg?react';
+import ArrowDown from '../assets/main/icon/icon-arrow-down.svg?react';
+import ArrowLineLeft from '../assets/main/icon/icon-arrow_line-left.svg?react';
+import ArrowLineRight from '../assets/main/icon/icon-arrow_line-right.svg?react';
+import styled from 'styled-components';
 
 type TagData = {
   id: number;
@@ -55,44 +55,41 @@ const Main = () => {
 
   return (
     <MainWrapper>
-      <div style={{ display: 'flex' }}>
-        {/* <SideFilters /> */}
+      <SideFilters />
+      <MainSection>
+        <SearchInputWrapper>
+          <Symbol />
+          <SearchInput type="text" placeholder="검색어를 입력해주세요." />
+          <Search />
+        </SearchInputWrapper>
+        <FilterWrapper>
+          <Slider>
+            {/* <ArrowButton onClick={handlePrev}>
+              <ArrowLineLeft />
+            </ArrowButton> */}
+            <TagWrapper translateX={currentIndex * 100}>
+              {tags.map((tag) => (
+                <Tag key={tag.id}>
+                  {tag.label} <X />
+                </Tag>
+              ))}
+            </TagWrapper>
+            {/* <ArrowButton onClick={handleNext}>
+              <ArrowLineRight />
+            </ArrowButton> */}
+          </Slider>
 
-        <MainSection>
-          <SearchInputWrapper>
-            <img src={Symbol} alt="" />
-            <SearchInput type="text" placeholder="검색어를 입력해주세요." />
-            <img src={SearchIcon} alt="" style={{ cursor: 'pointer' }} />
-          </SearchInputWrapper>
-          <FilterWrapper>
-            <Slider>
-              <ArrowButton onClick={handlePrev}>
-                <ArrowLeftIcon />
-              </ArrowButton>
-              <TagWrapper translateX={currentIndex * 100}>
-                {tags.map((tag) => (
-                  <Tag key={tag.id}>
-                    {tag.label} <XIcon />
-                  </Tag>
-                ))}
-              </TagWrapper>
-              <ArrowButton onClick={handleNext}>
-                <ArrowRightIcon />
-              </ArrowButton>
-            </Slider>
-
-            <SelectSort>
-              <SortType>최신순</SortType>
-              <TriangleDownIcon />
-            </SelectSort>
-          </FilterWrapper>
-          <Cards>
-            <Card />
-            <Card />
-            <Card />
-          </Cards>
-        </MainSection>
-      </div>
+          <SelectSort>
+            <SortType>최신순</SortType>
+            <ArrowDown />
+          </SelectSort>
+        </FilterWrapper>
+        <Cards>
+          <Card />
+          <Card />
+          <Card />
+        </Cards>
+      </MainSection>
     </MainWrapper>
   );
 };
@@ -101,12 +98,14 @@ export default Main;
 
 const MainWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   width: 1200px;
+  position: relative;
 `;
 
 const MainSection = styled.div`
-  margin: 22px auto 0;
+  /* margin: 42px auto 0; */
+  margin-top: 42px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,7 +147,7 @@ const FilterWrapper = styled.div`
   width: 100%;
   height: 44px;
   margin: 10px 0;
-  padding: 0 22px 0 40px;
+  padding: 0 22px 0 24px;
   box-sizing: border-box;
 `;
 
@@ -163,7 +162,8 @@ const Slider = styled.div`
 
 const ArrowButton = styled.button`
   position: absolute;
-  z-index: 10;
+  /* 왜인지는 모르겠으나 모달 오픈 시 이상해짐... */
+  /* z-index: 10; */
 
   &:nth-child(1) {
     left: 15px;
@@ -219,6 +219,10 @@ const SelectSort = styled.div`
 
 const SortType = styled.div`
   white-space: nowrap;
+  width: 32px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
 `;
 
 const Cards = styled.div`
