@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Main from '../pages/Main';
 import Login from '../pages/Login';
 import NewApply from '../pages/NewApply';
+import Profile from '../pages/Profile';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
           {
             path: 'newapply',
             element: <NewApply />,
+          },
+          {
+            path: 'profile',
+            element: <Profile />,
           },
         ],
       },

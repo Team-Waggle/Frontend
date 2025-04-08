@@ -5,9 +5,9 @@ import GlobalFonts from "./styles/GlobalFonts";
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <GlobalFonts />
-      <Outlet />
+        <GlobalStyles />
+        <GlobalFonts />
+        <Outlet />
     </>
   );
 }
