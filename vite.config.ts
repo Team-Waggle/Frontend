@@ -8,8 +8,5 @@ export default defineConfig({
   server: {
     open: true,
   },
-  plugins: [react(), svgr(), tailwindcss(),],
-  css: {
-    postcss: './postcss.config.js',
-  },
+  plugins: [react(), svgr(), tailwindcss(),]
 });
