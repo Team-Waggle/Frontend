@@ -4,7 +4,7 @@ import SideFilters from '../components/Main/SideFilters';
 import Symbol from '../assets/main/icon/icon-symbol_circle.svg?react';
 import Search from '../assets/main/icon/icon-search.svg?react';
 import X from '../assets/main/icon/icon-x.svg?react';
-import ArrowDown from '../assets/main/icon/icon-arrow-down.svg?react';
+import ArrowDown from '../assets/main/icon/icon-arrow_line-down.svg?react';
 import ArrowLineLeft from '../assets/main/icon/icon-arrow_line-left.svg?react';
 import ArrowLineRight from '../assets/main/icon/icon-arrow_line-right.svg?react';
 import styled from 'styled-components';

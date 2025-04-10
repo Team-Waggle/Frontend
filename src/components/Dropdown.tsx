@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
-import TriangleDownIcon from "../assets/images/icon/triangleDownIcon.svg?react";
+import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
+import ArrowDown from '../assets/main/icon/icon-arrow_line-down.svg?react';
 
 interface DropdownProps {
   items: string[];
@@ -32,9 +32,9 @@ const Dropdown = ({ items, title }: DropdownProps) => {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -79,8 +79,8 @@ const DropdownButton = styled.button`
   text-align: left;
 `;
 
-const RotateBox = styled(TriangleDownIcon)<{ isOpen: boolean }>`
-  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+const RotateBox = styled(ArrowDown)<{ isOpen: boolean }>`
+  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
   transition: transform 0.3s ease;
 `;
 
