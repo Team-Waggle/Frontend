@@ -7,7 +7,7 @@ const IndustrySelect = ({ className, ...rest }: StyledButtonProps) => {
       <button
         {...rest}
         className={`flex h-[var(---32-,32px)] py-[8px] px-[var(---32-,16px)] items-center justify-center gap-[12px]
-        rounded-[99px] border border-[#c4c4c6] text-[12px] font-[500] text-[#949598]  ${className ?? ''}`}
+        rounded-[99px] border border-[#c4c4c6] text-[13px] font-[500] text-[#949598] whitespace-nowrap  ${className ?? ''}`}
       />
     );
   };
