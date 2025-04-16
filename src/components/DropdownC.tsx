@@ -43,7 +43,7 @@ const DropdownC = ({ items, title, className }: DropdownProps) => {
     <div className="flex w-full" ref={dropdownRef}>
       <button className="flex h-[var(---46-, 46px)] pr-[var(--46-,8px)] pl-[var(--46-,18px)] 
       justify-between items-center shrink-[0] self-stretch
-      rounded-[8px] border border-[#c4c4c6] align-center text-[16px] text-[#949598] font-[500] leading-[165%]
+      rounded-[8px] border-solid border border-[#c4c4c6] align-center text-[16px] text-[#949598] font-[500] leading-[165%]
       flex-1 shrink-0 basis-0" onClick={toggleDropdown}>
         {selectedItem}
         <TriangleDownIcon
