@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/routes.tsx';
 import axios from 'axios';
-import './styles/global.css';
 
 axios.defaults.withCredentials = true;
 

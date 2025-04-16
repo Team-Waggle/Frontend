@@ -1,13 +1,10 @@
-import { Outlet } from "react-router-dom";
-import GlobalStyles from "./styles/GlobalStyles";
-import GlobalFonts from "./styles/GlobalFonts";
+import { Outlet } from 'react-router-dom';
+import './styles/global.css';
 
 function App() {
   return (
     <>
-        <GlobalStyles />
-        <GlobalFonts />
-        <Outlet />
+      <Outlet />
     </>
   );
 }
