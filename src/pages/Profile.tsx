@@ -63,7 +63,7 @@ const Profile = () => {
                 <div className="flex flex-col gap-[8px] w-full">
                     <FormLabel> 이메일 </FormLabel>
                     {/* 이메일 받아오는 걸로 수정 */}
-                    <StyledInput className="bg-[#F1F1F1] pointer-events-none cursor-default" placeholder="waggle@gmail.com" readOnly />
+                    <StyledInput className="bg-black-40 pointer-events-none cursor-default" placeholder="waggle@gmail.com" readOnly />
                 </div>
 
                 {/* 직무 및 경력 */}
@@ -106,7 +106,7 @@ const Profile = () => {
                 </div>
 
                 {/* 사용 스킬 */}
-                <div className="flex flex-col gap-[8px] w-full">
+                <div className="flex flex-col items-start gap-[8px] self-stretch w-full">
                     <FormLabel> 사용 스킬 <RequiredIcon /> </FormLabel>
                     <SkillInput />
                 </div>
@@ -178,42 +178,42 @@ const Profile = () => {
                         <div className="flex justify-between items-start content-start self-stretch flex-wrap">
                             <div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF] mb-[10px]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 1-1 </div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 1-2 </div>
                             </div>
                             <div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF] mb-[10px]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 2-1 </div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 2-2 </div>
                             </div>
                             <div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF] mb-[10px]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 3-1 </div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 3-2 </div>
                             </div>
                             <div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF] mb-[10px]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 4-1 </div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 4-2 </div>
                             </div>
                             <div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF] mb-[10px]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 5-1 </div>
                                 <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-[#FFFFFF]
+                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
                                 text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 5-2 </div>
                             </div>
                         </div>
@@ -261,7 +261,7 @@ const Profile = () => {
             </div>
 
             <button className="mt-[100px] flex h-[var(---48-,48px)] py-[var(--,10px)] px-[var(--S48-,80px)] 
-            items-center justify-center gap-[10px] text-[#ffffff] bg-[#0066FF] rounded-[8px]">
+            items-center justify-center gap-[10px] text-white bg-primary rounded-[8px]">
                 저장
             </button>
 

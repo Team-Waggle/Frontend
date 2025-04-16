@@ -10,8 +10,8 @@ const DaySelect = ({isActive=false, children, className, ...rest }: StyledButton
       <button
         {...rest}
         className={`flex w-[42px] h-[42px] py-[0px] px-[10px] items-center justify-center gap-[auto]
-        rounded-[6px] border-solid border border-[#c4c4c6] text-[14px] text-[#949598] font-[600]
-        ${isActive ? 'border-[#3385FF] text-black' : 'border-[#c4c4c6] text-[#949598]'}
+        rounded-[6px] border-solid border text-[14px] font-[600]
+        ${isActive ? 'border-primary-60 text-black' : 'border-black-60 text-black-70'}
         ${className ?? ''}`}
       > {children} </button>
     );

@@ -40,13 +40,13 @@ const StyledInput = ({ className, error, typingMessage, useRegex=true, useLength
         value={inputValue}
         onChange={handleChange}
         className={`w-full h-[var(---46-,46px)] pr-[8px] pl-[18px] py-0 items-center self-stretch text-[16px] border rounded-[8px] 
-          ${isError ? 'border-[#F5552D]' : isTyping ? 'border-[#0066FF]' : 'border-[#c4c4c6]'}
+          ${isError ? 'border-[#F5552D]' : isTyping ? 'border-primary' : 'border-black-60'}
         ${className ?? ''}`}
       />
 
       {isTyping && !isError && typingMessage && (
         <div className="flex pl-[6px] items-center self-stretch">
-          <p className="text-right text-[12px] text-[#949598] font-[500] leading-[150%]"> {typingMessage} </p>
+          <p className="text-right text-[12px] text-black-70 font-[500] leading-[150%]"> {typingMessage} </p>
         </div>
       )}
     </div>
