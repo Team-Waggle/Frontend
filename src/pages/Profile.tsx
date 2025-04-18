@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import * as formOptions from '../constants/formOptions';
 
 import ProfileSetting from "../assets/profile/icon/icon-profileSetting.svg?react";
@@ -12,7 +11,7 @@ import StyledInput from "../components/Profile/StyledInput";
 import SkillInput from "../components/Profile/SkillInput";
 import IndustrySelect from "../components/Profile/IndustrySelect";
 import DaySelect from "../components/Profile/DaySelect";
-import Dropdown from "../components/Dropdown";
+import TeamPlayLabelBtn from "../components/Profile/TeamPlayLabelBtn";
 import DropdownC from "../components/DropdownC";
 
 // 1. 드롭다운 2. 팀플 성향 그리드 3. 자기소개 4. 사용 스킬 자동 완성
@@ -27,16 +26,25 @@ import DropdownC from "../components/DropdownC";
 
 const Profile = () => {
     const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+    const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
     const toggleIndustry = (industry: string) => {
         if (selectedIndustries.includes(industry)) {
-          setSelectedIndustries((prev) => prev.filter((item) => item !== industry));
+            setSelectedIndustries((prev) => prev.filter((item) => item !== industry));
         } else {
-          if (selectedIndustries.length < 5) {
-            setSelectedIndustries((prev) => [...prev, industry]);
-          }
+            if (selectedIndustries.length < 5) {
+                setSelectedIndustries((prev) => [...prev, industry]);
+            }
         }
-      };
+    };
+
+    const toggleDay = (days: string) => {
+        if (selectedDays.includes(days)) {
+            setSelectedDays((prev) => prev.filter((item) => item !== days));
+        } else {
+            setSelectedDays((prev) => [...prev, days]);
+        }
+    };
 
     // 관심 산업 분야 chunk
     const chunk = <T,>(arr: T[], size: number): T[][] =>
@@ -94,11 +102,11 @@ const Profile = () => {
                             <div key={rowIndex} className="flex gap-[5px]">
                                 {row.map((item) => (
                                     <IndustrySelect
-                                    key={item}
-                                    isActive={selectedIndustries.includes(item)}
-                                    onClick={() => toggleIndustry(item)}>
+                                        key={item}
+                                        isActive={selectedIndustries.includes(item)}
+                                        onClick={() => toggleIndustry(item)}>
                                         {item}
-                                     </IndustrySelect>
+                                    </IndustrySelect>
                                 ))}
                             </div>
                         ))}
@@ -116,13 +124,13 @@ const Profile = () => {
                     <FormLabel> 선호 요일 및 시간 </FormLabel>
                     <div className="flex gap-[16px] items-center self-stretch">
                         <div className="flex flex-[1_0_0%] items-center justify-between rounded-[8px]">
-                            <DaySelect> 월 </DaySelect>
-                            <DaySelect> 화 </DaySelect>
-                            <DaySelect> 수 </DaySelect>
-                            <DaySelect> 목 </DaySelect>
-                            <DaySelect> 금 </DaySelect>
-                            <DaySelect> 토 </DaySelect>
-                            <DaySelect> 일 </DaySelect>
+                            {formOptions.day.map((day) => (
+                                <DaySelect 
+                                    onClick={() => toggleDay(day)}
+                                    isActive={selectedDays.includes(day)}>
+                                    {day}
+                                </DaySelect>
+                            ))}
                         </div>
                         <div className="w-[358px]">
                             <DropdownC
@@ -152,28 +160,7 @@ const Profile = () => {
                 <div className="flex flex-col flex-start self-stretch gap-[20px] w-full">
                     <FormLabel secondaryText={"최대 5개 선택 가능"}> 팀플 성향 <RequiredIcon /> </FormLabel>
                     <div className="flex flex-col items-start gap-[14px] slef-stretch">
-                        <div className="flex justify-between items-start self-stretch">
-                            <div className="flex w-[140px] h-[32px] justify-center items-center rounded-[4px] bg-[#D9E8FF]
-                            text-[#000] text-[13px] font-[500] leading-[150%] text-center">
-                                소통 스타일
-                            </div>
-                            <div className="flex w-[140px] h-[32px] justify-center items-center rounded-[4px] bg-[#fff]
-                            text-[#949598] text-[13px] font-[500] leading-[150%] text-center">
-                                협업 성향
-                            </div>
-                            <div className="flex w-[140px] h-[32px] justify-center items-center rounded-[4px] bg-[#fff]
-                            text-[#949598] text-[13px] font-[500] leading-[150%] text-center">
-                                말하는 방식
-                            </div>
-                            <div className="flex w-[140px] h-[32px] justify-center items-center rounded-[4px] bg-[#fff]
-                            text-[#949598] text-[13px] font-[500] leading-[150%] text-center">
-                                문제 해결방식
-                            </div>
-                            <div className="flex w-[140px] h-[32px] justify-center items-center rounded-[4px] bg-[#fff]
-                            text-[#949598] text-[13px] font-[500] leading-[150%] text-center">
-                                MBTI
-                            </div>
-                        </div>
+                            <TeamPlayLabelBtn />
                         {/* 형식 변경 */}
                         <div className="flex justify-between items-start content-start self-stretch flex-wrap">
                             <div>
