@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import StyledInput from '../Profile/StyledInput';
+import React, { useState } from "react";
+import StyledInput from "../Profile/StyledInput";
 import XIcon from "../../assets/profile/icon/icon-x16.svg?react";
 import Skill from "../../assets/main/icon/skill/icon-skill-TypeScript.svg?react"
 
@@ -8,18 +8,15 @@ interface SkillProps {
     children: React.ReactNode;
 }
 
-// 뭐가 문제일까?
-
 const SkillInput = ({ isActive = false, children }: SkillProps) => {
     const [isTyping, setIsTyping] = useState<boolean>(false);
-    const [keyword, setKeyword] = useState<string>("");
 
     return (
-        <div className='inline-flex flex-col items-start'>
+        <div className="inline-flex flex-col items-start">
 
             {/* 입력 시 키워드 생성 */}
             <StyledInput
-                className='!w-[734px] items-center'
+                className="!w-[734px] items-center"
                 placeholder="프로그램 이름을 입력하세요."
                 useRegex={false}
                 useLengthValidation={false}
@@ -27,12 +24,12 @@ const SkillInput = ({ isActive = false, children }: SkillProps) => {
             />
 
             {isTyping && (
-                <div className='flex h-[64px] px-[10px] py-[18px] items-center self-stretch border 
-                            border-solid border-black-50 rounded-[8px]'>
-                    <div className='flex items-center gap-[10px] flex-grow flex-shrink-0 basis-0'>
+                <div className="flex h-[64px] px-[10px] py-[18px] items-center self-stretch border 
+                            border-solid border-black-50 rounded-[8px]">
+                    <div className="flex items-center gap-[10px] flex-grow flex-shrink-0 basis-0">
 
                         {/* 해당 요소가 자동완성 되어야 함. */}
-                        <button className={`'flex h-[32px] px-[10px] justify-center border border-solid
+                        <button className={`flex h-[32px] px-[10px] justify-center border border-solid
                                     text-[13px] text-center	font-[500] leading-[150%] rounded-[4px] border-black-60 text-black-70
                                     ${isActive ? 'border-primary-60 text-black' : 'border-black-60 text-black-70'}`}>
                             {children}
