@@ -106,9 +106,9 @@ const Profile = () => {
                 </div>
 
                 {/* 사용 스킬 */}
-                <div className="flex flex-col items-start gap-[8px] self-stretch w-full">
+                <div className="flex flex-col items-start gap-[8px] self-stretch">
                     <FormLabel> 사용 스킬 <RequiredIcon /> </FormLabel>
-                    <SkillInput />
+                    <SkillInput children={"Typescript"} />
                 </div>
 
                 {/* 선호 요일 및 시간 */}

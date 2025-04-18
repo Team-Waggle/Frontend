@@ -5,9 +5,10 @@ interface StyledInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   typingMessage?: string;
   useRegex?: boolean;
   useLengthValidation?: boolean;
+  useTyping?: (isTyping:boolean) => void;
 }
 
-const StyledInput = ({ className, error, typingMessage, useRegex=true, useLengthValidation=true, ...rest }: StyledInputProps) => {
+const StyledInput = ({ className, error, typingMessage, useRegex=true, useLengthValidation=true, useTyping, ...rest }: StyledInputProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
@@ -15,7 +16,10 @@ const StyledInput = ({ className, error, typingMessage, useRegex=true, useLength
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-    setIsTyping(value.length > 0);
+
+    const typing = value.length > 0;
+    setIsTyping(typing);
+    useTyping?.(typing);
 
     let hasError = false;
 
@@ -39,7 +43,8 @@ const StyledInput = ({ className, error, typingMessage, useRegex=true, useLength
         {...rest}
         value={inputValue}
         onChange={handleChange}
-        className={`w-full h-[var(---46-,46px)] pr-[8px] pl-[18px] py-0 items-center self-stretch text-[16px] border rounded-[8px] 
+        className={`w-full h-[var(---46-,46px)] pr-[8px] pl-[18px] py-0 items-center self-stretch 
+          border rounded-[8px] text-[16px] text-black-70 
           ${isError ? 'border-[#F5552D]' : isTyping ? 'border-primary' : 'border-black-60'}
         ${className ?? ''}`}
       />
