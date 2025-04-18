@@ -47,6 +47,8 @@ const StyledInput = ({ className, error, typingMessage, useRegex=true, useLength
           border rounded-[8px] text-[16px] text-black-70 
           ${isError ? 'border-[#F5552D]' : isTyping ? 'border-primary' : 'border-black-60'}
         ${className ?? ''}`}
+        onFocus={() => setIsTyping(true)}
+        onBlur={() => setIsTyping(false)}
       />
 
       {isTyping && !isError && typingMessage && (
