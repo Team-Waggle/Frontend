@@ -30,6 +30,10 @@ export const region = [
     "서울특별시", "경기도", "인천광역시", "강원특별자치도", "대전광역시", "추가예정"
 ];
 
+export const teamPlay = [
+    "소통 스타일", "협업 성향", "말하는 방식", "문제 해결방식", "MBTI"
+];
+
 // 이미지 추가
 export const site = [
     "Branch story", "Dribbble", "GitHub", "Instagram", "Notion", "추가예정"
