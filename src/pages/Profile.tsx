@@ -15,14 +15,11 @@ import TeamPlayLabelBtn from "../components/Profile/TeamPlayLabelBtn";
 import SelfIntroduction from "../components/Profile/SelfIntroduction";
 import DropdownC from "../components/DropdownC";
 
-// 1. 드롭다운 2. 팀플 성향 그리드 3. 자기소개 4. 사용 스킬 자동 완성
-// 그 다음으로 Active, Hover 작업
+// 1. 드롭다운 2. 사용 스킬 자동 완성
 
 // 직무 및 경력 - 드롭다운
 // 선호 시간 - 드롭다운
 // 선호 진행방식 및 지역 - 드롭다운
-// 팀플 성향 - 그리드
-// 자기소개 - textarea
 // 링크 - input, 드롭다운
 
 const Profile = () => {
@@ -160,53 +157,7 @@ const Profile = () => {
                 {/* 팀플 성향 + 유지보수 쉽게 리팩토링 해야함 */}
                 <div className="flex flex-col flex-start self-stretch gap-[20px] w-full">
                     <FormLabel secondaryText={"최대 5개 선택 가능"}> 팀플 성향 <RequiredIcon /> </FormLabel>
-                    <div className="flex flex-col items-start gap-[14px] slef-stretch">
-                            <TeamPlayLabelBtn />
-                        {/* 형식 변경 */}
-                        <div className="flex justify-between items-start content-start self-stretch flex-wrap">
-                            <div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 1-1 </div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 1-2 </div>
-                            </div>
-                            <div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 2-1 </div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 2-2 </div>
-                            </div>
-                            <div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 3-1 </div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 3-2 </div>
-                            </div>
-                            <div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 4-1 </div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 4-2 </div>
-                            </div>
-                            <div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white mb-[10px]
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 5-1 </div>
-                                <div className="flex w-[140px] h-[80px] justify-center items-center
-                                rounded-[10px] border-solid border border-[#C4C4C6] bg-white
-                                text-center text-[#949598] text-[13px] font-[500] leading-[150%]"> 5-2 </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <TeamPlayLabelBtn />
                 </div>
 
                 {/* 자기 소개 */}
@@ -241,7 +192,7 @@ const Profile = () => {
                 </div>
             </div>
 
-            <button className="mt-[100px] flex h-[var(---48-,48px)] py-[var(--,10px)] px-[var(--S48-,80px)] 
+            <button className="mt-[100px] flex h-[48px] py-[10px] px-[80px] text-subtitle-16_Sb600
             items-center justify-center gap-[10px] text-white bg-primary rounded-[8px]">
                 저장
             </button>
