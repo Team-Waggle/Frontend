@@ -29,7 +29,7 @@ const SkillInput = ({ isActive = false, children }: SkillProps) => {
                     <div className="flex items-center gap-[10px] flex-grow flex-shrink-0 basis-0">
 
                         {/* 해당 요소가 자동완성 되어야 함. */}
-                        <button className={`flex h-[32px] px-[10px] justify-center border border-solid
+                        <button className={`flex h-[32px] px-[10px] justify-center items-center border border-solid
                                     text-[13px] text-center	font-[500] leading-[150%] rounded-[4px] border-black-60 text-black-70
                                     ${isActive ? 'border-primary-60 text-black' : 'border-black-60 text-black-70'}`}>
                             {children}
