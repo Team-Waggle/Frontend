@@ -1,17 +1,20 @@
-import styled from "styled-components";
-import { useEffect, useRef, useState } from "react";
-import TriangleDownIcon from "../assets/profile/icon/icon-triangle-down.svg?react";
+import { useEffect, useRef, useState } from 'react';
+import TriangleDownIcon from '../assets/profile/icon/icon-triangle-down.svg?react';
 
 interface DropdownProps {
   items: string[];
   title: string;
   className?: string;
+  width?: string;
 }
 
-const DropdownC = ({ items, title, className }: DropdownProps) => {
+const DropdownC = ({
+  items,
+  title,
+  width = 'w-[358px]',
+}: DropdownProps) => {
   const [selectedItem, setSelectedItem] = useState(title);
   const [isOpen, setIsOpen] = useState(false);
-
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -28,70 +31,47 @@ const DropdownC = ({ items, title, className }: DropdownProps) => {
     setIsOpen(!isOpen);
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
-    <div className="flex w-full" ref={dropdownRef}>
-      <button className="flex h-[var(---46-, 46px)] pr-[var(--46-,8px)] pl-[var(--46-,18px)] 
-      justify-between items-center shrink-[0] self-stretch
-      rounded-[8px] border-solid border border-[#c4c4c6] align-center text-[16px] text-[#949598] font-[500] leading-[165%]
-      flex-1 shrink-0 basis-0" onClick={toggleDropdown}>
+    <div ref={dropdownRef} className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex ${width} align-center h-[46px] shrink-0 basis-0 items-center justify-between self-stretch rounded-[8px] border border-solid border-[#c4c4c6] pl-[var(--46-,18px)] pr-[var(--46-,8px)] text-body-16_M500 text-[#949598]`}
+      >
         {selectedItem}
+
         <TriangleDownIcon
-          className={`w-[44px] h-[44px] justify-center items-center gap-[10px] shrink transition-transform duration-300 ease-in-out ${isOpen ? "rotate-180" : "rotate-0"
-            }`}
+          className={`h-[44px] w-[44px] shrink items-center justify-center gap-[10px] transition-transform duration-300 ease-in-out ${
+            isOpen ? 'rotate-180' : 'rotate-0'
+          }`}
         />
       </button>
+
+      {/* mt 수정 해야함 */}
       {isOpen && (
-        <DropdownContent>
+        <div
+          style={{ boxShadow: '0px 2px 4px 0px rgba(0, 0, 0, 0.12)' }}
+          className="absolute z-10 mt-[10px] flex h-[216px] shrink-0 flex-col items-start self-stretch overflow-y-scroll rounded-[8px] border bg-black-10 px-0 pb-[6px] pt-[2px] scrollbar-hide"
+        >
           {items.map((item) => (
-            <DropdownItem onClick={() => handleItemClick(item)}>
+            <div
+              onClick={() => handleItemClick(item)}
+              className={`flex ${width} h-[46px] flex-shrink-0 cursor-pointer items-center self-stretch rounded-[6px] bg-black-10 pl-[var(--46-,18px)] pr-[var(--46-,8px)] 
+              text-body-16_M500 text-black-70 hover:bg-primary-10 hover:text-black-130`}
+            >
               {item}
-            </DropdownItem>
+            </div>
           ))}
-        </DropdownContent>
+        </div>
       )}
     </div>
   );
 };
-
-const DropdownContent = styled.div`
-  position: absolute;
-  background-color: white;
-  width: 358px;
-  max-height: 216px;
-  overflow-y: scroll;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0px 3px 12px 0px #8c8c8c26;
-  z-index: 1;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const DropdownItem = styled.div`
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 8px 16px;
-  height: 40px;
-  text-decoration: none;
-  cursor: pointer;
-  color: #a2a2a4;
-
-  &:hover {
-    background-color: #f2f7ff;
-    color: #17171b;
-  }
-`;
 
 export default DropdownC;

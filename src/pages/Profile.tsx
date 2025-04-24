@@ -80,10 +80,12 @@ const Profile = () => {
                             <DropdownC
                                 items={formOptions.jobs}
                                 title="직무 선택"
+                                width="w-[312px]"
                             />
                             <DropdownC
                                 items={formOptions.workExperience}
                                 title="경력 선택"
+                                width="w-[312px]"
                             />
                         </div>
                         <div className="flex w-[40px] h-[40px] justify-center items-center gap-[10px]">
@@ -96,6 +98,7 @@ const Profile = () => {
                 <div className="flex flex-col gap-[8px] w-full">
                     <FormLabel secondaryText={"최대 5개 선택 가능"}> 관심 산업 분야 <RequiredIcon /> </FormLabel>
                     <div className="flex flex-col items-start content-start self-stretch flex-wrap gap-y-[10px] gap-x-[5px] pb-[10px]">
+                        {/* 수정할 수 있을 거 같은데 chunk 안 쓰고 wrap 쓰는 걸로 변경 그리고 한 개로 변경하자 */}
                         {industryChunks.map((row, rowIndex) => (
                             <div key={rowIndex} className="flex gap-[5px]">
                                 {row.map((item) => (
@@ -182,6 +185,7 @@ const Profile = () => {
                                 <DropdownC
                                     items={formOptions.site}
                                     title="사이트"
+                                    width="w-[333px]"
                                 />
                             </div>
                         </div>
