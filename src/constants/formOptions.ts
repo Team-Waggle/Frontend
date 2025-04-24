@@ -1,9 +1,5 @@
-export const day = [
-    "월", "화", "수", "목", "금", "토", "일"
-]
-
 export const jobs = [
-    "IOS", "기획자", "데브옵스", "디자이너", "마케터",
+    "프론트엔드", "백엔드", "디자이너", "IOS", "안드로이드", "데브옵스", "기획자", "마케터"
 ];
 
 export const industryList = [
@@ -16,6 +12,17 @@ export const industryList = [
 export const workExperience = [
     "0년차", "1~3년차", "4~6년차", "7~10년차", "10년차 이상"
 ];
+
+export const skill = [
+    "Java", "JavaScript", "TypeScript", "Node.js", "Next.js", "Nest.js", "Svelte", "Vue", "React", 
+    "Spring", "Go", "Kotlin", "Express", "MySQL", "MongoDB", "Python", "Django", "php", "GraphQL", 
+    "Firebase", "Flutter", "Swift", "ReactNative", "Unity", "AWS", "Kubernetes", "Docker", "Git", 
+    "Figma", "Zeplin", "Jest", "Axure", "MS-Office"
+]
+
+export const day = [
+    "월", "화", "수", "목", "금", "토", "일"
+]
 
 export const preferredTime = [
     "오전 (6:00~12:00)", "오후 (12:00~18:00)", "저녁 (18:00~22:00)",
