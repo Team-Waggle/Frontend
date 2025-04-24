@@ -1,122 +1,59 @@
-import styled from "styled-components";
-import OccupationCard from "./OccupationCard";
-import BookmarkIcon from "../../assets/images/icon/bookmarkIcon.svg?react";
-import TSIcon from "../../assets/images/icon/icon-ts.svg?react";
-import ETCIcon from "../../assets/images/icon/etcIcon.svg?react";
-import { useState } from "react";
+import BaseTag from '../common/Tag/BaseTag';
+import BookmarkIcon from '../../assets/main/icon/icon-bookmark.svg?react';
+import Cinema_4DIcon from '../../assets/main/icon/skill/icon-skill-Cinema_4D.svg?react';
+import FigmaIcon from '../../assets/main/icon/skill/icon-skill-Figma.svg?react';
+import DjangoIcon from '../../assets/main/icon/skill/icon-skill-Django.svg?react';
+import JavascriptIcon from '../../assets/main/icon/skill/icon-skill-Javascript.svg?react';
+import MongoDBIcon from '../../assets/main/icon/skill/icon-skill-MongoDB.svg?react';
+import MeatballIcon from '../../assets/main/icon/icon-meatball.svg?react';
 
 const Card = () => {
-  const [isSaved, setIsSaved] = useState(false);
-
+  // domain, deadline, title, tags, skills, bookmark props로 받아오기
   return (
-    <CardWrapper>
-      <TopPart>
-        <Domain>금융</Domain>
-        <DeadLine>D - 10</DeadLine>
-        <Bookmark isSaved={isSaved} onClick={() => setIsSaved(!isSaved)} />
-      </TopPart>
-      <Title>
-        와글 팀과 함께할 디자이너, 기획자, 백엔드, 프론트엔드, 데브옵스님을
-        찾습니다:) 많은 연락과 기대 부탁드립니다.
-        {/* 와글 팀과 함께할 디자이너, 기획자, 백엔드, 프론트엔드, 데브옵스님... */}
-      </Title>
-      <RecruitMembers>
-        <Personnel>5/10명</Personnel>
-        <OccupationCard />
-      </RecruitMembers>
-      <Skills>
-        <TSIcon />
-        <TSIcon />
-        <TSIcon />
-        <TSIcon />
-        <TSIcon />
-        {/* 스킬 5개 초과 시 기타 아이콘 표시 */}
-        <ETCIcon />
-      </Skills>
-    </CardWrapper>
+    <div className="flex h-[21.5rem] w-[63rem] min-w-[32rem] max-w-[63rem] flex-col justify-between rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem] shadow-[0_0_0.2rem_0_#00000014]">
+      <div className="flex h-[6.1rem] w-full flex-col gap-[1rem]">
+        <div className="flex justify-between">
+          {/* 도메인 이름 */}
+          <span className="h-[2.4rem] text-caption-13_M500 text-primary-70">
+            금융
+          </span>
+          <div className="flex w-[9.5rem] gap-[1rem]">
+            <span className="w-[6.1rem] text-right text-body-13_R400 text-black-80">
+              D - 10
+            </span>
+            {/* 북마크 아이콘은 기본으로 border가 1.5px임 f나 마감 상태일 때는 border 없애기 */}
+            <BookmarkIcon />
+          </div>
+        </div>
+        {/* Title */}
+        <div className="text-title-18_Sb600">
+          [네오플] 게임그래픽 직군 분야별 모집 (근무지 : 서울)
+        </div>
+      </div>
+      <div className="box-border flex h-[4.8rem] w-full gap-[0.8rem] whitespace-nowrap border-b border-solid border-black-40 pb-[1.6rem]">
+        <div className="flex items-center rounded-[0.4rem] bg-black-40 px-[1rem] text-subtitle-14_Sb600">
+          5/10명
+        </div>
+        <div className="flex gap-[0.4rem]">
+          <BaseTag size="lg">프론트엔드</BaseTag>
+          <BaseTag size="lg">프론트엔드</BaseTag>
+          <BaseTag size="lg">프론트엔드</BaseTag>
+          <BaseTag size="lg">프론트엔드</BaseTag>
+          <BaseTag size="lg">프론트엔드</BaseTag>
+          <BaseTag size="lg">프론트엔드</BaseTag>
+        </div>
+      </div>
+      {/* 스킬: 5개 초과 시 기타 아이콘 표시 */}
+      <div className="flex h-[2.4rem] w-[22rem] gap-[0.8rem]">
+        <Cinema_4DIcon />
+        <FigmaIcon />
+        <DjangoIcon />
+        <JavascriptIcon />
+        <MongoDBIcon />
+        <MeatballIcon />
+      </div>
+    </div>
   );
 };
 
 export default Card;
-
-const CardWrapper = styled.div`
-  width: 630px;
-  height: 211px;
-  padding: 24px;
-  box-sizing: border-box;
-  border-radius: 20px;
-  background-color: white;
-  box-shadow: 0px 4px 20px 0px #0000001a;
-`;
-
-const TopPart = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 24px;
-`;
-
-const Domain = styled.div`
-  margin: 0 auto 0 0;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 21px;
-  color: #0066ff;
-`;
-
-const DeadLine = styled.div`
-  display: flex;
-  justify-content: end;
-  width: 61px;
-  margin-right: 15px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  color: #747476;
-`;
-
-const Bookmark = styled(BookmarkIcon)<{ isSaved: Boolean }>`
-  fill: ${({ isSaved }) => (isSaved ? "#0066ff" : "#e8e8e9")};
-  cursor: pointer;
-`;
-
-const Title = styled.div`
-  /* Title의 width는 482이나 ellipsis의 ...을 포함하기 위해서 15px를 추가함 */
-  width: 497px;
-  height: 27px;
-  margin-top: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 27px;
-  color: #17171b;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const RecruitMembers = styled.div`
-  display: flex;
-  padding-bottom: 16px;
-  margin: 16px 0;
-  border-bottom: 1px solid #e8e8e9;
-`;
-
-const Personnel = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 32px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 20px;
-  background-color: #e8e8e9;
-`;
-
-const Skills = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 24px;
-`;
