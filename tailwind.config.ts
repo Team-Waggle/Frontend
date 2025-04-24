@@ -5,6 +5,9 @@ const config: Config = {
   content: ['./src/**/*.{html,js,ts,tsx}'],
   theme: {
     extend: {
+      boxShadow: {
+        custom: '0px 2px 4px 0px rgba(0, 0, 0, 0.12)',
+      },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
       },
@@ -195,7 +198,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide'),
+  ],
 };
 
 export default config;
