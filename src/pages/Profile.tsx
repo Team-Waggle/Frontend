@@ -13,18 +13,33 @@ import IndustrySelect from "../components/Profile/IndustrySelect";
 import DaySelect from "../components/Profile/DaySelect";
 import TeamPlayLabelBtn from "../components/Profile/TeamPlayLabelBtn";
 import SelfIntroduction from "../components/Profile/SelfIntroduction";
-import DropdownC from "../components/DropdownC";
+import Dropdown from "../components/DropdownC";
 
-// 1. 드롭다운 2. 사용 스킬 자동 완성
-
-// 직무 및 경력 - 드롭다운
-// 선호 시간 - 드롭다운
-// 선호 진행방식 및 지역 - 드롭다운
-// 링크 - input, 드롭다운
+// 1. 드롭다운
+// 2. 사용 스킬 자동 완성
+// 3. + - 추가
+// 4. 에러 사항 디테일
 
 const Profile = () => {
+    const [openedDropdown, setOpenedDropdown] = useState<string | null>(null);
+
+    const [jobs, setJobs] = useState('');
+    const [workExperience, setWorkExperience] = useState('');
     const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
     const [selectedDays, setSelectedDays] = useState<string[]>([]);
+    const [preferredTime, setPreferredTime] = useState('');
+    const [onOff, setOnOff] = useState('');
+    const [region, setRegion] = useState('');
+    const [site, setSite] = useState('');
+
+    // 사용할 예정
+    const [nickname, setNickname] = useState('');
+    const [skillList, setSkillList] = useState<string[]>([]);
+    const [teamPlay, setTeamPlay] = useState('');
+
+    const clickDropdown = (id: string) => {
+        setOpenedDropdown(prev => (prev === id ? null : id));
+    };
 
     const toggleIndustry = (industry: string) => {
         if (selectedIndustries.includes(industry)) {
@@ -53,6 +68,14 @@ const Profile = () => {
 
     const industryChunks = chunk(formOptions.industryList, 9);
 
+    const handleSubmit = () => {
+        if (!nickname || !jobs || !workExperience || skillList.length === 0 || !teamPlay) {
+            // 나중에 삭제
+            alert("필수 항목을 모두 입력해주세요.");
+            return;
+        }
+    };
+
     return (
         <div className="flex flex-col items-center w-[1200px]">
             <div className="mt-[42px] mb-[20px]"> <ProfileSetting /> </div>
@@ -77,15 +100,23 @@ const Profile = () => {
                     <FormLabel> 직무 및 경력 <RequiredIcon /> </FormLabel>
                     <div className="flex items-center gap-[6px]">
                         <div className="flex w-[642px] items-center gap-[18px]">
-                            <DropdownC
+                            <Dropdown
+                                id="jobs"
                                 items={formOptions.jobs}
-                                title="직무 선택"
+                                title={jobs || "직무 선택"}
                                 width="w-[312px]"
+                                isOpen={openedDropdown === "jobs"}
+                                onToggle={clickDropdown}
+                                onChange={(value: string) => setJobs(value)}
                             />
-                            <DropdownC
+                            <Dropdown
+                                id="workExperience"
                                 items={formOptions.workExperience}
-                                title="경력 선택"
+                                title={workExperience || "경력 선택"}
                                 width="w-[312px]"
+                                isOpen={openedDropdown === "workExperience"}
+                                onToggle={clickDropdown}
+                                onChange={(value: string) => setWorkExperience(value)}
                             />
                         </div>
                         <div className="flex w-[40px] h-[40px] justify-center items-center gap-[10px]">
@@ -134,9 +165,16 @@ const Profile = () => {
                             ))}
                         </div>
                         <div className="w-[358px]">
-                            <DropdownC
+                            <Dropdown
+                                id="preferredTime"
                                 items={formOptions.preferredTime}
-                                title="선호 시간"
+                                title={preferredTime || "선호 시간"}
+                                isOpen={openedDropdown === "preferredTime"}
+                                onToggle={clickDropdown}
+                                onChange={(item) => {
+                                    console.log("선택된 값:", item);
+                                    setPreferredTime(item); // 실제 상태 변경
+                                  }}
                             />
                         </div>
                     </div>
@@ -146,13 +184,21 @@ const Profile = () => {
                 <div className="flex flex-col gap-[8px] w-full">
                     <FormLabel> 선호 진행방식 및 지역 <RequiredIcon /> </FormLabel>
                     <div className="flex items-center gap-[18px] self-stretch">
-                        <DropdownC
+                        <Dropdown
+                            id="onOff"
                             items={formOptions.onOff}
-                            title="진행 방식"
+                            title={onOff || "진행 방식"}
+                            isOpen={openedDropdown === "onOff"}
+                            onToggle={clickDropdown}
+                            onChange={(value: string) => setOnOff(value)}
                         />
-                        <DropdownC
+                        <Dropdown
+                            id="region"
                             items={formOptions.region}
-                            title="지역 선택"
+                            title={region || "지역 선택"}
+                            isOpen={openedDropdown === "region"}
+                            onToggle={clickDropdown}
+                            onChange={(value: string) => setRegion(value)}
                         />
                     </div>
                 </div>
@@ -182,10 +228,14 @@ const Profile = () => {
                                     useLengthValidation={false} />
                             </div>
                             <div className="flex w-[333px]">
-                                <DropdownC
+                                <Dropdown
+                                    id="site"
                                     items={formOptions.site}
-                                    title="사이트"
+                                    title={site || "사이트"}
                                     width="w-[333px]"
+                                    isOpen={openedDropdown === "site"}
+                                    onToggle={clickDropdown}
+                                    onChange={(value: string) => setSite(value)}
                                 />
                             </div>
                         </div>
@@ -196,7 +246,7 @@ const Profile = () => {
                 </div>
             </div>
 
-            <button className="mt-[100px] flex h-[48px] py-[10px] px-[80px] text-subtitle-16_Sb600
+            <button onClick={handleSubmit} className="mt-[100px] flex h-[48px] py-[10px] px-[80px] text-subtitle-16_Sb600
             items-center justify-center gap-[10px] text-white bg-primary rounded-[8px]">
                 저장
             </button>
