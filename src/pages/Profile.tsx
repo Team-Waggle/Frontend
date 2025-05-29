@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as formOptions from '../constants/formOptions';
 
-import ProfileSetting from "../assets/profile/icon/icon-profileSetting.svg?react";
+import ProfileIcon from "../components/common/Profile/ProfileIcon/BaseProfileIcon"
 import RequiredIcon from "../assets/profile/icon/icon-required.svg?react";
 import PlusIcon from "../assets/profile/icon/icon-plus.svg?react";
 import MinusIcon from "../assets/profile/icon/icon-minus.svg?react";
@@ -14,6 +14,8 @@ import DaySelect from "../components/Profile/DaySelect";
 import TeamPlayLabelBtn from "../components/Profile/TeamPlayLabelBtn";
 import SelfIntroduction from "../components/Profile/SelfIntroduction";
 import DropdownC from "../components/DropdownC";
+
+import TestIMG from "../assets/profile/icon/test-img.png";
 
 // 1. 드롭다운 2. 사용 스킬 자동 완성
 
@@ -55,7 +57,18 @@ const Profile = () => {
 
     return (
         <div className="flex flex-col items-center w-[1200px]">
-            <div className="mt-[42px] mb-[20px]"> <ProfileSetting /> </div>
+            <div className="mt-[42px] mb-[20px]"> 
+                <ProfileIcon size="lg" type="edit" /> 
+                {/* <ProfileIcon size="lg" type="edit" imageUrl={TestIMG} /> 
+                <ProfileIcon size="lg" type="default" /> 
+                <ProfileIcon size="lg" type="default" imageUrl={TestIMG} /> 
+                <ProfileIcon size="md" /> 
+                <ProfileIcon size="md" blur/> 
+                <ProfileIcon size="md" imageUrl={TestIMG} /> 
+                <ProfileIcon size="md" blur imageUrl={TestIMG} />
+                <ProfileIcon size="sm"/> 
+                <ProfileIcon size="sm" imageUrl={TestIMG}/>  */}
+            </div>
 
             <div className="w-[734px] flex flex-col items-start gap-[26px]">
                 {/* 닉네임 */}
