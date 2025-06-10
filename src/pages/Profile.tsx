@@ -53,12 +53,6 @@ const Profile = () => {
     <div className="flex w-[1200px] flex-col items-center">
       <div className="mb-[20px] mt-[42px]">
         <ProfileIcon size="lg" type="edit" />  
-        <ProfileChip type="default" name="일이삼사오육칠팔구십" jobRole="프론트엔드" yearCount="10년차 이상" state="default" size="xl" />
-        <ProfileChip type="default" name="일이삼사오육칠팔구십" jobRole="프론트엔드" yearCount="10년차 이상" state="hover" size="md" />
-        <ProfileChip type="default" name="일이삼사오육칠팔구십" jobRole="프론트엔드" yearCount="10년차 이상" state="active" size="xs" />
-        <ProfileChip type="control" name="일이삼사오육칠팔구십" jobRole="프론트엔드" yearCount="10년차 이상" state="default" size="xl" />
-        <ProfileChip type="control" name="일이삼사오육칠팔구십" jobRole="프론트엔드" yearCount="10년차 이상" state="hover" size="md" />
-        <ProfileChip type="control" name="일이삼사오육칠팔구십" jobRole="프론트엔드" yearCount="10년차 이상" state="disabled" size="xs" />
       </div>
 
       <div className="flex w-[734px] flex-col items-start gap-[26px]">
