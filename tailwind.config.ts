@@ -202,6 +202,7 @@ const config: Config = {
   },
   plugins: [
     require('tailwind-scrollbar-hide'),
+    require('@tailwindcss/line-clamp')
   ],
 };
 
