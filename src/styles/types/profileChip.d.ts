@@ -16,4 +16,12 @@ interface ControlProfileChipProps extends React.ButtonHTMLAttributes<HTMLButtonE
   size?: ScreenSize;
 }
 
-export type ProfileChipProps = DefaultProfileChipProps | ControlProfileChipProps;
+interface ProfileChipContentProps {
+  name: string;
+  jobRole: string;
+  yearCount: string;
+}
+
+export type ProfileChipProps = 
+  | (DefaultProfileChipProps & ProfileChipContentProps)
+  | (ControlProfileChipProps & ProfileChipContentProps);
