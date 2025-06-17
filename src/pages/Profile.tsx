@@ -3,7 +3,7 @@ import * as formOptions from '../constants/formOptions';
 
 import ProfileIcon from '../components/common/Profile/ProfileIcon/BaseProfileIcon';
 import ProfileChip from '../components/common/Profile/ProfileChip/BaseProfileChip';
-import RequiredIcon from '../assets/profile/icon/icon-required.svg?react';
+import RequiredIcon from '../assets/inputBox/ic_input_required_red.svg?react';
 import PlusIcon from '../assets/profile/icon/icon-plus.svg?react';
 import MinusIcon from '../assets/profile/icon/icon-minus.svg?react';
 
