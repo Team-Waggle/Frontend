@@ -5,11 +5,11 @@ import {
   ProfileIconType,
 } from '../../../../styles/types/profileIcon';
 
-import IconLargeDefault from '../../../../assets/profile/icon/icon-profile-icon-large-defalut.svg?react';
-import IconLargeEdit from '../../../../assets/profile/icon/icon-profile-icon-large-edit.svg?react';
-import IconMedium from '../../../../assets/profile/icon/icon-profile-icon-medium-default.svg?react';
-import IconSmall from '../../../../assets/profile/icon/icon-profile-icon-small-default.svg?react';
-import IconCamera from '../../../../assets/profile/icon/icon-camera.svg?react';
+import IconLargeDefault from '../../../../assets/profile/profileIcon/ic_profile_default_circle_large.svg?react';
+import IconLargeEdit from '../../../../assets/profile/profileIcon/ic_profile_edit_circle_large.svg?react';
+import IconMedium from '../../../../assets/profile/profileIcon/ic_profile_default_circle_medium.svg?react';
+import IconSmall from '../../../../assets/profile/profileIcon/ic_profile_default_circle_small.svg?react';
+import IconCamera from '../../../../assets/profile/profileIcon/ic_profile_camera_circle_grey_all.svg?react';
 
 const getDefaultProfileIcon = (
   size: ProfileIconSize,
