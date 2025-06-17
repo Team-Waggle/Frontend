@@ -19,8 +19,13 @@ import DropdownC from '../components/DropdownC';
 import TestIMG from '../assets/profile/icon/test-img.png';
 
 const Profile = () => {
+  const [nickname, setNickname] = useState('');
+
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
+
+  const [nicknameRequiredMessage, setNicknameRequiredMessage] = useState(false);
+  const [industryRequiredMessage, setIndustryRequiredMessage] = useState(false);
 
   const toggleIndustry = (industry: string) => {
     if (selectedIndustries.includes(industry)) {
@@ -37,6 +42,30 @@ const Profile = () => {
       setSelectedDays((prev) => prev.filter((item) => item !== days));
     } else {
       setSelectedDays((prev) => [...prev, days]);
+    }
+  };
+
+    const handleSubmit = () => {
+    let hasError = false;
+
+    // 닉네임 검증
+    if (nickname.trim() === '') {
+      setNicknameRequiredMessage(true);
+      hasError = true;
+    } else {
+      setNicknameRequiredMessage(false);
+    }
+
+    // 관심 산업 분야 검증 (최소 1개 이상 선택)
+    if (selectedIndustries.length === 0) {
+      setIndustryRequiredMessage(true);
+      hasError = true;
+    } else {
+      setIndustryRequiredMessage(false);
+    }
+
+    if (hasError) {
+      return;
     }
   };
 
@@ -60,7 +89,9 @@ const Profile = () => {
         <div className="flex w-full flex-col gap-[8px]">
           <FormLabel
             title="닉네임"
+            className="w-[1200px]"
             isRequired
+            requiredMessage={nicknameRequiredMessage}
           />
           <IconTextArea
             placeholder="한글, 영어, 숫자 포함 2-10자리 가능"
@@ -112,6 +143,7 @@ const Profile = () => {
             title="관심 산업 분야"
             caption="최대 5개 선택 가능"
             isRequired
+            requiredMessage={industryRequiredMessage}
           />
           <div className="flex flex-col flex-wrap content-start items-start gap-x-[5px] gap-y-[10px] self-stretch pb-[10px]">
             {/* 수정할 수 있을 거 같은데 chunk 안 쓰고 wrap 쓰는 걸로 변경 그리고 한 개로 변경하자 */}
@@ -221,7 +253,10 @@ const Profile = () => {
         </div>
       </div>
 
-      <button className="mt-[100px] flex h-[48px] items-center justify-center gap-[10px] rounded-[8px] bg-primary px-[80px] py-[10px] text-subtitle-16_Sb600 text-white">
+      <button 
+      onClick={handleSubmit}
+      className="mt-[100px] flex h-[48px] items-center justify-center gap-[10px] rounded-[8px] bg-primary px-[80px] py-[10px] text-subtitle-16_Sb600 text-white"
+      >
         저장
       </button>
     </div>
