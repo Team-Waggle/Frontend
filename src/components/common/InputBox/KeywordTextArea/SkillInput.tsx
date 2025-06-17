@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import StyledInput from "../Profile/StyledInput";
-import XIcon from "../../assets/profile/icon/icon-x16.svg?react";
-import Skill from "../../assets/main/icon/skill/icon-skill-TypeScript.svg?react"
+import StyledInput from "../IconTextArea/BaseIconTextArea";
+import XIcon from "../../../../assets/profile/icon/icon-x16.svg?react";
+import Skill from "../../../../assets/main/icon/skill/icon-skill-TypeScript.svg?react"
 
 interface SkillProps {
     isActive?: boolean;

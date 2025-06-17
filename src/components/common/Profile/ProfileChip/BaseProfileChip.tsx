@@ -1,5 +1,5 @@
 import React, { forwardRef, memo, useMemo } from 'react';
-import { ProfileChipProps } from '../../../../styles/types/profileChip';
+import { ProfileChipProps } from '../../../../types/profileChip';
 import { PROFILE_CHIP_STYLES, PROFILE_CHIP_SIZE } from './styles';
 
 import ProfileIcon from '../ProfileIcon/BaseProfileIcon';

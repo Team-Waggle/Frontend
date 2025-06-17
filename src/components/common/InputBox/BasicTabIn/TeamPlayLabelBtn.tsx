@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { teamPlay, teamPlayOptionList, teamPlaySelectedOptionMap } from '../../constants/teamPlay';
+import { teamPlay, teamPlayOptionList, teamPlaySelectedOptionMap } from '../../../../constants/teamPlay';
 
 interface TeamPlayLabelBtnProps {
     className?: string;
