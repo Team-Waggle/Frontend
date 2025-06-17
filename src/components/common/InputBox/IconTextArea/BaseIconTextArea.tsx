@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
+import {
+  BaseIconTextAreaProps,
+  TextAreaType,
+  DefaultTextAreaState,
+  FixedTextAreaState,
+} from '../../../../types/IconTextArea';
+import { ICON_TEXT_AREA_STYLES } from './styles';
+import SearchIcon from '../../../../assets/inputBox/ic_input_search.svg?react';
 
-interface BaseIconTextAreaProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean;
-  typingMessage?: string;
-  useRegex?: boolean;
-  useLengthValidation?: boolean;
-  useTyping?: (isTyping:boolean) => void;
-}
+const BaseIconTextArea = ({
+  className,
+  type = 'default',
+  typingMessage,
+  showIcon,
+  useRegex = true,
+  useLengthValidation = true,
+  useTyping,
+  ...rest
+}: BaseIconTextAreaProps) => {
+  const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-const BaseIconTextArea = ({ className, error, typingMessage, useRegex=true, useLengthValidation=true, useTyping, ...rest }: BaseIconTextAreaProps) => {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [isError, setIsError] = useState<boolean>(false);
-  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
+    if (hasError) return 'error';
+    if (isTyping) return 'typing';
+    if (inputValue.length > 0) return 'complete';
+    return 'default';
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -21,39 +37,46 @@ const BaseIconTextArea = ({ className, error, typingMessage, useRegex=true, useL
     setIsTyping(typing);
     useTyping?.(typing);
 
-    let hasError = false;
+    let error = false;
 
     if (useRegex) {
       const regex = /^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/;
-      if (!regex.test(value)) hasError = true;
+      if (!regex.test(value)) error = true;
     }
 
-    if (useLengthValidation) {
-      if (value.length < 2 || value.length > 10) {
-        hasError = true;
-      }
+    if (useLengthValidation && (value.length < 2 || value.length > 10)) {
+      error = true;
     }
 
-    setIsError(hasError);
+    setHasError(error);
   };
+
+  const currentState = getCurrentState();
+  const styleByState = ICON_TEXT_AREA_STYLES[type][currentState];
 
   return (
     <div className="flex flex-col items-end gap-[6px]">
-      <input
-        {...rest}
-        value={inputValue}
-        onChange={handleChange}
-        className={`w-full h-[var(---46-,46px)] pr-[8px] pl-[18px] py-0 items-center self-stretch 
-          border rounded-[8px] text-[16px] text-black-70 
-          ${isError ? 'border-[#F5552D]' : isTyping ? 'border-primary' : 'border-black-60'}
-        ${className ?? ''}`}
-        onFocus={() => setIsTyping(true)}
-        onBlur={() => setIsTyping(false)}
-      />
+      <div className="relative w-full">
+        <input
+          {...rest}
+          value={inputValue}
+          onChange={handleChange}
+          className={`h-[4.6rem] w-full items-center self-stretch rounded-[0.8rem] border py-0 pl-[1.8rem] pr-[3.2rem] text-body-16_M500 ${styleByState}`}
+          onFocus={() => setIsTyping(true)}
+          onBlur={() => setIsTyping(false)}
+        />
+        {showIcon && (
+          <div className="absolute right-[0.8rem] top-1/2 flex aspect-square h-[3.2rem] w-[3.2rem] shrink-0 -translate-y-1/2 transform items-center justify-center gap-[1rem]">
+            <SearchIcon />
+          </div>
+        )}
+      </div>
 
-      {isTyping && !isError && typingMessage && (
-        <div className="flex pl-[6px] items-center self-stretch">
-          <p className="text-right text-[12px] text-black-70 font-[500] leading-[150%]"> {typingMessage} </p>
+      {isTyping && !hasError && typingMessage && (
+        <div className="flex items-center self-stretch pl-[0.6rem]">
+          <p className="text-right text-[12px] font-[500] leading-[150%] text-black-70">
+            {typingMessage}
+          </p>
         </div>
       )}
     </div>
