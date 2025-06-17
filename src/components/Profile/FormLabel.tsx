@@ -5,7 +5,7 @@ interface FormLabelProps {
   caption?: React.ReactNode;
   sideNote?: React.ReactNode;
   isRequired?: boolean;
-  requiredMessage?: string;
+  requiredMessage?: boolean;
   className?: string;
 }
 
