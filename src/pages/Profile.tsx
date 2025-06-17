@@ -8,12 +8,12 @@ import PlusIcon from '../assets/profile/icon/icon-plus.svg?react';
 import MinusIcon from '../assets/profile/icon/icon-minus.svg?react';
 
 import FormLabel from '../components/Profile/FormLabel';
-import StyledInput from '../components/Profile/StyledInput';
-import SkillInput from '../components/Profile/SkillInput';
-import IndustrySelect from '../components/Profile/IndustrySelect';
-import DaySelect from '../components/Profile/DaySelect';
-import TeamPlayLabelBtn from '../components/Profile/TeamPlayLabelBtn';
-import SelfIntroduction from '../components/Profile/SelfIntroduction';
+import IconTextArea from '../components/common/InputBox/IconTextArea/BaseIconTextArea';
+import SkillInput from '../components/common/InputBox/KeywordTextArea/SkillInput';
+import IndustrySelect from '../components/common/InputBox/BasicChipCircle/IndustrySelect';
+import DaySelect from '../components/common/InputBox/BasicChipSquare/DaySelect';
+import TeamPlayLabelBtn from '../components/common/InputBox/BasicTabIn/TeamPlayLabelBtn';
+import SelfIntroduction from '../components/common/InputBox/BasicTextArea/SelfIntroduction';
 import DropdownC from '../components/DropdownC';
 
 import TestIMG from '../assets/profile/icon/test-img.png';
@@ -58,11 +58,11 @@ const Profile = () => {
       <div className="flex w-[734px] flex-col items-start gap-[26px]">
         {/* 닉네임 */}
         <div className="flex w-full flex-col gap-[8px]">
-          <FormLabel>
-            {' '}
-            닉네임 <RequiredIcon />{' '}
-          </FormLabel>
-          <StyledInput
+          <FormLabel
+            title="닉네임"
+            isRequired
+          />
+          <IconTextArea
             placeholder="한글, 영어, 숫자 포함 2-10자리 가능"
             typingMessage="닉네임에 특수문자는 사용이 불가능합니다."
           />
@@ -70,9 +70,11 @@ const Profile = () => {
 
         {/* 이메일 */}
         <div className="flex w-full flex-col gap-[8px]">
-          <FormLabel> 이메일 </FormLabel>
+          <FormLabel 
+            title="이메일"
+          />
           {/* 이메일 받아오는 걸로 수정 */}
-          <StyledInput
+          <IconTextArea
             className="pointer-events-none cursor-default bg-black-40"
             placeholder="waggle@gmail.com"
             readOnly
@@ -81,10 +83,10 @@ const Profile = () => {
 
         {/* 직무 및 경력 */}
         <div className="flex w-full flex-col items-start gap-[8px] self-stretch">
-          <FormLabel>
-            {' '}
-            직무 및 경력 <RequiredIcon />{' '}
-          </FormLabel>
+          <FormLabel
+            title="직무 및 경력"
+            isRequired
+          />
           <div className="flex items-center gap-[6px]">
             <div className="flex w-[642px] items-center gap-[18px]">
               <DropdownC
@@ -106,10 +108,11 @@ const Profile = () => {
 
         {/* 관심 산업 분야 */}
         <div className="flex w-full flex-col gap-[8px]">
-          <FormLabel secondaryText={'최대 5개 선택 가능'}>
-            {' '}
-            관심 산업 분야 <RequiredIcon />{' '}
-          </FormLabel>
+          <FormLabel 
+            title="관심 산업 분야"
+            caption="최대 5개 선택 가능"
+            isRequired
+          />
           <div className="flex flex-col flex-wrap content-start items-start gap-x-[5px] gap-y-[10px] self-stretch pb-[10px]">
             {/* 수정할 수 있을 거 같은데 chunk 안 쓰고 wrap 쓰는 걸로 변경 그리고 한 개로 변경하자 */}
             {industryChunks.map((row, rowIndex) => (
@@ -130,16 +133,18 @@ const Profile = () => {
 
         {/* 사용 스킬 */}
         <div className="flex flex-col items-start gap-[8px] self-stretch">
-          <FormLabel>
-            {' '}
-            사용 스킬 <RequiredIcon />{' '}
-          </FormLabel>
+          <FormLabel 
+            title="사용스킬"
+            isRequired
+          />
           <SkillInput children={'Typescript'} />
         </div>
 
         {/* 선호 요일 및 시간 */}
         <div className="flex w-full flex-col gap-[8px]">
-          <FormLabel> 선호 요일 및 시간 </FormLabel>
+          <FormLabel 
+            title="선호 요일 및 시간"
+          />
           <div className="flex items-center gap-[16px] self-stretch">
             <div className="flex flex-[1_0_0%] items-center justify-between rounded-[8px]">
               {formOptions.day.map((day) => (
@@ -159,10 +164,9 @@ const Profile = () => {
 
         {/* 선호 진행방식 및 지역 */}
         <div className="flex w-full flex-col gap-[8px]">
-          <FormLabel>
-            {' '}
-            선호 진행방식 및 지역 <RequiredIcon />{' '}
-          </FormLabel>
+          <FormLabel 
+            title="선호 진행방식 및 지역"
+          />
           <div className="flex items-center gap-[18px] self-stretch">
             <DropdownC items={formOptions.onOff} title="진행 방식" />
             <DropdownC items={formOptions.region} title="지역 선택" />
@@ -171,28 +175,32 @@ const Profile = () => {
 
         {/* 팀플 성향 + 유지보수 쉽게 리팩토링 해야함 */}
         <div className="flex-start flex w-full flex-col gap-[20px] self-stretch">
-          <FormLabel secondaryText={'최대 5개 선택 가능'}>
-            {' '}
-            팀플 성향 <RequiredIcon />{' '}
-          </FormLabel>
+          <FormLabel
+            title="팀플 성향"
+            caption="각 최대 5개 선택 가능"
+          />
           <TeamPlayLabelBtn />
         </div>
 
         {/* 자기 소개 */}
         <div className="flex w-full flex-col gap-[8px]">
-          <FormLabel> 자기 소개 </FormLabel>
+          <FormLabel
+            title="자기 소개"
+          />
           <SelfIntroduction />
         </div>
 
         {/* 링크 */}
         <div className="flex w-full flex-col items-start gap-[8px] self-stretch">
-          <FormLabel> 링크 </FormLabel>
+          <FormLabel
+            title="링크"
+          />
 
           {/* 아래 CSS 수정 필요. dropdown w-[333px] 이 안 먹음 임시방편으로 주소Input에 291px 먹임*/}
           <div className="flex items-center gap-[6px]">
             <div className="flex w-[642px] items-center gap-[18px]">
               <div className="w-[291px]">
-                <StyledInput
+                <IconTextArea
                   placeholder="주소"
                   useRegex={false}
                   useLengthValidation={false}
