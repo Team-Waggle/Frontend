@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-interface StyledInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface BaseIconTextAreaProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
   typingMessage?: string;
   useRegex?: boolean;
@@ -8,7 +8,7 @@ interface StyledInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   useTyping?: (isTyping:boolean) => void;
 }
 
-const StyledInput = ({ className, error, typingMessage, useRegex=true, useLengthValidation=true, useTyping, ...rest }: StyledInputProps) => {
+const BaseIconTextArea = ({ className, error, typingMessage, useRegex=true, useLengthValidation=true, useTyping, ...rest }: BaseIconTextAreaProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
@@ -60,4 +60,4 @@ const StyledInput = ({ className, error, typingMessage, useRegex=true, useLength
   );
 };
 
-export default StyledInput;
+export default BaseIconTextArea;

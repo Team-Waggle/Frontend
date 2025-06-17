@@ -3,7 +3,7 @@ import {
   BaseProfileIconProps,
   ProfileIconSize,
   ProfileIconType,
-} from '../../../../styles/types/profileIcon';
+} from '../../../../types/profileIcon';
 
 import IconLargeDefault from '../../../../assets/profile/profileIcon/ic_profile_default_circle_large.svg?react';
 import IconLargeEdit from '../../../../assets/profile/profileIcon/ic_profile_edit_circle_large.svg?react';

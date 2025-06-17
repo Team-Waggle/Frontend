@@ -1,4 +1,4 @@
-import { ProfileChipType, ScreenSize } from '../../../../styles/types/profileChip';
+import { ProfileChipType, ScreenSize } from '../../../../types/profileChip';
 
 const COMMON_DEFAULT_BORDER_STYLE = 'border-solid border-[1px] border-black-50 rounded-lg';
 const DEFAULT_PADDING = 'pl-8 pr-4 py-0 gap-[2.2rem]';
