@@ -13,7 +13,7 @@ import SkillInput from '../components/common/InputBox/KeywordTextArea/SkillInput
 import IndustrySelect from '../components/common/InputBox/BasicChipCircle/IndustrySelect';
 import DaySelect from '../components/common/InputBox/BasicChipSquare/DaySelect';
 import TeamPlayLabelBtn from '../components/common/InputBox/BasicTabIn/TeamPlayLabelBtn';
-import SelfIntroduction from '../components/common/InputBox/BasicTextArea/SelfIntroduction';
+import BasicTextArea from '../components/common/InputBox/BasicTextArea/BaseBasicTextArea';
 import DropdownC from '../components/DropdownC';
 
 import TestIMG from '../assets/profile/icon/test-img.png';
@@ -219,7 +219,7 @@ const Profile = () => {
           <FormLabel
             title="자기 소개"
           />
-          <SelfIntroduction />
+          <BasicTextArea size="lg"/>
         </div>
 
         {/* 링크 */}
