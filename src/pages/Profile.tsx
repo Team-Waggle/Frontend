@@ -10,8 +10,8 @@ import MinusIcon from '../assets/profile/icon/icon-minus.svg?react';
 import FormLabel from '../components/Profile/FormLabel';
 import IconTextArea from '../components/common/InputBox/IconTextArea/BaseIconTextArea';
 import SkillInput from '../components/common/InputBox/KeywordTextArea/SkillInput';
-import IndustrySelect from '../components/common/InputBox/BasicChipCircle/IndustrySelect';
-import DaySelect from '../components/common/InputBox/BasicChipSquare/DaySelect';
+import BasicChipCircle from '../components/common/InputBox/BasicChipCircle/BaseBasicChipCircle';
+import BasicChipSquare from '../components/common/InputBox/BasicChipSquare/BaseBasicChipSquare';
 import TeamPlayLabelBtn from '../components/common/InputBox/BasicTabIn/TeamPlayLabelBtn';
 import BasicTextArea from '../components/common/InputBox/BasicTextArea/BaseBasicTextArea';
 import DropdownC from '../components/DropdownC';
@@ -150,13 +150,13 @@ const Profile = () => {
             {industryChunks.map((row, rowIndex) => (
               <div key={rowIndex} className="flex gap-[5px]">
                 {row.map((item) => (
-                  <IndustrySelect
+                  <BasicChipCircle
                     key={item}
                     isActive={selectedIndustries.includes(item)}
                     onClick={() => toggleIndustry(item)}
                   >
                     {item}
-                  </IndustrySelect>
+                  </BasicChipCircle>
                 ))}
               </div>
             ))}
@@ -180,12 +180,12 @@ const Profile = () => {
           <div className="flex items-center gap-[16px] self-stretch">
             <div className="flex flex-[1_0_0%] items-center justify-between rounded-[8px]">
               {formOptions.day.map((day) => (
-                <DaySelect
+                <BasicChipSquare
                   onClick={() => toggleDay(day)}
                   isActive={selectedDays.includes(day)}
                 >
                   {day}
-                </DaySelect>
+                </BasicChipSquare>
               ))}
             </div>
             <div className="w-[358px]">
