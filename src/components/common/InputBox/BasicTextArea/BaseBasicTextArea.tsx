@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SelfIntroduction = () => {
+const BaseBasicTextArea = () => {
   const [text, setText] = useState('');
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
@@ -22,4 +22,4 @@ const SelfIntroduction = () => {
   );
 };
 
-export default SelfIntroduction;
+export default BaseBasicTextArea;
