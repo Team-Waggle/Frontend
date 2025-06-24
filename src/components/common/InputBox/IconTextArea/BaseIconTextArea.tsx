@@ -23,6 +23,7 @@ const BaseIconTextArea = ({
   const [hasError, setHasError] = useState(false);
 
   const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
+    if (rest.disabled && type === 'fixed') return 'disable';
     if (hasError) return 'error';
     if (isTyping) return 'typing';
     if (inputValue.length > 0) return 'complete';
