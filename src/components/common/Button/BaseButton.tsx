@@ -17,6 +17,7 @@ const BaseButton = memo(
         disabled,
         className,
         children,
+        ...props
       },
       ref,
     ) => {
@@ -24,7 +25,12 @@ const BaseButton = memo(
         return `${BASE_BUTTON_STYLES} ${BUTTON_SIZE_STYLES[size]} ${BUTTON_COLOR_STYLES[color]} ${className || ''}`;
       }, [size, color, className]);
       return (
-        <button ref={ref} disabled={disabled} className={buttonStyles}>
+        <button
+          ref={ref}
+          disabled={disabled}
+          className={buttonStyles}
+          {...props}
+        >
           {leftIcon && <>{leftIcon}</>}
           {children}
           {rightIcon && <>{rightIcon}</>}
