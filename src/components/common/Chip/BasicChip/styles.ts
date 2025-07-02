@@ -22,5 +22,6 @@ export const CHIP_STYLE_MAP: StyleMap = {
 export const CHIP_STATE_STYLE = {
   default: 'border-black-60 text-black-70',
   active: 'border-primary-70 text-black-130',
-  hover: 'hover:border-primary-70 hover:text-black-130'
+  hover: 'hover:border-primary-70 hover:text-black-130',
+  error: 'border-[#F5552D] text-black-70'
 };

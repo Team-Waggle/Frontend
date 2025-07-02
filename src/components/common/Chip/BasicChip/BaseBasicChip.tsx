@@ -6,12 +6,18 @@ const BaseBasicChip = ({
   shape = 'circle',
   size = 32,
   isActive = false,
+  isError = false,
   className,
   children,
   ...rest
 }: BaseBasicChipProps) => {
   const shapeStyle = CHIP_STYLE_MAP[shape]?.[size] ?? '';
-  const stateStyle = isActive ? CHIP_STATE_STYLE.active : CHIP_STATE_STYLE.default;
+
+  const stateStyle = isError
+    ? CHIP_STATE_STYLE.error
+    : isActive
+    ? CHIP_STATE_STYLE.active
+    : CHIP_STATE_STYLE.default;
 
   return (
     <button

@@ -5,5 +5,6 @@ export interface BaseBasicChipProps extends React.ButtonHTMLAttributes<HTMLButto
   shape?: ChipShape;
   size?: ChipSize;
   isActive?: boolean;
+  isError?: boolean;
   children: React.ReactNode;
 }
