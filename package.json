@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/line-clamp": "^0.4.4",
     "autoprefixer": "^10.4.21",
     "axios": "^1.7.9",
     "postcss": "^8.5.3",
