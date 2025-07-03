@@ -1,19 +1,19 @@
 import { ProfileChipType, ScreenSize } from '../../../../types/profileChip';
 
-const COMMON_DEFAULT_BORDER_STYLE = 'border-solid border-[1px] border-black-50 rounded-lg';
+const COMMON_DEFAULT_BORDER_STYLE = 'border-solid border-[1px] border-black-50 rounded-[0.8rem]';
 const DEFAULT_PADDING = 'pl-8 pr-4 py-0 gap-[2.2rem]';
 const CONTROL_PADDING = 'py-[1.4rem] pr-[2.4rem] pl-[1.6rem] gap-[1.4rem] shrink-0';
 
 export const PROFILE_CHIP_SIZE: Record<ProfileChipType, Record<ScreenSize, string>> = {
   default: {
-    xs: 'w-[26.8rem]',
-    md: 'w-[21.6rem]',
-    xl: 'w-[24.8rem]',
+    extraSmall: 'w-[26.8rem]',
+    medium: 'w-[21.6rem]',
+    extraLarge: 'w-[24.8rem]',
   },
   control: {
-    xs: 'w-[20.8rem]',
-    md: 'w-[20.8rem]',
-    xl: 'w-[17.8rem]',
+    extraSmall: 'w-[20.8rem]',
+    medium: 'w-[20.8rem]',
+    extraLarge: 'w-[17.8rem]',
   },
 };
 
