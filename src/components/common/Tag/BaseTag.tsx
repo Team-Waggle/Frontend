@@ -7,6 +7,7 @@ import {
   TAG_PADDING_STYLES,
   TAG_SHAPE_STYLES,
   TAG_SIZE_STYLES,
+  TAG_TEXT_STYLES,
 } from './style';
 
 const BaseTag = ({
@@ -19,7 +20,7 @@ const BaseTag = ({
   children,
 }: BaseTagProps) => {
   const tagStyles = useMemo(() => {
-    return `${BASE_TAG_STYLES} ${TAG_SIZE_STYLES[size]} ${TAG_SHAPE_STYLES[shape]} ${TAG_PADDING_STYLES[size][shape]}
+    return `${BASE_TAG_STYLES} ${TAG_SIZE_STYLES[size]} ${TAG_SHAPE_STYLES[shape]} ${TAG_PADDING_STYLES[size][shape]} ${TAG_TEXT_STYLES[size][type]}
     ${TAG_COLOR_STYLES[color][type].bg} ${TAG_COLOR_STYLES[color][type].text}
     ${TAG_COLOR_STYLES[color][type].border} ${className || ''}`;
   }, [size, shape, type, color, className]);

@@ -1,11 +1,31 @@
-import { TagSize, TagPaddingStyles, TagColorStyles } from '../../../types/tag';
+import {
+  TagSize,
+  TagPaddingStyles,
+  TagColorStyles,
+  TagTextStyles,
+} from '../../../types/tag';
 
 export const BASE_TAG_STYLES = `flex items-center gap-[0.6rem]`;
 
 export const TAG_SIZE_STYLES: Record<TagSize, string> = {
-  sm: 'h-[2.4rem] text-caption-12_M500',
-  lg: 'h-[3.2rem] text-caption-13_M500',
-  xl: 'h-[3.2rem] w-[15.2rem] text-caption-13_M500',
+  sm: 'h-[2.4rem]',
+  lg: 'h-[3.2rem]',
+  xl: 'h-[3.2rem] w-[15.2rem]',
+};
+
+export const TAG_TEXT_STYLES: TagTextStyles = {
+  sm: {
+    filled: 'text-caption-12_M500',
+    outline: 'text-caption-12_M500',
+  },
+  lg: {
+    filled: 'text-caption-13_Sb600',
+    outline: 'text-caption-13_M500',
+  },
+  xl: {
+    filled: 'text-caption-13_Sb600',
+    outline: 'text-caption-13_M500',
+  },
 };
 
 export const TAG_COLOR_STYLES: TagColorStyles = {
