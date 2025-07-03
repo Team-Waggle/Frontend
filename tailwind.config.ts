@@ -141,6 +141,7 @@ const config: Config = {
           100: '#113A79',
         },
         black: {
+          DEFAULT: '#949598',
           10: '#FFFFFF',
           20: '#FDFDFD',
           30: '#F6F6F6',
@@ -197,7 +198,16 @@ const config: Config = {
           100: '#0F670C',
           110: '#0C5109',
         },
+        error: { DEFAULT: '#F5552D' },
       },
+      boxShadow: {
+        dropbox: '0px 2px 4px 0px rgba(0, 0, 0, 0.12)',
+        applicant:
+          '1px 1px 5px 0px rgba(23,23,27,0.3), -1px -1px 5px 0px rgba(23,23,27,0.3)',
+        pop: '0px 0px 1px 0px rgba(0,0,0,0.08), 0px 1px 4px 0px rgba(0,0,0,0.08), 0px 2px 8px 0px rgba(0,0,0,0.12)',
+        push: '-1px -2px 2px 0px rgba(255, 255, 255, 0.25) inset, 1px 1px 2px 0px rgba(23, 23, 27, 0.1) inset',
+      },
+      blur: { DEFAULT: '2px' },
     },
   },
   plugins: [
