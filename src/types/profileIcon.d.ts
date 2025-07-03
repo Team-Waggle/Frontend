@@ -1,4 +1,4 @@
-export type ProfileIconSize = 'sm' | 'md' | 'lg';
+export type ProfileIconSize = 'small' | 'medium' | 'large';
 export type ProfileIconType = 'default' | 'edit';
 
 export interface BaseProfileIconProps

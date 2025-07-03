@@ -81,7 +81,7 @@ const Profile = () => {
   return (
     <div className="flex w-[1200px] flex-col items-center">
       <div className="mb-[20px] mt-[42px]">
-        <ProfileIcon size="lg" type="edit" />  
+        <ProfileIcon size="large" type="edit" />  
       </div>
 
       <div className="flex w-[734px] flex-col items-start gap-[26px]">
