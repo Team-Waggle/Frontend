@@ -11,6 +11,7 @@ import SearchIcon from '../../../../assets/inputBox/ic_input_search.svg?react';
 const BaseIconTextArea = ({
   className,
   type = 'default',
+  state,
   typingMessage,
   showIcon,
   useRegex = true,
@@ -23,6 +24,7 @@ const BaseIconTextArea = ({
   const [hasError, setHasError] = useState(false);
 
   const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
+    if (state) return state;
     if (rest.disabled && type === 'fixed') return 'disable';
     if (hasError) return 'error';
     if (isTyping) return 'typing';

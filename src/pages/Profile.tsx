@@ -108,6 +108,8 @@ const Profile = () => {
           <IconTextArea
             className="pointer-events-none cursor-default bg-black-40"
             placeholder="waggle@gmail.com"
+            type="fixed"
+            state="disable"
             readOnly
           />
         </div>
