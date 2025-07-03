@@ -1,39 +1,20 @@
-import { useMemo } from 'react';
-import { BaseTagProps } from '../../../types/tag';
-import {
-  BASE_TAG_STYLES,
-  TAG_COLOR_STYLES,
-  TAG_ICON_COLOR_STYLES,
-  TAG_PADDING_STYLES,
-  TAG_SHAPE_STYLES,
-  TAG_SIZE_STYLES,
-  TAG_TEXT_STYLES,
-} from './style';
+import { BaseTagProps } from '../../../styles/types/tag';
 
-const BaseTag = ({
-  size,
-  type,
-  color,
-  shape,
-  hasLeftIcon = false,
-  className,
-  children,
-}: BaseTagProps) => {
-  const tagStyles = useMemo(() => {
-    return `${BASE_TAG_STYLES} ${TAG_SIZE_STYLES[size]} ${TAG_SHAPE_STYLES[shape]} ${TAG_PADDING_STYLES[size][shape]} ${TAG_TEXT_STYLES[size][type]}
-    ${TAG_COLOR_STYLES[color][type].bg} ${TAG_COLOR_STYLES[color][type].text}
-    ${TAG_COLOR_STYLES[color][type].border} ${className || ''}`;
-  }, [size, shape, type, color, className]);
+const BaseTag = ({ size, className, children }: BaseTagProps) => {
+  const getTagStyles = () => {
+    const baseStyles =
+      'flex items-center rounded-[0.4rem] border border-solid border-black-60 text-caption-14_M500';
 
-  const iconColor = TAG_ICON_COLOR_STYLES[color];
+    const sizeStyles = {
+      md: 'h-[2.4rem]',
+      lg: 'h-[3.2rem]',
+    }[size];
 
-  return (
-    <div className={tagStyles}>
-      {hasLeftIcon && (
-        <span className={`h-[0.6rem] w-[0.6rem] rounded-full ${iconColor}`} />
-      )}
-      {children}
-    </div>
-  );
+    const paddingStyles = size === 'md' ? 'px-[0.8rem]' : 'px-[1rem]';
+
+    return `${baseStyles} ${sizeStyles} ${paddingStyles} ${className || ''}`;
+  };
+
+  return <div className={getTagStyles()}>{children}</div>;
 };
 export default BaseTag;
