@@ -4,6 +4,7 @@ export type TagColor = 'basic' | 'blue' | 'green' | 'orange' | 'red';
 export type TagShape = 'square' | 'circle';
 
 export type TagPaddingStyles = Record<TagSize, Record<TagShape, string>>;
+export type TagTextStyles = Record<TagSize, Record<TagType, string>>;
 
 interface TagColorStyle {
   bg: string;
