@@ -7,9 +7,10 @@ interface BasicTabChipProps {
   state?: BasicTabChipState;
   children?: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
-const BasicTabChip = ({ state, children, className }: BasicTabChipProps) => {
+const BasicTabChip = ({ state, children, className, onClick }: BasicTabChipProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -21,7 +22,7 @@ const BasicTabChip = ({ state, children, className }: BasicTabChipProps) => {
 
   return (
     <div
-      className={`${baseStyle} ${stateStyle} ${className ?? ''}`}
+      className={`${baseStyle} ${stateStyle} cursor-pointer ${className ?? ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
@@ -29,6 +30,7 @@ const BasicTabChip = ({ state, children, className }: BasicTabChipProps) => {
       }}
       onMouseDown={() => setIsActive(true)}
       onMouseUp={() => setIsActive(false)}
+      onClick={onClick}
     >
       {children}
     </div>
