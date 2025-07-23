@@ -6,6 +6,11 @@ const config: Config = {
   content: ['./src/**/*.{html,js,ts,tsx}'],
   theme: {
     extend: {
+      boxShadow: {
+        dropbox: '0px 2px 4px 0px #0000001F',
+        applicant: '1px 1px 5px 0px #17171B4D, -1px -1px 5px 0px #17171B4D',
+        pop: '0px 0px 1px 0px #00000014, 0px 1px 4px 0px #00000014, 0px 2px 8px 0px #0000001F',
+      },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
       },
