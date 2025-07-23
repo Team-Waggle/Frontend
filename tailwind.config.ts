@@ -1,5 +1,6 @@
 // tailwind.config.ts
 import type { Config } from 'tailwindcss';
+import tailwindScrollbar from 'tailwind-scrollbar';
 
 const config: Config = {
   content: ['./src/**/*.{html,js,ts,tsx}'],
@@ -210,9 +211,7 @@ const config: Config = {
       blur: { DEFAULT: '2px' },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar-hide'),
-  ],
+  plugins: [tailwindScrollbar({ nocompatible: true })],
 };
 
 export default config;
