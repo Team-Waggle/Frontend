@@ -6,22 +6,35 @@ interface IdentityChipProps {
   type?: 'default' | 'mbti';
   size?: 'xs' | 'md' | 'xl';
   isError?: boolean;
+  isActive?: boolean;
   children?: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
 }
 
 const IdentityChip = ({
   type = 'default',
   size = 'md',
   isError = false,
+  isActive = false,
   children,
+  className,
+  onClick,
 }: IdentityChipProps) => {
-    const sizeStyle =
+  const sizeStyle =
     type === 'mbti'
       ? MBTI_IDENTITY_CHIP_SIZE_STYLE[size]
       : DEFAULT_IDENTITY_CHIP_SIZE_STYLE[size];
 
+
   return (
-    <BaseBasicChip shape="square" isError={isError} className={sizeStyle}>
+    <BaseBasicChip
+      shape="square"
+      isError={isError}
+      isActive={isActive}
+      onClick={onClick}
+      className={`${sizeStyle} ${className ?? ''}`}
+    >
       {children}
     </BaseBasicChip>
   );
