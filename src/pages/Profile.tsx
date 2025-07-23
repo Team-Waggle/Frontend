@@ -12,7 +12,7 @@ import IconTextArea from '../components/common/InputBox/IconTextArea/BaseIconTex
 import SkillInput from '../components/common/InputBox/KeywordTextArea/SkillInput';
 import BasicChipCircle from '../components/common/InputBox/BasicChipCircle/BaseBasicChipCircle';
 import BasicChipSquare from '../components/common/InputBox/BasicChipSquare/BaseBasicChipSquare';
-import TeamPlayLabelBtn from '../components/common/InputBox/BasicTabIn/TeamPlayLabelBtn';
+import DropdownBasicTab from '../components/common/Profile/Tab/DropdownBasicTab';
 import BasicTextArea from '../components/common/InputBox/BasicTextArea/BaseBasicTextArea';
 import DropdownC from '../components/DropdownC';
 
@@ -207,13 +207,13 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* 팀플 성향 + 유지보수 쉽게 리팩토링 해야함 */}
+        {/* 팀플 성향 */}
         <div className="flex-start flex w-full flex-col gap-[20px] self-stretch">
           <FormLabel
             title="팀플 성향"
             caption="각 최대 5개 선택 가능"
           />
-          <TeamPlayLabelBtn />
+          <DropdownBasicTab />
         </div>
 
         {/* 자기 소개 */}
