@@ -56,7 +56,7 @@ const BaseBasicTextArea = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      <div className="self-stretch text-[#949598] text-[14px] font-[500] leading-[168%] text-right">
+      <div className="self-stretch text-black-70 text-[14px] font-[500] leading-[168%] text-right">
         {text.length} / {maxLength}
       </div>
     </div>
