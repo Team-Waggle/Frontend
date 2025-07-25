@@ -35,12 +35,12 @@ const Card = () => {
           5/10명
         </div>
         <div className="flex gap-[0.4rem]">
+          {/* <BaseTag size="lg">프론트엔드</BaseTag>
           <BaseTag size="lg">프론트엔드</BaseTag>
           <BaseTag size="lg">프론트엔드</BaseTag>
           <BaseTag size="lg">프론트엔드</BaseTag>
           <BaseTag size="lg">프론트엔드</BaseTag>
-          <BaseTag size="lg">프론트엔드</BaseTag>
-          <BaseTag size="lg">프론트엔드</BaseTag>
+          <BaseTag size="lg">프론트엔드</BaseTag> */}
         </div>
       </div>
       {/* 스킬: 5개 초과 시 기타 아이콘 표시 */}

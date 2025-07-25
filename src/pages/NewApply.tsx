@@ -5,9 +5,9 @@ import NewApplyLogoIcon from "../assets/images/icon/newApplyLogoIcon.svg";
 import MinusBtnIcon from "../assets/images/icon/minusBtnIcon.svg";
 import PlusBtnIcon from "../assets/images/icon/plusBtnIcon.svg";
 import RequireIcon from "../assets/images/icon/requireIcon.svg";
-import Dropdown from "../components/Dropdown";
+import Dropdown from "../components/DropdownC";
 import CalendarDropdown from "../components/CalendarDropdown";
-import DropdownWithLabel from "../components/DropdownWithLabel";
+// import DropdownWithLabel from "../components/DropdownWithLabel";
 
 const domains = [
   "금융",
@@ -88,7 +88,7 @@ const NewApply = () => {
             marginTop: "26px",
           }}
         >
-          <DropdownWithLabel
+          {/* <DropdownWithLabel
             items={domains}
             label="산업 분야"
             title="산업 분야"
@@ -97,7 +97,7 @@ const NewApply = () => {
             items={methods}
             label="진행 방식"
             title="진행 방식"
-          />
+          /> */}
         </div>
         <div
           style={{
@@ -114,11 +114,11 @@ const NewApply = () => {
             </div>
             <CalendarDropdown title={"마감 날짜"} />
           </div>
-          <DropdownWithLabel
+          {/* <DropdownWithLabel
             items={periods}
             label="진행 기간"
             title="진행 기간"
-          />
+          /> */}
         </div>
         <div style={{ marginTop: "34px" }}>
           {/* 모집 직무 */}
