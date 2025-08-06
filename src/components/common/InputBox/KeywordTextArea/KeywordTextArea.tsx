@@ -7,8 +7,6 @@ import KeywordChip from "../../Chip/KeywordChip/KeywordChip";
 import XIcon from "../../../../assets/profile/icon/icon-x16.svg?react";
 import Skill from "../../../../assets/icons/skill/small/ic_skill_TypeScript_small.svg?react"
 
-// 세 줄 넘어갔을 때 스크롤
-
 const SkillList = [
     "3D_Max", "Adobe_After_Effects", "Adobe_Illustrator", "Adobe_inDesign", "Adobe_Photoshop",
     "Adobe_Premiere", "Adobe_XD", "AWS", "Blender", "C", "C#", "C++", "Cinema_4D", "Django",
@@ -46,7 +44,7 @@ const KeywordTextArea = () => {
             />
 
             {inputValue && filterList.length > 0 && (
-                <div className="flex h-[64px] overflow-y-auto px-[1rem] py-[1.8rem] items-center self-stretch border border-solid border-black-50 rounded-[0.8rem]">
+                <div className="flex min-h-[64px] max-h-fit px-[1rem] py-[1.8rem] items-center self-stretch border border-solid border-black-50 rounded-[0.8rem] flex-wrap">
                     <div className="flex items-center content-center gap-[1rem] flex-wrap">
                         {filterList.map((keyword) => (
                             <BaseBasicChip shape="square" size={32} key={keyword}
