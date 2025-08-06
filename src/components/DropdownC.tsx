@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import TriangleDownIcon from '../assets/main/icon/icon-arrow_line-down.svg?react';
+import TriangleDownIcon from '../assets/icons/ic_arrow_down_small.svg?react';
 
 interface DropdownProps {
   items: string[];
