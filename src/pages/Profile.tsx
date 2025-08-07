@@ -14,7 +14,7 @@ import BasicChipCircle from '../components/common/InputBox/BasicChipCircle/BaseB
 import BasicChipSquare from '../components/common/InputBox/BasicChipSquare/BaseBasicChipSquare';
 import DropdownBasicTab from '../components/common/Profile/Tab/DropdownBasicTab';
 import BasicTextArea from '../components/common/InputBox/BasicTextArea/BaseBasicTextArea';
-import DropdownC from '../components/DropdownC';
+import Select from '../components/common/Select/BaseSelect';
 
 import KeywordChip from '../components/common/Chip/KeywordChip/KeywordChip';
 
@@ -125,12 +125,12 @@ const Profile = () => {
           />
           <div className="flex items-center gap-[6px]">
             <div className="flex w-[642px] items-center gap-[18px]">
-              <DropdownC
+              <Select
                 items={formOptions.jobs}
                 title="직무 선택"
                 width="w-[312px]"
               />
-              <DropdownC
+              <Select
                 items={formOptions.workExperience}
                 title="경력 선택"
                 width="w-[312px]"
@@ -194,7 +194,7 @@ const Profile = () => {
               ))}
             </div>
             <div className="w-[358px]">
-              <DropdownC items={formOptions.preferredTime} title="선호 시간" />
+              <Select items={formOptions.preferredTime} title="선호 시간" />
             </div>
           </div>
         </div>
@@ -205,8 +205,8 @@ const Profile = () => {
             title="선호 진행방식 및 지역"
           />
           <div className="flex items-center gap-[18px] self-stretch">
-            <DropdownC items={formOptions.onOff} title="진행 방식" />
-            <DropdownC items={formOptions.region} title="지역 선택" />
+            <Select items={formOptions.onOff} title="진행 방식" />
+            <Select items={formOptions.region} title="지역 선택" />
           </div>
         </div>
 
@@ -244,7 +244,7 @@ const Profile = () => {
                 />
               </div>
               <div className="flex w-[333px]">
-                <DropdownC
+                <Select
                   items={formOptions.site}
                   title="사이트"
                   width="w-[333px]"
