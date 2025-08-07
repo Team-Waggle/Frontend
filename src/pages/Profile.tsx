@@ -9,14 +9,12 @@ import MinusIcon from '../assets/profile/icon/icon-minus.svg?react';
 
 import FormLabel from '../components/Profile/FormLabel';
 import IconTextArea from '../components/common/InputBox/IconTextArea/BaseIconTextArea';
-import SkillInput from '../components/common/InputBox/KeywordTextArea/KeywordTextArea';
+import SkillInput from '../components/common/InputBox/KeywordTextArea/SkillInput';
 import BasicChipCircle from '../components/common/InputBox/BasicChipCircle/BaseBasicChipCircle';
 import BasicChipSquare from '../components/common/InputBox/BasicChipSquare/BaseBasicChipSquare';
 import DropdownBasicTab from '../components/common/Profile/Tab/DropdownBasicTab';
 import BasicTextArea from '../components/common/InputBox/BasicTextArea/BaseBasicTextArea';
 import DropdownC from '../components/DropdownC';
-
-import KeywordChip from '../components/common/Chip/KeywordChip/KeywordChip';
 
 import TestIMG from '../assets/profile/icon/test-img.png';
 
@@ -84,7 +82,6 @@ const Profile = () => {
     <div className="flex w-[1200px] flex-col items-center">
       <div className="mb-[20px] mt-[42px]">
         <ProfileIcon size="large" type="edit" />  
-      
       </div>
 
       <div className="flex w-[734px] flex-col items-start gap-[26px]">
@@ -174,7 +171,7 @@ const Profile = () => {
             title="사용스킬"
             isRequired
           />
-          <SkillInput />
+          <SkillInput children={'Typescript'} />
         </div>
 
         {/* 선호 요일 및 시간 */}

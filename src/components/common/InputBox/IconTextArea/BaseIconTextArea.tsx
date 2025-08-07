@@ -17,29 +17,26 @@ const BaseIconTextArea = ({
   useRegex = true,
   useLengthValidation = true,
   useTyping,
-  value = '',
-  onChange,
   ...rest
 }: BaseIconTextAreaProps) => {
+  const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
-  if (state) return state;
-  if (rest.disabled && type === 'fixed') return 'disable';
-  if (hasError) return 'error';
-  if (isTyping) return 'typing';
-  if (typeof value === 'string' && value.length > 0) return 'complete';
-  return 'default';
-};
-
+  const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
+    if (state) return state;
+    if (rest.disabled && type === 'fixed') return 'disable';
+    if (hasError) return 'error';
+    if (isTyping) return 'typing';
+    if (inputValue.length > 0) return 'complete';
+    return 'default';
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
+    const value = e.target.value;
+    setInputValue(value);
 
-    onChange?.(e); // 부모에게 전달
-
-    const typing = val.length > 0;
+    const typing = value.length > 0;
     setIsTyping(typing);
     useTyping?.(typing);
 
@@ -47,10 +44,10 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
 
     if (useRegex) {
       const regex = /^[a-zA-Z0-9가-힣ㄱ-ㅎ\s]*$/;
-      if (!regex.test(val)) error = true;
+      if (!regex.test(value)) error = true;
     }
 
-    if (useLengthValidation && (val.length < 2 || val.length > 10)) {
+    if (useLengthValidation && (value.length < 2 || value.length > 10)) {
       error = true;
     }
 
@@ -61,11 +58,11 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
   const styleByState = ICON_TEXT_AREA_STYLES[type][currentState];
 
   return (
-    <div className={`flex flex-col items-end gap-[6px] ${className ?? ''}`}>
+    <div className="flex flex-col items-end gap-[6px]">
       <div className="relative w-full">
         <input
           {...rest}
-          value={value}
+          value={inputValue}
           onChange={handleChange}
           className={`h-[4.6rem] w-full items-center self-stretch rounded-[0.8rem] border py-0 pl-[1.8rem] pr-[3.2rem] text-body-16_M500 ${styleByState}`}
           onFocus={() => setIsTyping(true)}
