@@ -79,8 +79,8 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
       </div>
 
       {isTyping && !hasError && typingMessage && (
-        <div className="flex items-center self-stretch pl-[0.6rem]">
-          <p className="text-right text-[12px] font-[500] leading-[150%] text-black-70">
+        <div className="absolute items-center self-stretch mt-[5rem] pl-[0.6rem]">
+          <p className="text-right caption-12_M500 text-black-70">
             {typingMessage}
           </p>
         </div>
