@@ -26,9 +26,7 @@ const computedState: BasicTabChipState =
 
   const baseStyle = BASIC_TAB_CHIP_BASE_STYLE;
   const stateStyle = BASIC_TAB_CHIP_STATE_STYLE[computedState];
-
-  console.log('BasicTabChip - received state:', state, 'computedState:', computedState);
-
+  
   return (
     <div
       className={`${baseStyle} cursor-pointer ${stateStyle} ${className ?? ''}`}
