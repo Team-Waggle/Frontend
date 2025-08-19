@@ -21,7 +21,6 @@ const DropdownTab = ({
   setSelectedOption,
   className,
 }: DropdownTabProps) => {
-
   const toggleCategory = (category: string) => {
     if (openedCategories.includes(category)) {
       setOpenedCategories(openedCategories.filter((c) => c !== category));
@@ -39,7 +38,9 @@ const DropdownTab = ({
   };
 
   return (
-    <div className={`flex w-[32rem] flex-col justify-center items-start ${className}`}>
+    <div
+      className={`flex w-[32rem] flex-col items-start justify-center ${className}`}
+    >
       {teamPlay.map((category, idx) => {
         const categoryIndex = idx + 1;
         const optionIds = teamPlaySelectedOptionMap[String(categoryIndex)] || [];
@@ -48,16 +49,20 @@ const DropdownTab = ({
         const isActive = openedCategories.includes(category);
 
         return (
-          <div key={category} className="flex w-[32rem] pb-[2rem] flex-col items-start gap-[1rem]">
+          <div
+            key={category}
+            className="flex w-[32rem] flex-col items-start gap-[1rem] pb-[2rem]"
+          >
             <BasicTabChip
-              className="flex w-full h-[4.6rem] justify-center items-center gap-[1rem] self-stretch"
+              state={isActive ? 'active' : 'default'}
+              className="flex h-[4.6rem] w-full items-center justify-center gap-[1rem] self-stretch"
               onClick={() => toggleCategory(category)}
             >
               {category}
             </BasicTabChip>
 
             {isActive && (
-              <div className="flex h-[44.8rem] justify-between items-start content-start gap-y-[1.2rem] self-stretch flex-wrap">
+              <div className="flex h-[44.8rem] flex-wrap content-start items-start justify-between gap-y-[1.2rem] self-stretch">
                 {options.map(({ id, label }) => {
                   const isSelected = selectedOption.includes(label);
                   return (
