@@ -5,7 +5,7 @@ import Main from './pages/Main';
 import Footer from './components/layout/Footer';
 import Layout from './components/layout/Layout';
 import NewApply from './pages/NewApply';
-import Profile from './pages/NewProfile';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 
 function App() {
