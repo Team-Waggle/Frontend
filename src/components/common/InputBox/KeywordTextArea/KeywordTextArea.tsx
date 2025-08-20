@@ -36,7 +36,7 @@ const SkillList = [
   'MongoDB',
   'MS_office',
   'MySQL',
-  'Nestjs',
+  'NestJS',
   'Nextjs',
   'Nodejs',
   'php',
@@ -81,6 +81,7 @@ const KeywordTextArea = () => {
         useLengthValidation={false}
         onChange={(e) => setInputValue(e.target.value)}
         value={inputValue}
+        showIcon
       />
 
       {inputValue && filterList.length > 0 && (

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import IcXGrey from '../../../../assets/chip/ic_chip_x_grey.svg?react';
 import IcXBlack from '../../../../assets/chip/ic_chip_x_black.svg?react';
 
-import { getDisplayName, getIconKey } from '../../../../utils/skillNameMap';
+import { getDisplayName, getIconKey } from '../../../../utils/skillNamemap';
 import { getSkillIcon } from '../../../../utils/getSkillIcon';
 
 export type ChipShape = 'circle' | 'square';
@@ -10,7 +10,6 @@ export type ChipShape = 'circle' | 'square';
 export interface BaseKeywordChipProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   shape?: ChipShape;
-  keyword: string;
   children: React.ReactNode;
   onRemove?: () => void;
 }
