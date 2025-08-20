@@ -10,7 +10,6 @@ export type ChipShape = 'circle' | 'square';
 export interface BaseKeywordChipProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   shape?: ChipShape;
-  keyword: string;
   children: React.ReactNode;
   onRemove?: () => void;
 }
