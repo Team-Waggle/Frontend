@@ -59,6 +59,7 @@ const BasicTabIn = ({
             <BasicTabChip
               key={label}
               onClick={() => categoryClick(label)}
+              state={isActive ? 'active' : 'default'}
             >
               {label}
             </BasicTabChip>
