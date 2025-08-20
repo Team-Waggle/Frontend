@@ -1,13 +1,19 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface AuthState {
+interface AccessTokenState {
   accessToken: string | null;
   setAccessToken: (token: string) => void;
   clearAccessToken: () => void;
 }
 
-export const useAuthStore = create<AuthState>()(
+interface RefreshTokenState {
+  refreshToken: string | null;
+  setRefreshToken: (token: string) => void;
+  clearRefreshToken: () => void;
+}
+
+export const useAccessTokenStore = create<AccessTokenState>()(
   persist(
     (set) => ({
       accessToken: null,
@@ -15,7 +21,21 @@ export const useAuthStore = create<AuthState>()(
       clearAccessToken: () => set({ accessToken: null }),
     }),
     {
-      name: 'auth-storage', // localStorage key
+      name: 'access-token-storage', // sessionStorage key
+      storage: createJSONStorage(() => sessionStorage),
+    },
+  ),
+);
+
+export const useRefreshTokenStore = create<RefreshTokenState>()(
+  persist(
+    (set) => ({
+      refreshToken: null,
+      setRefreshToken: (token) => set({ refreshToken: token }),
+      clearRefreshToken: () => set({ refreshToken: null }),
+    }),
+    {
+      name: 'refresh-token-storage', // localStorage key
     },
   ),
 );
