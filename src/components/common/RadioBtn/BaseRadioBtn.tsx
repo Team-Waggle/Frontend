@@ -1,9 +1,19 @@
 type BaseRadioBtnProps = {
+  name: string;
   label: string;
-  children: string;
+  value: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  children: React.ReactNode;
 };
 
-const BaseRadioBtn = ({ label, children }: BaseRadioBtnProps) => {
+const BaseRadioBtn = ({
+  name,
+  label,
+  value,
+  checked,
+  onChange,
+}: BaseRadioBtnProps) => {
   return (
     <label
       htmlFor={label}
@@ -11,12 +21,15 @@ const BaseRadioBtn = ({ label, children }: BaseRadioBtnProps) => {
     >
       <input
         type="radio"
-        name="contact"
+        name={name}
         id={label}
+        value={value}
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
         className="peer h-[2.4rem] w-[2.4rem] cursor-pointer appearance-none bg-[url('/icons/radioUnchecked.svg')] bg-center bg-no-repeat checked:bg-[url('/icons/radioChecked.svg')]"
       />
       <div className="flex h-full w-[15.2rem] cursor-pointer items-center whitespace-nowrap text-caption-16_M500 text-black-70 group-hover:text-black-130 peer-checked:text-black-130">
-        {children}
+        {label}
       </div>
     </label>
   );
