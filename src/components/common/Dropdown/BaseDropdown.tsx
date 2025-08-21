@@ -6,7 +6,13 @@ import BaseRadioBtn from '../RadioBtn/BaseRadioBtn';
 import ArrowLineDown from '../../../assets/icons/ic_arrow_down_large.svg?react';
 import IconWrapper from '../IconWrapper/IconWrapper';
 
-const CheckboxDropdown = ({ leftIcon, title, contentList }: DropdownProps) => {
+const BaseDropdown = ({
+  leftIcon,
+  title,
+  contentList,
+  selected,
+  onChange,
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [height, setHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -78,13 +84,29 @@ const CheckboxDropdown = ({ leftIcon, title, contentList }: DropdownProps) => {
               {contentList.map((data) => {
                 if (title === '진행 방식') {
                   return (
-                    <BaseRadioBtn key={data.id} label={data.label}>
+                    <BaseRadioBtn
+                      key={data.id}
+                      name="progressType"
+                      label={data.label}
+                      value={data.id}
+                      checked={selected.includes(data.id)}
+                      onChange={(checked) =>
+                        onChange(data.id, checked, 'radio')
+                      }
+                    >
                       {data.label}
                     </BaseRadioBtn>
                   );
                 }
                 return (
-                  <BaseCheckbox key={data.id} label={data.label}>
+                  <BaseCheckbox
+                    key={data.id}
+                    label={data.label}
+                    checked={selected.includes(data.id)}
+                    onChange={(checked) =>
+                      onChange(data.id, checked, 'checkbox')
+                    }
+                  >
                     {data.label}
                   </BaseCheckbox>
                 );
@@ -97,4 +119,4 @@ const CheckboxDropdown = ({ leftIcon, title, contentList }: DropdownProps) => {
   );
 };
 
-export default CheckboxDropdown;
+export default BaseDropdown;

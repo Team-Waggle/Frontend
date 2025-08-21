@@ -1,23 +1,19 @@
 import axiosInstance from './axiosInstance';
 import { PROJECTS_DETAIL_URL, PROJECTS_URL } from '../constants/endpoint';
-import { CardData } from '../types/card';
-import { PageResponse } from '../types/pageResponse';
-import { ProjectsFilters } from '../types/projectsFilters';
 
-export const getProjects = async (
-  page: number = 0,
-  size: number = 10,
-  sort: string = 'createdAt,desc',
-  filters: ProjectsFilters,
-): Promise<PageResponse<CardData>> => {
-  const { data } = await axiosInstance.get(PROJECTS_URL, {
-    params: {
-      page,
-      size,
-      sort,
-      filters,
-    },
-  });
+export interface GetProjectsParams {
+  page: number;
+  size: number;
+  sort: string;
+  positions?: string; // 쉼표로 join된 id 문자열
+  skills?: string;
+  industries?: string;
+  workPeriods?: string;
+  workWays?: string;
+}
+
+export const getProjects = async (params: GetProjectsParams) => {
+  const { data } = await axiosInstance.get(PROJECTS_URL, { params });
   return data.payload;
 };
 
