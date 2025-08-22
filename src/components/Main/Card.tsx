@@ -1,14 +1,10 @@
 import dayjs from 'dayjs';
 import BaseTag from '../common/Tag/BaseTag';
-import JavaIcon from '../../assets/icons/skill/large/ic_skill_Java_large.svg?react';
-import FigmaIcon from '../../assets/icons/skill/large/ic_skill_Figma_large.svg?react';
-import DjangoIcon from '../../assets/icons/skill/large/ic_skill_Django_large.svg?react';
-import JavascriptIcon from '../../assets/icons/skill/large/ic_skill_Javascript_large.svg?react';
-import MongoDBIcon from '../../assets/icons/skill/large/ic_skill_MongoDB_large.svg?react';
 import MeatballIcon from '../../assets/icons/skill/large/ic_skill_meatball_large.svg?react';
 import BookmarkWrapper from '../common/IconWrapper/BookmarkWrapper';
 import { CardData } from '../../types/card';
 import { useEffect, useState } from 'react';
+import SkillIcons from '../SkillIcons';
 
 interface CardProps {
   data: CardData;
@@ -92,12 +88,11 @@ const Card = ({ data }: CardProps) => {
       <div
         className={`flex h-[2.4rem] w-[22rem] gap-[0.8rem] ${isEnd ? 'opacity-30' : ''}`}
       >
-        <JavaIcon />
-        <FigmaIcon />
-        <DjangoIcon />
-        <JavascriptIcon />
-        <MongoDBIcon />
-        <MeatballIcon />
+        <SkillIcons
+          iconKeys={data.skills.map((skill) => skill.display_name)}
+          size="large"
+        />
+        {data.skills.length > 5 && <MeatballIcon />}
       </div>
     </div>
   );
