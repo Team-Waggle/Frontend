@@ -91,7 +91,7 @@ const BaseDropdown = ({
                       value={data.id}
                       checked={selected.includes(data.id)}
                       onChange={(checked) =>
-                        onChange(data.id, checked, 'radio')
+                        onChange(data.id, data.label, checked, 'radio')
                       }
                     >
                       {data.label}
@@ -104,7 +104,7 @@ const BaseDropdown = ({
                     label={data.label}
                     checked={selected.includes(data.id)}
                     onChange={(checked) =>
-                      onChange(data.id, checked, 'checkbox')
+                      onChange(data.id, data.label, checked, 'checkbox')
                     }
                   >
                     {data.label}
