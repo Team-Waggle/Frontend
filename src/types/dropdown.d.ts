@@ -3,5 +3,5 @@ export interface DropdownProps {
   title: string;
   contentList: { id: string; label: string }[];
   selected: string[];
-  onChange: (label: string, checked: boolean, type: string) => void;
+  onChange: (id: string, label: string, checked: boolean, type: string) => void;
 }
