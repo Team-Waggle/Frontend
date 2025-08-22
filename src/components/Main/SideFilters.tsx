@@ -7,6 +7,13 @@ import Period from '../../assets/icons/filter/ic_filter_period.svg?react';
 import System from '../../assets/icons/filter/ic_filter_system.svg?react';
 import styled from 'styled-components';
 import BaseDropdown from '../common/Dropdown/BaseDropdown';
+import {
+  positions,
+  skills,
+  industries,
+  workPeriods,
+  workWays,
+} from '../../constants/formOptions';
 
 const filterCategories = [
   {
@@ -36,104 +43,22 @@ const filterCategories = [
   },
 ];
 
-const positions = [
-  { id: 'FRONTEND', label: '프론트엔드' },
-  { id: 'BACKEND', label: '백엔드' },
-  { id: 'DESIGNER', label: '디자이너' },
-  { id: 'IOS', label: 'iOS' },
-  { id: 'ANDROID', label: '안드로이드' },
-  { id: 'DEVOPS', label: '데브옵스' },
-  { id: 'PLANNER', label: '기획자' },
-  { id: 'MARKETER', label: '마케터' },
-];
-
-const skills = [
-  { id: 'JAVA', label: 'Java' },
-  { id: 'JAVASCRIPT', label: 'JavaScript' },
-  { id: 'TYPESCRIPT', label: 'Typescript' },
-  { id: 'NODE_JS', label: 'Node.js' },
-  { id: 'NEXT_JS', label: 'Next.js' },
-  { id: 'NEST_JS', label: 'NestJS' },
-  { id: 'SVELTE', label: 'Svelte' },
-  { id: 'VUE', label: 'Vue' },
-  { id: 'REACT', label: 'React' },
-  { id: 'SPRING', label: 'Spring' },
-  { id: 'GO', label: 'Go' },
-  { id: 'KOTLIN', label: 'Kotlin' },
-  { id: 'EXPRESS', label: 'Express' },
-  { id: 'MYSQL', label: 'MySQL' },
-  { id: 'MONGODB', label: 'MongoDB' },
-  { id: 'PYTHON', label: 'Python' },
-  { id: 'DJANGO', label: 'Django' },
-  { id: 'PHP', label: 'php' },
-  { id: 'GRAPHQL', label: 'GraphQL' },
-  { id: 'FIREBASE', label: 'Firebase' },
-  { id: 'FLUTTER', label: 'Flutter' },
-  { id: 'SWIFT', label: 'Swift' },
-  { id: 'REACT_NATIVE', label: 'ReactNative' },
-  { id: 'UNITY', label: 'Unity' },
-  { id: 'AWS', label: 'AWS' },
-  { id: 'KUBERNETES', label: 'Kubernetes' },
-  { id: 'DOCKER', label: 'Docker' },
-  { id: 'GIT', label: 'Git' },
-  { id: 'FIGMA', label: 'Figma' },
-  { id: 'SD', label: 'XD' },
-  { id: 'ILLUSTRATOR', label: 'illustrator' },
-  { id: 'PHOTOSHOP', label: 'Photoshop' },
-  { id: 'INDESIGN', label: 'Indesign' },
-  { id: 'PREMIERE_PRO', label: 'Premiere pro' },
-  { id: 'AFTER_EFFECTS', label: 'After Effects' },
-  { id: 'MAX_3D', label: '3D max' },
-  { id: 'BLENDER', label: 'Blender' },
-  { id: 'CINEMA_4D', label: 'Cinema 4D' },
-  { id: 'ZEPLIN', label: 'Zeplin' },
-  { id: 'JEST', label: 'Jest' },
-  { id: 'MS_OFFICE', label: 'MS-Office' },
-  { id: 'C', label: 'C' },
-  { id: 'C++', label: 'C++' },
-  { id: 'CSharp', label: 'C#' },
-];
-
-const industries = [
-  { id: 'FINANCE', label: '금융' },
-  { id: 'REAL_ESTATE', label: '부동산' },
-  { id: 'INTERIOR', label: '인테리어' },
-  { id: 'MEDICAL_HEALTHCARE', label: '의료/헬스케어' },
-  { id: 'ECOMMERCE', label: '이커머스' },
-  { id: 'ENTERTAINMENT', label: '엔터테인먼트' },
-  { id: 'TRAVEL', label: '여행' },
-  { id: 'SOCIAL_NETWORK', label: '소셜네트워크' },
-  { id: 'CULTURE_ART', label: '문화/예술' },
-  { id: 'BEAUTY_FASHION', label: '뷰티/패션' },
-  { id: 'RELIGION', label: '종교' },
-  { id: 'SALES_DISTRIBUTION', label: '판매/유통' },
-  { id: 'EDUCATION', label: '교육' },
-  { id: 'CONSTRUCTION', label: '건설' },
-  { id: 'HEALTH', label: '건강' },
-  { id: 'PARENTING', label: '육아/출산' },
-  { id: 'MEDIA_ADVERTISING', label: '미디어/광고' },
-];
-
-const workPeriods = [
-  { id: 'SHORT_TERM', label: '단기(1~3개월)' },
-  { id: 'MEDIUM_TERM', label: '중기(3~6개월)' },
-  { id: 'LONG_TERM', label: '장기(6개월 이상)' },
-  { id: 'UNDECIDED', label: '미정' },
-];
-
-const systems = [
-  { id: 'ONLINE_OFFLINE', label: '모두가능' },
-  { id: 'ONLINE', label: '온라인만' },
-  { id: 'OFFLINE', label: '오프라인만' },
-];
-
 interface SideFiltersProps {
   filters: Record<string, string[]>;
-  setFilters: (newFilters: Record<string, string[]>) => void;
+  tags: string[];
+  setFilters: (newFilters: Record<string, string[]>, newTags: string[]) => void;
 }
 
-const SideFilters = ({ filters, setFilters }: SideFiltersProps) => {
+const SideFilters = ({ filters, tags, setFilters }: SideFiltersProps) => {
   const isFiltersEmpty = Object.keys(filters).length === 0;
+
+  const optionsMap: Record<string, { id: string; label: string }[]> = {
+    positions,
+    skills,
+    industries,
+    workPeriods,
+    workWays,
+  };
 
   return (
     <SideWrapper>
@@ -145,7 +70,7 @@ const SideFilters = ({ filters, setFilters }: SideFiltersProps) => {
           color="special"
           leftIcon={<RefreshIcon />}
           disabled={isFiltersEmpty}
-          onClick={() => setFilters({})}
+          onClick={() => setFilters({}, [])}
         >
           초기화
         </BaseButton>
@@ -156,28 +81,32 @@ const SideFilters = ({ filters, setFilters }: SideFiltersProps) => {
           key={id}
           leftIcon={category.icon}
           title={category.title}
-          contentList={
-            category.id === 'positions'
-              ? positions
-              : category.id === 'skills'
-                ? skills
-                : category.id === 'industries'
-                  ? industries
-                  : category.id === 'workPeriods'
-                    ? workPeriods
-                    : systems
-          }
+          contentList={optionsMap[category.id]}
           selected={filters[category.id] ?? []}
-          onChange={(label, checked, type) => {
+          onChange={(id, label, checked, type) => {
             const prevSelected = filters[category.id] ?? [];
             let newSelected: string[];
+            let newTags: string[];
 
             if (type === 'radio') {
-              newSelected = checked ? [label] : [];
+              newSelected = checked ? [id] : [];
+              newTags = checked ? [label] : [];
             } else {
               newSelected = checked
-                ? [...prevSelected, label]
-                : prevSelected.filter((item) => item !== label);
+                ? [...prevSelected, id]
+                : prevSelected.filter((item) => item !== id);
+
+              // 기존 태그에서 현재 카테고리 id와 겹치는 label 제거 후 추가
+              const prevTagsWithoutCategory = tags.filter(
+                (tag) =>
+                  !Object.values(optionsMap)
+                    .flat()
+                    .some((o) => o.id === id && o.label === tag),
+              );
+
+              newTags = checked
+                ? [...prevTagsWithoutCategory, label]
+                : prevTagsWithoutCategory;
             }
 
             const newFilters =
@@ -189,7 +118,7 @@ const SideFilters = ({ filters, setFilters }: SideFiltersProps) => {
                   })()
                 : { ...filters, [category.id]: newSelected };
 
-            setFilters(newFilters);
+            setFilters(newFilters, newTags);
           }}
         />
       ))}

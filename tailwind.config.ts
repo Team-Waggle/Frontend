@@ -204,6 +204,12 @@ const config: Config = {
         push: '-1px -2px 2px 0px rgba(255, 255, 255, 0.25) inset, 1px 1px 2px 0px rgba(23, 23, 27, 0.1) inset',
       },
       blur: { DEFAULT: '2px' },
+      backgroundImage: {
+        'gradient-l':
+          'linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20%, #FFFFFF 50%)',
+        'gradient-r':
+          'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20.49%, #FFFFFF 51.24%)',
+      },
     },
   },
   plugins: [tailwindScrollbar({ nocompatible: true })],

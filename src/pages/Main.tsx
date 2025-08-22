@@ -7,6 +7,13 @@ import ArrowDownSmallIcon from '../assets/icons/ic_arrow_down_small.svg?react';
 import TopButton from '../components/TopButton';
 import Pagination from '../components/common/Pagination';
 import TagScroller from '../components/TagScroller';
+import {
+  positions,
+  skills,
+  industries,
+  workPeriods,
+  workWays,
+} from '../constants/formOptions';
 
 type SortData = {
   id: number;
@@ -22,27 +29,62 @@ const sorts: SortData[] = [
 const Main = () => {
   const [page, setPage] = useState(0);
   const [filters, setFilters] = useState<Record<string, string[]>>({});
+  const [tags, setTags] = useState<string[]>([]);
   const { data, isLoading } = useProjectsPostQuery(page, filters);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const allOptions = [
+    ...positions,
+    ...skills,
+    ...industries,
+    ...workPeriods,
+    ...workWays,
+  ];
 
-  const handleFilterChange = (newFilters: Record<string, string[]>) => {
+  const idToLabelMap = Object.fromEntries(
+    allOptions.map((option) => [option.id, option.label]),
+  );
+
+  const handleFilterChange = (
+    newFilters: Record<string, string[]>,
+    newTags: string[],
+  ) => {
     setFilters(newFilters);
+    setTags(newTags);
     setPage(0);
+  };
+
+  const handleTagRemove = (label: string) => {
+    const id = allOptions.find((opt) => opt.label === label)?.id;
+    if (!id) return;
+
+    const newFilters: Record<string, string[]> = {};
+    Object.entries(filters).forEach(([catId, ids]) => {
+      const filtered = ids.filter((i) => i !== id);
+      if (filtered.length) newFilters[catId] = filtered;
+    });
+
+    const newTags = Object.values(newFilters).flatMap((ids) =>
+      ids.map((i) => idToLabelMap[i]),
+    );
+
+    setFilters(newFilters);
+    setTags(newTags);
   };
 
   return (
     <>
       <div className="relative flex h-full justify-center">
-        <SideFilters filters={filters} setFilters={handleFilterChange} />
+        <SideFilters
+          filters={filters}
+          tags={tags}
+          setFilters={handleFilterChange}
+        />
         <div className="mt-[4.2rem] flex w-[63rem] flex-col items-center">
           <MainSearchBar />
           <div className="mt-[1rem] flex h-[4.4rem] w-full items-center gap-[1.6rem] pl-[2.4rem] pr-[2.2rem]">
             {/* 필터 슬라이더 */}
-            <TagScroller keyword={filters} />
+            <TagScroller keywords={tags} onRemove={handleTagRemove} />
             <div
               className="relative flex h-[2.8rem] w-[9.2rem] cursor-pointer items-center justify-between pl-[1.2rem] pr-[1rem]"
               onClick={() => setIsSortOpen(!isSortOpen)}
@@ -67,7 +109,9 @@ const Main = () => {
           </div>
           {/* 카드 */}
           <div className="mt-[4rem] flex flex-col gap-[1.4rem]">
-            {data?.content.map((data) => <Card key={data.id} data={data} />)}
+            {isLoading
+              ? 'Loading....'
+              : data?.content.map((data) => <Card key={data.id} data={data} />)}
           </div>
           <Pagination
             currentPage={data?.number ?? 0}
