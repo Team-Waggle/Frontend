@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAccessTokenStore } from '../../stores/authStore';
-import BaseModal from '../Modal/BaseModal';
-import LoginModal from '../Modal/LoginModal';
-import LoginSuggestionModal from '../Modal/LoginSuggestionModal';
-import BaseButton from '../common/Button/BaseButton';
-import LogoIcon from '../../assets/icons/ic_logo_large.svg?react';
-import NotificationIcon from '../../assets/icons/ic_notification.svg?react';
-import UserIcon from '../../assets/images/icon/userIcon.svg?react';
-import ModalIcon from '../../assets/character/modal/large/ch_modal_check_square_green_large.svg?react';
-import { FollowingButton, NavigationButton } from '../common/Button/IconButton';
-import HeartIcon from '../../assets/icons/ic_heart_stroke_large.svg?react';
+import { useAccessTokenStore } from '../stores/authStore';
+import BaseModal from './Modal/BaseModal';
+import LoginModal from './Modal/LoginModal';
+import LoginSuggestionModal from './Modal/LoginSuggestionModal';
+import BaseButton from './common/Button/BaseButton';
+import LogoIcon from '../assets//icons/ic_logo_large.svg?react';
+import BellPlusIcon from '../assets/images/icon/bellPlusIcon.svg?react';
+import UserIcon from '../assets/images/icon/userIcon.svg?react';
+import ModalIcon from '../assets/character/modal/large/ch_modal_check_square_green_large.svg?react';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -26,7 +24,7 @@ const Header = () => {
     if (token) {
       setIsLoggedIn(true);
     }
-  }, [token]);
+  }, []);
 
   return (
     <div className="fixed top-0 z-[1] flex h-[7rem] w-full items-center justify-between border-b border-solid border-black-50 bg-black-10 px-[2rem]">
@@ -56,15 +54,10 @@ const Header = () => {
         <div className="h-[1.8rem] w-[0.1rem] bg-black-60" />
         {isLoggedIn ? (
           <>
-            <FollowingButton>
-              <HeartIcon className="text-black-60" />
-            </FollowingButton>
-            <NavigationButton>
-              <NotificationIcon />
-            </NavigationButton>
-            <NavigationButton>
-              <UserIcon />
-            </NavigationButton>
+            {/* 헤더 알림 넣기 */}
+            <BellPlusIcon />
+            {/* 유저 알림 넣기 */}
+            <UserIcon />
           </>
         ) : (
           <BaseButton

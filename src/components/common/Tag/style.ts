@@ -89,18 +89,6 @@ export const TAG_COLOR_STYLES: TagColorStyles = {
       border: 'border border-solid border-error',
     },
   },
-  disabled: {
-    filled: {
-      bg: 'bg-black-40',
-      text: 'text-black-70',
-      border: 'border-transparent',
-    },
-    outline: {
-      bg: 'bg-transparent',
-      text: 'text-black-70',
-      border: 'border border-solid border-black-60',
-    },
-  },
 };
 
 export const TAG_PADDING_STYLES: TagPaddingStyles = {
@@ -129,5 +117,4 @@ export const TAG_ICON_COLOR_STYLES = {
   green: 'bg-green',
   orange: 'bg-orange',
   red: 'bg-error',
-  disabled: 'bg-black-70',
 };

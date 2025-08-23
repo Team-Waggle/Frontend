@@ -20,10 +20,13 @@ export type CardIndustry =
 export type CardWayofWorking = 'ONLINE' | 'OFFLINE' | 'ONLINE_OFFLINE';
 
 export type CardWorkPeriod =
-  | 'SHORT_TERM' // 1~3개월
-  | 'MEDIUM_TERM' // 3~6개월
-  | 'LONG_TERM' // 6개월 이상
-  | 'UNDECIDED'; // 미정
+  | 'ONE_MONTH'
+  | 'TWO_MONTHS'
+  | 'THREE_MONTHS'
+  | 'FOUR_MONTHS'
+  | 'FIVE_MONTHS'
+  | 'SIX_MONTHS'
+  | 'OVER_SIX_MONTHS';
 
 export type CardPosition =
   | 'FRONTEND'
@@ -92,7 +95,7 @@ export interface CardData {
     current_count: number;
   }[];
   skills: {
-    display_name: CardSkill;
+    skill: { display_name: CardSkill };
     image_url?: string;
   }[];
   detail: string;
