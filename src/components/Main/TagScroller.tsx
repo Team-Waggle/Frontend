@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import ArrowCircleLeftIcon from '../assets/icons/ic_arrow_circle_left.svg?react';
-import ArrowCircleRightIcon from '../assets/icons/ic_arrow_circle_right.svg?react';
-import KeywordChip from './common/Chip/KeywordChip/KeywordChip';
+import ArrowCircleLeftIcon from '../../assets/icons/ic_arrow_circle_left.svg?react';
+import ArrowCircleRightIcon from '../../assets/icons/ic_arrow_circle_right.svg?react';
+import KeywordChip from '../common/Chip/KeywordChip/KeywordChip';
 
 interface TagScrollerProps {
   keywords: string[];

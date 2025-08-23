@@ -1,18 +1,11 @@
-import styled from "styled-components";
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <LayoutWrapper>
+    <div className="flex h-full flex-col items-center">
       <Outlet />
-    </LayoutWrapper>
+    </div>
   );
 };
-
-const LayoutWrapper = styled.div`
-  width: 1200px;
-  height: 2200px;
-  margin: 0 auto;
-`;
 
 export default Layout;

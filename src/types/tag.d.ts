@@ -1,6 +1,12 @@
 export type TagSize = 'sm' | 'lg' | 'xl';
 export type TagType = 'outline' | 'filled';
-export type TagColor = 'basic' | 'blue' | 'green' | 'orange' | 'red';
+export type TagColor =
+  | 'basic'
+  | 'blue'
+  | 'green'
+  | 'orange'
+  | 'red'
+  | 'disabled';
 export type TagShape = 'square' | 'circle';
 
 export type TagPaddingStyles = Record<TagSize, Record<TagShape, string>>;
