@@ -163,7 +163,7 @@ textarea {
 }
 
 body {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   /* position: fixed;을 위한 상단바 높이만큼의 padding-top값 */
   padding-top: 70px;
