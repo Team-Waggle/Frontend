@@ -1,5 +1,10 @@
+import axios from 'axios';
 import axiosInstance from './axiosInstance';
-import { PROJECTS_DETAIL_URL, PROJECTS_URL } from '../constants/endpoint';
+import {
+  BASE_URL,
+  PROJECTS_DETAIL_URL,
+  PROJECTS_URL,
+} from '../constants/endpoint';
 
 export interface GetProjectsParams {
   page: number;
@@ -13,14 +18,14 @@ export interface GetProjectsParams {
 }
 
 export const getProjects = async (params: GetProjectsParams) => {
-  const { data } = await axiosInstance.get(PROJECTS_URL, { params });
+  const { data } = await axios.get(`${BASE_URL}${PROJECTS_URL}`, { params });
   return data.payload;
 };
 
 export const postProject = async () => {};
 
 export const getProjectDetail = async (projectId: number) => {
-  const { data } = await axiosInstance.post(PROJECTS_DETAIL_URL(projectId));
+  const { data } = await axiosInstance.get(PROJECTS_DETAIL_URL(projectId));
   return data;
 };
 
