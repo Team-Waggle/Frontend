@@ -5,12 +5,9 @@ import BaseModal from '../Modal/BaseModal';
 import LoginModal from '../Modal/LoginModal';
 import LoginSuggestionModal from '../Modal/LoginSuggestionModal';
 import BaseButton from '../common/Button/BaseButton';
+import { NavigationButton } from '../common/Button/OtherIconButton';
 import LogoIcon from '../../assets/icons/ic_logo_large.svg?react';
-import NotificationIcon from '../../assets/icons/ic_notification.svg?react';
-import UserIcon from '../../assets/images/icon/userIcon.svg?react';
 import ModalIcon from '../../assets/character/modal/large/ch_modal_check_square_green_large.svg?react';
-import { FollowingButton, NavigationButton } from '../common/Button/IconButton';
-import HeartIcon from '../../assets/icons/ic_heart_stroke_large.svg?react';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -38,7 +35,7 @@ const Header = () => {
         />
       </div>
       {/* </HeaderContents> */}
-      <div className="flex h-[4.4rem] items-center gap-[1rem] whitespace-nowrap">
+      <div className="flex h-[4.4rem] items-center gap-[0.2rem] whitespace-nowrap">
         <BaseButton
           size="md"
           color="p_special"
@@ -55,17 +52,10 @@ const Header = () => {
         </BaseButton>
         <div className="h-[1.8rem] w-[0.1rem] bg-black-60" />
         {isLoggedIn ? (
-          <>
-            <FollowingButton>
-              <HeartIcon className="text-black-60" />
-            </FollowingButton>
-            <NavigationButton>
-              <NotificationIcon />
-            </NavigationButton>
-            <NavigationButton>
-              <UserIcon />
-            </NavigationButton>
-          </>
+          <div className="flex">
+            <NavigationButton type="bell" />
+            <NavigationButton type="profile" />
+          </div>
         ) : (
           <BaseButton
             size="md"
