@@ -3,6 +3,8 @@ import { BasicTextAreaState, BaseBasicTextAreaProps } from "../../../../types/Ba
 import { BASIC_TEXT_AREA_STYLES } from "./styles";
 
 const BaseBasicTextArea = ({
+  value,
+  onChange,
   className,
   disabled = false,
   size='sm',
@@ -25,10 +27,15 @@ const BaseBasicTextArea = ({
   const currentState = getCurrentState();
   const styleByState = BASIC_TEXT_AREA_STYLES[currentState];
 
+  // const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   if (disabled) return;
+  //   const value = e.target.value;
+  //   setText(value);
+  // };
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (disabled) return;
-    const value = e.target.value;
-    setText(value);
+    onChange(e.target.value);
   };
 
   const handleFocus = () => {
@@ -47,7 +54,7 @@ const BaseBasicTextArea = ({
     <div className="flex flex-col items-start gap-[6px] self-stretch">
       <textarea
         {...rest}
-        value={text}
+        value={value}
         onChange={handleChange}
         maxLength={maxLength}
         className={`flex ${heightClass} pt-[16px] pr-[18px] pb-[20px] pl-[18px] items-start gap-[10px] self-stretch text-body-16_R400
