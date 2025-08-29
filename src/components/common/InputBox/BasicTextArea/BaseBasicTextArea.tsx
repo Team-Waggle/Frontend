@@ -27,12 +27,6 @@ const BaseBasicTextArea = ({
   const currentState = getCurrentState();
   const styleByState = BASIC_TEXT_AREA_STYLES[currentState];
 
-  // const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   if (disabled) return;
-  //   const value = e.target.value;
-  //   setText(value);
-  // };
-
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (disabled) return;
     onChange(e.target.value);
