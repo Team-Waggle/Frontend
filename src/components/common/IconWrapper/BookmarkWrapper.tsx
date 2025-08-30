@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { usePostBookmarkQuery } from '../../../hooks/useBookmark';
 import BookmarkIcon from '../../../assets/icons/nav/ic_nav_bookmark_small.svg?react';
+import { useAccessTokenStore } from '../../../stores/authStore';
+import LoginSuggestionModal from '../../Modal/LoginSuggestionModal';
 
 interface BookmarkWrapperProps {
   projectId: number;
@@ -15,9 +17,18 @@ const BookmarkWrapper = ({
 }: BookmarkWrapperProps) => {
   const updateBookmark = usePostBookmarkQuery(projectId);
   const [isActive, setIsActive] = useState(isBookmarked);
+  const [isLoginSuggestionModalOpen, setIsLoginSuggestionModalOpen] =
+    useState(false);
 
-  const handleClick = () => {
+  const token = useAccessTokenStore.getState().accessToken;
+
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
     if (disabled) return;
+    if (!token) {
+      setIsLoginSuggestionModalOpen(true);
+      return;
+    }
     updateBookmark.mutate();
     setIsActive((prev) => !prev);
   };
@@ -39,6 +50,14 @@ const BookmarkWrapper = ({
               ? 'fill-primary stroke-transparent' // 마감 X 북마크 O
               : 'fill-transparent stroke-black-70' // 마감 X 북마크 X
         }
+      />
+      <LoginSuggestionModal
+        size="large"
+        isOpen={isLoginSuggestionModalOpen}
+        onClose={(e: MouseEvent) => {
+          e.stopPropagation();
+          setIsLoginSuggestionModalOpen(false);
+        }}
       />
     </div>
   );

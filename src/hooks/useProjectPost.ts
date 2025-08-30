@@ -1,5 +1,5 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { getProjects } from '../api/projectPost';
+import { getProjectDetail, getProjects } from '../api/projectPost';
 import { CardData } from '../types/card';
 import { PageResponse } from '../types/pageResponse';
 
@@ -21,5 +21,20 @@ export const useProjectsPostQuery = (
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
     placeholderData: keepPreviousData,
+  });
+};
+
+export const useProjectsPostDetailQuery = (projectId?: number) => {
+  return useQuery<CardData, Error>({
+    queryKey: ['projectPost', projectId],
+    queryFn: () => getProjectDetail(projectId || 0),
+    // queryKey: ['projectPost', projectId || 'me'],
+    // queryFn: () => {
+    //   if (projectId) return getProjectDetail(projectId);
+    //   // 내 모집글 보기 API 있는지 물어보기
+    //   return getProjectDetail(projectId);
+    // },
+    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
   });
 };

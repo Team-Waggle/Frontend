@@ -26,7 +26,7 @@ export const postProject = async () => {};
 
 export const getProjectDetail = async (projectId: number) => {
   const { data } = await axiosInstance.get(PROJECTS_DETAIL_URL(projectId));
-  return data;
+  return data.payload;
 };
 
 export const updateProject = async (projectId: number) => {
