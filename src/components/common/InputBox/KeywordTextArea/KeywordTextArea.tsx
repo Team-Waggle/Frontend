@@ -4,117 +4,100 @@ import IconTextArea from '../IconTextArea/BaseIconTextArea';
 import BaseBasicChip from '../../Chip/BasicChip/BaseBasicChip';
 import KeywordChip from '../../Chip/KeywordChip/KeywordChip';
 
-const SkillList = [
-  '3D_Max',
-  'Adobe_After_Effects',
-  'Adobe_Illustrator',
-  'Adobe_inDesign',
-  'Adobe_Photoshop',
-  'Adobe_Premiere',
-  'Adobe_XD',
-  'AWS',
-  'Blender',
-  'C',
-  'C#',
-  'C++',
-  'Cinema_4D',
-  'Django',
-  'Docker',
-  'Express',
-  'Figma',
-  'Firebase',
-  'Flutter',
-  'Git',
-  'GO',
-  'GraphQL',
-  'Java',
-  'Javascript',
-  'Jest',
-  'Kotlin',
-  'Kubernetes',
-  'meatball',
-  'MongoDB',
-  'MS_office',
-  'MySQL',
-  'NestJS',
-  'Nextjs',
-  'Nodejs',
-  'php',
-  'Python',
-  'React',
-  'Spring_Boot',
-  'Svelte',
-  'Swift',
-  'TypeScript',
-  'Unity',
-  'Vue',
-  'Zeplin',
-];
+// KeywordTextArea
 
-const KeywordTextArea = () => {
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState<string>('');
+/**
+ * value: 현재 선택된 키워드 ID 배열
+ * items: 선택 가능한 키워드 목록 { id: string, label: string } 형태
+ * placeholder: 입력창 플레이스홀더
+ * renderChip: 기본 Chip 대신 다른 Chip 사용 가능
+ */
 
-  const handleSelectKeyword = (keyword: string) => {
-    if (!selectedKeywords.includes(keyword)) {
-      setSelectedKeywords((prev) => [...prev, keyword]);
-    }
+interface KeywordItem {
+  id: string;
+  label: string;
+}
+
+interface KeywordTextAreaProps {
+  value: string[];
+  onChange: (ids: string[]) => void;
+  items: KeywordItem[];
+  placeholder?: string;
+  renderChip?: (item: KeywordItem, onRemove: () => void) => React.ReactNode;
+}
+
+const KeywordTextArea = ({
+  value,
+  onChange,
+  items,
+  placeholder = '',
+  renderChip,
+}: KeywordTextAreaProps) => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSelect = (item: KeywordItem) => {
+    onChange([...value, item.id]);
     setInputValue('');
   };
 
-  const handleRemove = (keyword: string) => {
-    setSelectedKeywords((prev) => prev.filter((k) => k !== keyword));
+  const handleRemove = (id: string) => {
+    onChange(value.filter((v) => v !== id));
   };
 
-  const filterList = SkillList.filter(
-    (s) =>
-      s.toLowerCase().includes(inputValue.toLowerCase()) &&
-      !selectedKeywords.includes(s),
+  const filterList = items.filter(
+    (item) =>
+      item.label.toLowerCase().includes(inputValue.toLowerCase()) &&
+      !value.includes(item.id),
   );
 
   return (
     <div className="flex flex-col items-start self-stretch">
       <IconTextArea
         className="w-[734px] items-center"
-        placeholder="프로그램 이름을 입력하세요."
+        placeholder={placeholder}
+        value={inputValue}
         useRegex={false}
         useLengthValidation={false}
         onChange={(e) => setInputValue(e.target.value)}
-        value={inputValue}
         showIcon
       />
 
       {inputValue && filterList.length > 0 && (
         <div className="flex max-h-fit min-h-[64px] flex-wrap items-center self-stretch rounded-[0.8rem] border border-solid border-black-50 px-[1rem] py-[1.8rem]">
           <div className="flex flex-wrap content-center items-center gap-[1rem]">
-            {filterList.map((keyword) => (
+            {filterList.map((item) => (
               <BaseBasicChip
                 shape="square"
                 size={32}
-                key={keyword}
-                onClick={() => handleSelectKeyword(keyword)}
+                key={item.id}
+                onClick={() => handleSelect(item)}
               >
-                {keyword}
+                {item.label}
               </BaseBasicChip>
             ))}
           </div>
         </div>
       )}
 
-      {selectedKeywords.length > 0 && (
-        <div className="mt-[18px] flex h-[30px] flex-wrap content-start items-start gap-[1rem] self-stretch">
-          {selectedKeywords.map((keyword) => (
-            <KeywordChip
-              shape="square"
-              keyword={keyword}
-              key={keyword}
-              onRemove={() => handleRemove(keyword)}
-            >
-              {keyword}
-            </KeywordChip>
-          ))}
-        </div>
-      )}
+      {value.length > 0 &&
+        value.some((id) => items.find((i) => i.id === id)) && (
+          <div className="mt-[18px] flex h-[30px] flex-wrap content-start items-start gap-[1rem] self-stretch">
+            {value.map((id) => {
+              const item = items.find((i) => i.id === id);
+              if (!item) return null;
+              return renderChip ? (
+                renderChip(item, () => handleRemove(item.id))
+              ) : (
+                <KeywordChip
+                  key={item.id}
+                  shape="circle"
+                  label={item.label}
+                  onRemove={() => handleRemove(item.id)}
+                />
+              );
+            })}
+          </div>
+        )}
     </div>
   );
 };

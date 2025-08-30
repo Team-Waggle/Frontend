@@ -1,11 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import TriangleDownIcon from '../../../assets/icons/ic_arrow_down_large.svg?react';
-
 import { BaseSelectProps } from '../../../types/Select';
 import { BASE_SELECT_STYLE, SELECT_STATE_STYLE } from './styles';
 
+// Select
+
+/**
+ * items: 드롭다운에 표시할 아이템 목록 { id: string; label: string }[]
+ * value: 선택된 아이템의 id
+ * title: 초기 placeholder 텍스트
+ * width: 드롭다운 너비
+ */
+
 const BaseSelect = ({
   items,
+  value,
+  onChange,
   title,
   width = 'w-[35.8rem]',
   disabled = false,
@@ -25,10 +35,18 @@ const BaseSelect = ({
     }
   };
 
-  const handleItemClick = (item: string) => {
-    setSelectedItem(item);
-    setIsOpen(!isOpen);
+  const handleItemClick = (item: { id: string; label: string }) => {
+  setSelectedItem(item.label);
+  onChange?.(item.id);
+    setIsOpen(false);
   };
+
+useEffect(() => {
+  if (value !== undefined && value !== '') {
+    const selected = items.find((item) => item.id === value);
+    if (selected) setSelectedItem(selected.label);
+  }
+}, [value, items]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -67,12 +85,12 @@ const BaseSelect = ({
         >
           {items.map((item) => (
             <div
-              key={item}
+              key={item.id}
               onClick={() => handleItemClick(item)}
               className={`box-border flex h-[4.6rem] flex-shrink-0 cursor-pointer items-center self-stretch rounded-[0.6rem]
                  bg-black-10 pl-[1.8rem] pr-[0.8rem] text-body-16_M500 text-black-70 hover:bg-primary-10 hover:text-black-130`}
             >
-              {item}
+              {item.label}
             </div>
           ))}
         </div>
