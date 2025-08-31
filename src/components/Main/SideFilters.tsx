@@ -2,9 +2,9 @@ import BaseButton from '../common/Button/BaseButton';
 import RefreshIcon from '../../assets/icons/button/ic_button_refresh_small.svg?react';
 import Position from '../../assets/icons/filter/ic_filter_position.svg?react';
 import Skill from '../../assets/icons/filter/ic_filter_skill.svg?react';
-import Industry from '../../assets/icons/filter/ic_filter_industry.svg?react';
-import Period from '../../assets/icons/filter/ic_filter_period.svg?react';
-import System from '../../assets/icons/filter/ic_filter_system.svg?react';
+import Industry from '../../assets/icons/filter/ic_filter_industry_large.svg?react';
+import Period from '../../assets/icons/filter/ic_filter_period_large.svg?react';
+import System from '../../assets/icons/filter/ic_filter_system_large.svg?react';
 import styled from 'styled-components';
 import BaseDropdown from '../common/Dropdown/BaseDropdown';
 import {

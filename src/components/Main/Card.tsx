@@ -4,6 +4,7 @@ import BookmarkWrapper from '../common/IconWrapper/BookmarkWrapper';
 import { CardData } from '../../types/card';
 import { useEffect, useState } from 'react';
 import { SkillIcons } from '../SkillIcons';
+import { useNavigate } from 'react-router-dom';
 
 interface CardProps {
   data: CardData;
@@ -15,6 +16,7 @@ const Card = ({ data }: CardProps) => {
   const end = dayjs(data?.recruitment_end_date).startOf('day');
   const diff = end.diff(today, 'day');
 
+  const navigate = useNavigate();
   const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
@@ -22,7 +24,11 @@ const Card = ({ data }: CardProps) => {
   }, []);
 
   return (
-    <div className="flex h-[21.5rem] w-[63rem] min-w-[32rem] max-w-[63rem] flex-col justify-between rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem]">
+    <div
+      className={`flex h-[21.5rem] w-[63rem] min-w-[32rem] max-w-[63rem] flex-col justify-between rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem] ${isEnd ? '' : 'cursor-pointer'}`}
+      onClick={() => navigate(`/post/${data.id}`)}
+    >
+      {/* <div className="flex h-[21.5rem] w-[63rem] min-w-[32rem] max-w-[63rem] flex-col justify-between rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem]"> */}
       <div className="flex h-[6.1rem] w-full flex-col gap-[1rem]">
         <div className="flex justify-between">
           {/* 도메인 이름 */}

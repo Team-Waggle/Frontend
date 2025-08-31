@@ -210,6 +210,13 @@ const config: Config = {
         'gradient-r':
           'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 20.49%, #FFFFFF 51.24%)',
       },
+      screens: {
+        // tailwind는 mobile-first 방식
+        // 360px 이하의 화면은 따로 적지 않음
+        sm: '361px', // 361 ~ 768 tablet
+        md: '769px', // 769 ~ 1200 desktop
+        lg: '1201px', // 1201 ~ 1920 max-desktop
+      },
     },
   },
   plugins: [tailwindScrollbar({ nocompatible: true })],

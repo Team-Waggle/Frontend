@@ -98,4 +98,5 @@ export interface CardData {
   detail: string;
   connect_url: string;
   reference_url: string;
+  created_at: string;
 }
