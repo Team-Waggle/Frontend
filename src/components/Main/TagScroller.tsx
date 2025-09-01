@@ -46,7 +46,7 @@ export default function TagScroller({ keywords, onRemove }: TagScrollerProps) {
   }, [keywords]);
 
   return (
-    <div className="relative flex w-[47.4rem] items-center">
+    <div className="relative flex w-[21rem] items-center sm:w-[34.8rem] md:w-[47.4rem]">
       {showLeftArrow && (
         <div className="absolute left-0 flex w-[5rem] justify-start bg-gradient-l">
           <button onClick={scrollLeft}>
@@ -60,9 +60,7 @@ export default function TagScroller({ keywords, onRemove }: TagScrollerProps) {
         className="flex items-center gap-[0.4rem] overflow-x-hidden"
       >
         {keywords.map((tag, index) => (
-          <KeywordChip key={index} onRemove={() => onRemove(tag)}>
-            {tag}
-          </KeywordChip>
+          <KeywordChip key={index} label={tag} onRemove={() => onRemove(tag)} />
         ))}
       </div>
 

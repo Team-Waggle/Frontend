@@ -25,10 +25,9 @@ const Card = ({ data }: CardProps) => {
 
   return (
     <div
-      className={`flex h-[21.5rem] w-[63rem] min-w-[32rem] max-w-[63rem] flex-col justify-between rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem] ${isEnd ? '' : 'cursor-pointer'}`}
+      className="flex min-w-[32rem] max-w-[63rem] cursor-pointer flex-col gap-[1.6rem] rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem]"
       onClick={() => navigate(`/post/${data.id}`)}
     >
-      {/* <div className="flex h-[21.5rem] w-[63rem] min-w-[32rem] max-w-[63rem] flex-col justify-between rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem]"> */}
       <div className="flex h-[6.1rem] w-full flex-col gap-[1rem]">
         <div className="flex justify-between">
           {/* 도메인 이름 */}
@@ -62,7 +61,7 @@ const Card = ({ data }: CardProps) => {
         </div>
       </div>
       <div
-        className={`flex h-[4.8rem] w-full gap-[0.8rem] whitespace-nowrap border-b border-solid border-black-40 pb-[1.6rem] ${isEnd ? 'opacity-30' : ''}`}
+        className={`flex w-full gap-[0.8rem] whitespace-nowrap border-b border-solid border-black-40 pb-[1.6rem] ${isEnd ? 'opacity-30' : ''}`}
       >
         {data?.recruitments.map((data, idx) => (
           <BaseTag
@@ -75,7 +74,7 @@ const Card = ({ data }: CardProps) => {
             {data?.remaining_count}/{data?.current_count}명
           </BaseTag>
         ))}
-        <div className="flex gap-[0.4rem]">
+        <div className="flex flex-wrap gap-[0.4rem]">
           {data?.recruitments.map((data, idx) => (
             <BaseTag
               key={idx}
@@ -87,6 +86,33 @@ const Card = ({ data }: CardProps) => {
               {data?.position.display_name}
             </BaseTag>
           ))}
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
+          <BaseTag size="lg" type="outline" color="basic" shape="square">
+            백엔드
+          </BaseTag>
         </div>
       </div>
       <div
