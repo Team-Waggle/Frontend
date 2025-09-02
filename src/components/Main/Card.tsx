@@ -5,6 +5,7 @@ import { CardData } from '../../types/card';
 import { useEffect, useState } from 'react';
 import { SkillIcons } from '../SkillIcons';
 import { useNavigate } from 'react-router-dom';
+import { getIndustry, getPosition, getSkill } from '../../utils/createMapper';
 
 interface CardProps {
   data: CardData;
@@ -34,7 +35,7 @@ const Card = ({ data }: CardProps) => {
           <span
             className={`h-[2.4rem] text-caption-13_M500 text-primary-70 ${isEnd ? 'text-opacity-30' : ''}`}
           >
-            {data?.industry.display_name}
+            {getIndustry(data?.industry)}
           </span>
           <div className="flex w-[9.5rem] gap-[1rem]">
             <span
@@ -83,7 +84,7 @@ const Card = ({ data }: CardProps) => {
               color="basic"
               shape="square"
             >
-              {data?.position.display_name}
+              {getPosition(data?.position)}
             </BaseTag>
           ))}
           <BaseTag size="lg" type="outline" color="basic" shape="square">
@@ -119,7 +120,9 @@ const Card = ({ data }: CardProps) => {
         className={`flex h-[2.4rem] w-[22rem] gap-[0.8rem] ${isEnd ? 'opacity-30' : ''}`}
       >
         <SkillIcons
-          iconKeys={data.skills.map((skill) => skill.display_name)}
+          iconKeys={data.skills
+            .map((id) => getSkill(id))
+            .filter((label): label is string => label !== undefined)}
           size="large"
         />
       </div>

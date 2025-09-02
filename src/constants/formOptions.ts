@@ -102,8 +102,8 @@ export const skills = [
   { id: 'JEST', label: 'Jest' },
   { id: 'MS_OFFICE', label: 'MS-Office' },
   { id: 'C', label: 'C' },
-  { id: 'C++', label: 'C++' },
-  { id: 'CSharp', label: 'C#' },
+  { id: 'CPP', label: 'C++' },
+  { id: 'CSHARP', label: 'C#' },
 ];
 
 export const industries = [
@@ -136,7 +136,7 @@ export const workPeriods = [
 ];
 
 export const workWays = [
-  { id: 'ONLINE_OFFLINE', label: '모두가능' },
+  { id: 'ANYWAY', label: '모두가능' },
   { id: 'ONLINE', label: '온라인만' },
   { id: 'OFFLINE', label: '오프라인만' },
 ];
