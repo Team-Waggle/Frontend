@@ -87,33 +87,6 @@ const Card = ({ data }: CardProps) => {
               {getPosition(data?.position)}
             </BaseTag>
           ))}
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
-          <BaseTag size="lg" type="outline" color="basic" shape="square">
-            백엔드
-          </BaseTag>
         </div>
       </div>
       <div
