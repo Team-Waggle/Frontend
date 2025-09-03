@@ -11,11 +11,18 @@ import IndustryIcon from '../assets/icons/filter/ic_filter_industry_small.svg?re
 import SystemIcon from '../assets/icons/filter/ic_filter_system_small.svg?react';
 import PeriodIcon from '../assets/icons/filter/ic_filter_period_small.svg?react';
 import ArrowDownIcon from '../assets/icons/ic_arrow_down_small.svg?react';
+import {
+  getIndustry,
+  getPosition,
+  getSkill,
+  getWaysOfWorking,
+  getWorkPeriod,
+} from '../utils/createMapper';
 
 const Post = () => {
   const { projectId } = useParams();
 
-  const [id, setId] = useState<number>();
+  const [id, setId] = useState<number>(0);
   const { data, isLoading } = useProjectsPostDetailQuery(id);
 
   useEffect(() => {
@@ -86,7 +93,7 @@ const Post = () => {
                   <span className="text-caption-13_R400">산업 분야</span>
                 </div>
                 <div className="text-caption-13_Sb600">
-                  {data?.industry.display_name}
+                  {getIndustry(data?.industry ?? '')}
                 </div>
               </div>
               <div className="flex w-[15.4rem] flex-col gap-[1.4rem] rounded-[0.8rem] bg-black-30 px-[1.7rem] py-[2rem] sm:w-[13.2rem] md:w-[19rem]">
@@ -95,7 +102,7 @@ const Post = () => {
                   <span className="text-caption-13_R400">진행 방식</span>
                 </div>
                 <div className="text-caption-13_Sb600">
-                  {data?.ways_of_working.display_name}
+                  {getWaysOfWorking(data?.ways_of_working ?? '')}
                 </div>
               </div>
               <div className="flex w-[15.4rem] flex-col gap-[1.4rem] rounded-[0.8rem] bg-black-30 px-[1.7rem] py-[2rem] sm:w-[13.2rem] md:w-[19rem]">
@@ -113,7 +120,7 @@ const Post = () => {
                   <span className="text-caption-13_R400">진행 기간</span>
                 </div>
                 <div className="text-caption-13_Sb600">
-                  {data?.work_period.display_name}
+                  {getWorkPeriod(data?.work_period ?? '')}
                 </div>
               </div>
             </div>
@@ -129,7 +136,7 @@ const Post = () => {
                       className="flex h-[2.8rem] w-[22.2rem] gap-[4.2rem]"
                     >
                       <span className="min-w-[6.2rem] max-w-[6.2rem] text-body-14_M500">
-                        {data.position.display_name}
+                        {getPosition(data?.position)}
                       </span>
                       <div className="flex items-center gap-[1.8rem]">
                         <span className="min-w-[3.5rem] text-body-14_M500 text-primary">
@@ -260,7 +267,11 @@ const Post = () => {
                 <div className="flex gap-[1.5rem]">
                   <SkillIcons
                     iconKeys={
-                      data?.skills.map((skill) => skill.display_name) ?? []
+                      data?.skills
+                        ?.map((id) => getSkill(id))
+                        .filter(
+                          (label): label is string => label !== undefined,
+                        ) ?? []
                     }
                     size="large"
                     limit={null}

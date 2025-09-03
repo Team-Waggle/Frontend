@@ -82,19 +82,16 @@ export interface CardData {
   id: number;
   bookmarked: boolean;
   title: string;
-  industry: { display_name: CardIndustry };
-  ways_of_working: { display_name: CardWayofWorking };
+  industry: CardIndustry;
+  ways_of_working: CardWayofWorking;
   recruitment_end_date: string;
-  work_period: { display_name: CardWorkPeriod };
+  work_period: CardWorkPeriod;
   recruitments: {
-    position: { display_name: CardPosition };
+    position: CardPosition;
     remaining_count: number;
     current_count: number;
   }[];
-  skills: {
-    display_name: CardSkill;
-    image_url?: string;
-  }[];
+  skills: CardSkill[];
   detail: string;
   connect_url: string;
   reference_url: string;
