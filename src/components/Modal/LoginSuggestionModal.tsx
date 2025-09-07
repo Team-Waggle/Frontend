@@ -6,6 +6,7 @@ import GoogleBtn from '../../assets/button/login/btn_google_large.svg?react';
 import KakaoBtn from '../../assets/button/login/btn_kakao_large.svg?react';
 import ModalIcon from '../../assets/character/login/ch_login_triangle_yellow_large.svg?react';
 import Close from '../../assets/icons/ic_x_xlarge.svg?react';
+import { BASE_URL } from '../../constants/endpoint';
 
 const LoginSuggestionModal = ({
   // size,
@@ -41,8 +42,20 @@ const LoginSuggestionModal = ({
             </div>
             {/* 버튼 */}
             <div className="mt-[3.2rem] grid gap-[0.8rem]">
-              <GoogleBtn className="cursor-pointer" />
-              <KakaoBtn className="cursor-pointer" />
+              <GoogleBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = `${BASE_URL}/oauth2/authorization/google`;
+                }}
+                className="cursor-pointer"
+              />
+              <KakaoBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = `${BASE_URL}/oauth2/authorization/kakao`;
+                }}
+                className="cursor-pointer"
+              />
             </div>
           </div>
         </div>

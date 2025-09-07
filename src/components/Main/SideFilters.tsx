@@ -1,3 +1,4 @@
+import { useFilterStore } from '../../stores/filterStore';
 import BaseButton from '../common/Button/BaseButton';
 import RefreshIcon from '../../assets/icons/button/ic_button_refresh_small.svg?react';
 import Position from '../../assets/icons/filter/ic_filter_position.svg?react';
@@ -5,7 +6,6 @@ import Skill from '../../assets/icons/filter/ic_filter_skill.svg?react';
 import Industry from '../../assets/icons/filter/ic_filter_industry_large.svg?react';
 import Period from '../../assets/icons/filter/ic_filter_period_large.svg?react';
 import System from '../../assets/icons/filter/ic_filter_system_large.svg?react';
-import styled from 'styled-components';
 import BaseDropdown from '../common/Dropdown/BaseDropdown';
 import {
   positions,
@@ -43,13 +43,9 @@ const filterCategories = [
   },
 ];
 
-interface SideFiltersProps {
-  filters: Record<string, string[]>;
-  tags: string[];
-  setFilters: (newFilters: Record<string, string[]>, newTags: string[]) => void;
-}
+const SideFilters = () => {
+  const { filters, tags, setFilters, reset } = useFilterStore();
 
-const SideFilters = ({ filters, tags, setFilters }: SideFiltersProps) => {
   const isFiltersEmpty = Object.keys(filters).length === 0;
 
   const optionsMap: Record<string, { id: string; label: string }[]> = {
@@ -61,8 +57,7 @@ const SideFilters = ({ filters, tags, setFilters }: SideFiltersProps) => {
   };
 
   return (
-    <SideWrapper>
-      {/* <aside className="left-[calc(50% - 315px - 32px - 230px)] absolute w-[23rem] pt-[5.8rem]"> */}
+    <aside className="w-[29rem] pt-[5.8rem] sm:w-[23rem]">
       <div className="flex h-[5.6rem] items-center justify-between py-[1rem] pl-[1.4rem] pr-[0.2rem]">
         <span className="text-caption-13_Sb600">필터</span>
         <BaseButton
@@ -70,23 +65,23 @@ const SideFilters = ({ filters, tags, setFilters }: SideFiltersProps) => {
           color="special"
           leftIcon={<RefreshIcon />}
           disabled={isFiltersEmpty}
-          onClick={() => setFilters({}, [])}
+          onClick={reset}
         >
           초기화
         </BaseButton>
       </div>
       {/* 필터들 */}
-      {filterCategories.map((category, id) => (
+      {filterCategories.map((category) => (
         <BaseDropdown
-          key={id}
+          key={category.id}
           leftIcon={category.icon}
           title={category.title}
           contentList={optionsMap[category.id]}
           selected={filters[category.id] ?? []}
           onChange={(id, label, checked, type) => {
             const prevSelected = filters[category.id] ?? [];
-            let newSelected: string[];
-            let newTags: string[];
+            let newSelected: string[] = [];
+            let newTags: string[] = [];
 
             if (type === 'radio') {
               newSelected = checked ? [id] : [];
@@ -122,17 +117,8 @@ const SideFilters = ({ filters, tags, setFilters }: SideFiltersProps) => {
           }}
         />
       ))}
-      {/* </aside> */}
-    </SideWrapper>
+    </aside>
   );
 };
 
 export default SideFilters;
-
-const SideWrapper = styled.aside`
-  width: 230px;
-  padding-top: 58px;
-  position: absolute;
-  /* 50% - MainSection width의 절반 - 32px - SideWrapper width */
-  left: calc(50% - 315px - 32px - 230px);
-`;
