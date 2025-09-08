@@ -50,7 +50,7 @@ const BaseDropdown = ({
   };
 
   return (
-    <div className="w-[23rem]">
+    <div className="w-full">
       {/* 드롭다운 버튼 */}
       <div
         className="flex h-[5.6rem] cursor-pointer items-center justify-between border-b border-solid border-black-40"
