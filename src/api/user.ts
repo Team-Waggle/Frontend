@@ -1,9 +1,14 @@
-import { USER_ME_URL, USER_PROFILE_IMAGE } from '../constants/endpoint';
+import { USER_ME_URL, USER_PROFILE_IMAGE, USER_URL } from '../constants/endpoint';
 import type { UserMeResponse, UpdateUserDto } from '../types/user';
 import axiosInstance from './axiosInstance';
 
 export async function getUserMe(): Promise<UserMeResponse> {
   const { data } = await axiosInstance.get<UserMeResponse>(USER_ME_URL);
+  return data;
+}
+
+export async function getUserById(userId: string): Promise<UserMeResponse> {
+  const { data } = await axiosInstance.get<UserMeResponse>(USER_URL(userId));
   return data;
 }
 
