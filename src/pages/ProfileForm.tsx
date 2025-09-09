@@ -30,7 +30,7 @@ interface LinkRow {
   url: string;
 }
 
-const NewProfile = () => {
+const ProfileForm = () => {
   // delete User 오류 해결 후 주석 해제
   // const { user, fetchUser, updateUser, deleteUser } = useUser();
   const { user, fetchUser, updateUser } = useUser();
@@ -340,7 +340,6 @@ const NewProfile = () => {
             // onClick={handleDelete}
             color="special"
             size="md"
-            className="text-[#949598]"
           >
             탈퇴하기
           </CustomButton>
@@ -350,4 +349,4 @@ const NewProfile = () => {
   );
 };
 
-export default NewProfile;
+export default ProfileForm;
