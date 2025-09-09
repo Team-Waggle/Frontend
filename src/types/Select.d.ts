@@ -7,4 +7,5 @@ export interface BaseSelectProps {
   className?: string;
   disabled?: boolean;
   hasError?: boolean;
+  renderItem?: (item: { id: string; label: string }) => React.ReactNode;
 }

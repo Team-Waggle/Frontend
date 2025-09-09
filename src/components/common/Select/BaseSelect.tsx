@@ -20,6 +20,7 @@ const BaseSelect = ({
   width = 'w-[35.8rem]',
   disabled = false,
   hasError = false,
+  renderItem,
   className,
 }: BaseSelectProps) => {
   const [selectedItem, setSelectedItem] = useState(title);
@@ -90,7 +91,7 @@ useEffect(() => {
               className={`box-border flex h-[4.6rem] flex-shrink-0 cursor-pointer items-center self-stretch rounded-[0.6rem]
                  bg-black-10 pl-[1.8rem] pr-[0.8rem] text-body-16_M500 text-black-70 hover:bg-primary-10 hover:text-black-130`}
             >
-              {item.label}
+              {renderItem ? renderItem(item) : item.label}
             </div>
           ))}
         </div>

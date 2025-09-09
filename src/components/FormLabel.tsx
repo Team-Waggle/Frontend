@@ -1,4 +1,4 @@
-import RequiredIcon from '../../assets/inputBox/ic_input_required_red.svg?react';
+import RequiredIcon from '../assets/inputBox/ic_input_required_red.svg?react';
 
 interface FormLabelProps {
   title: React.ReactNode;
@@ -15,7 +15,7 @@ const FormLabel = ({
   sideNote,
   isRequired,
   requiredMessage = false,
-  className = '',
+  className = "",
 }: FormLabelProps) => {
   return (
     <div className="flex flex-col items-start self-stretch text-black-130">
