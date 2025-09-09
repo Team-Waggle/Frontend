@@ -40,11 +40,11 @@ const BasicTabIn = ({
     }
   };
 
-  const optionClick = (label: string) => {
-    if (selectedOption.includes(label)) {
-      setSelectedOption(selectedOption.filter((opt) => opt !== label));
+  const optionClick = (id: string) => {
+    if (selectedOption.includes(id)) {
+      setSelectedOption(selectedOption.filter((opt) => opt !== id));
     } else if (selectedOption.length < 5) {
-      setSelectedOption([...selectedOption, label]);
+      setSelectedOption([...selectedOption, id]);
     }
   };
 
@@ -70,12 +70,12 @@ const BasicTabIn = ({
       {/* 그리드 */}
       <div className="flex flex-wrap content-start items-start justify-between gap-y-[10px] self-stretch">
         {teamPlayOptions.map(({ id, label }) => {
-          const isOptionSelected = selectedOption.includes(label);
+          const isOptionSelected = selectedOption.includes(id);
           const selectedCategoryMBTI = selectedCategory === teamPlay[4];
           return (
             <IdentityChip
               key={id}
-              onClick={() => optionClick(label)}
+              onClick={() => optionClick(id)}
               type={selectedCategoryMBTI ? 'mbti' : 'default'}
               size="xl"
               isActive={isOptionSelected}

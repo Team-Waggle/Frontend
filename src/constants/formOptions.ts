@@ -1,12 +1,20 @@
 export const workExperience = [
-  '0년차',
-  '1~3년차',
-  '4~6년차',
-  '7~10년차',
-  '10년차 이상',
+  { id: '0', label: '0년차' },
+  { id: '3', label: '1~3년차' },
+  { id: '6', label: '4~6년차' },
+  { id: '10', label: '7~10년차' },
+  { id: '10+', label: '10년차 이상' },
 ];
 
-export const day = ['월', '화', '수', '목', '금', '토', '일'];
+export const day = [
+  { id: 'MONDAY', label: '월' },
+  { id: 'TUESDAY', label: '화' },
+  { id: 'WEDNESDAY', label: '수' },
+  { id: 'THURSDAY', label: '목' },
+  { id: 'FRIDAY', label: '금' },
+  { id: 'SATURDAY', label: '토' },
+  { id: 'SUNDAY', label: '일' },
+];
 
 export const workTime = [
   { id: 'MORNING', label: '오전 (6:00~12:00)' },
@@ -16,7 +24,11 @@ export const workTime = [
   { id: 'DAWN', label: '새벽 (02:00~06:00)' },
 ];
 
-export const onOff = ['온라인만', '오프라인만', '온/오프라인'];
+export const onOff = [
+  { id: 'ONLINE', label: '온라인' },
+  { id: 'OFFLINE', label: '오프라인' },
+  { id: 'HYBRID', label: '온/오프라인' },
+];
 
 export const sido = [
   { id: 'SEOUL', label: '서울특별시' },
@@ -40,12 +52,18 @@ export const sido = [
 
 // 이미지 추가
 export const site = [
-  'Branch story',
-  'Dribbble',
-  'GitHub',
-  'Instagram',
-  'Notion',
-  '추가예정',
+  { id: 'GITHUB', label: 'GitHub' },
+  { id: 'NOTION', label: 'Notion' },
+  { id: 'LINKEDIN', label: 'LinkedIn' },
+  { id: 'YOUTUBE', label: 'YouTube' },
+  { id: 'INSTAGRAM', label: 'Instagram' },
+  { id: 'BRUNCHSTORY', label: 'Brunch story' }, // id: BRUNCH에서 BRUNCH STORY로 변경
+  { id: 'X', label: 'X' }, // id: Twitter 에서 X로 변경
+  { id: 'DRIBBLE', label: 'Dribble' },
+  { id: 'TRELLO', label: 'Trello' },
+  { id: 'BASIC', label: 'Basic' },
+  { id: 'FIGMA', label: 'Figma' }, // FIGMA SITE 아이콘 추가
+  { id: 'OTHER', label: '기타' },
 ];
 
 export const positions = [

@@ -29,11 +29,11 @@ const DropdownTab = ({
     }
   };
 
-  const optionClick = (label: string) => {
-    if (selectedOption.includes(label)) {
-      setSelectedOption(selectedOption.filter((opt) => opt !== label));
+  const optionClick = (id: string) => {
+    if (selectedOption.includes(id)) {
+      setSelectedOption(selectedOption.filter((opt) => opt !== id));
     } else if (selectedOption.length < 5) {
-      setSelectedOption([...selectedOption, label]);
+      setSelectedOption([...selectedOption, id]);
     }
   };
 
@@ -64,11 +64,11 @@ const DropdownTab = ({
             {isActive && (
               <div className="flex h-[44.8rem] flex-wrap content-start items-start justify-between gap-y-[1.2rem] self-stretch">
                 {options.map(({ id, label }) => {
-                  const isSelected = selectedOption.includes(label);
+                  const isSelected = selectedOption.includes(id);
                   return (
                     <IdentityChip
                       key={id}
-                      onClick={() => optionClick(label)}
+                      onClick={() => optionClick(id)}
                       type={isMBTI ? 'mbti' : 'default'}
                       size="xs"
                       isActive={isSelected}
