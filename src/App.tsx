@@ -18,6 +18,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/auth/callback" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/ProfileForm" element={<ProfileForm />} />
           {/* 모집글 생성 및 보기 페이지 완료되면 주석 해제 */}
           {/* <Route path="/post/new" element={<PostForm />} />
