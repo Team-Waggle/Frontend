@@ -20,7 +20,7 @@ const WorkWayAndRegionField = ({
       <FormLabel title="선호 진행방식 및 지역" />
       <div className="flex items-center gap-[1.8rem] self-stretch">
         <Select
-          items={formOptions.workWays}
+          items={formOptions.onOff}
           title="진행 방식"
           value={workWay}
           onChange={setWorkWay}
