@@ -14,7 +14,7 @@ import BaseProfileIcon from '../components/common/Profile/ProfileIcon/BaseProfil
 
 import EmailIc from '../assets/icons/ic_email_small.svg?react';
 import ProfileInfo from '../components/Profile/ProfileInfo';
-import ProfileTag from '../components/Profile/ProfileTag';
+import ProfileTag from '../components/Profile/ProfilePageTag';
 import SkillIcons from '../components/SkillIcons';
 import { skillIconMapper } from '../utils/skillIconMapper';
 import LinkIcons from '../components/LinksIcons';

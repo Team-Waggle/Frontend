@@ -1,11 +1,11 @@
 import BaseTag from '../common/Tag/BaseTag';
 
-interface ProfileTagProps {
+interface ProfilePageTagProps {
   title: string;
   items: string[];
 }
 
-const ProfileTag = ({ title, items }: ProfileTagProps) => {
+const ProfilePageTag = ({ title, items }: ProfilePageTagProps) => {
   return (
     <div className="flex flex-wrap content-start items-start gap-x-[1.4rem] gap-y-[3.2rem] self-stretch">
         {/* 제목 */}
@@ -38,4 +38,4 @@ const ProfileTag = ({ title, items }: ProfileTagProps) => {
   );
 };
 
-export default ProfileTag;
+export default ProfilePageTag;
