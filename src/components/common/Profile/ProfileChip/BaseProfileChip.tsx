@@ -12,7 +12,7 @@ import XRedIcon from '../../../../assets/profile/profileChip/ic_profilechip_x_re
  * type: default, control
  * Default state: default, hover, active
  * Control state: default, hover, disable
- * size: small, medium, large
+ * size: extraSmall(360), medium(768), extraLarge(1200)
  *
  * 사용예시:
  * 1. <ProfileIcon size="large" type="edit" />
