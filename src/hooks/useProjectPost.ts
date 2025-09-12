@@ -1,22 +1,35 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { getProjectDetail, getProjects } from '../api/projectPost';
-import { CardData } from '../types/card';
+import {
+  useQuery,
+  keepPreviousData,
+  useQueryClient,
+  useMutation,
+} from '@tanstack/react-query';
+import {
+  getProjectDetail,
+  getProjects,
+  GetProjectsParams,
+  postProject,
+  PostProjectParams,
+} from '../api/projectPost';
+import { ProjectPayload } from '../types/project';
 import { PageResponse } from '../types/pageResponse';
 
-export const useProjectsPostQuery = (
+// 프로젝트 모집글 목록 조회
+export const useProjectsGetQuery = (
   page: number,
+  sort: string,
   filters: Record<string, string[]>,
 ) => {
-  const params = {
+  const params: GetProjectsParams = {
     page,
     size: 10,
-    sort: 'createdAt,desc',
+    sort,
     ...Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value.join(',')]),
     ),
   };
-  return useQuery<PageResponse<CardData>, Error>({
-    queryKey: ['projectPost', page, filters],
+  return useQuery<PageResponse<ProjectPayload>, Error>({
+    queryKey: ['projectPost', page, sort, filters],
     queryFn: () => getProjects(params),
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
@@ -24,16 +37,27 @@ export const useProjectsPostQuery = (
   });
 };
 
-export const useProjectsPostDetailQuery = (projectId?: number) => {
-  return useQuery<CardData, Error>({
+// 프로젝트 모집글 생성
+export const useProjectsPostQuery = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: PostProjectParams) => postProject(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projectPost'] });
+    },
+    onError: (error) => {
+      console.error('Error posting bookmark:', error);
+    },
+  });
+};
+
+// 프로젝트 모집글 조회
+export const useProjectsPostDetailQuery = (projectId: number) => {
+  return useQuery<ProjectPayload, Error>({
     queryKey: ['projectPost', projectId],
-    queryFn: () => getProjectDetail(projectId || 0),
-    // queryKey: ['projectPost', projectId || 'me'],
-    // queryFn: () => {
-    //   if (projectId) return getProjectDetail(projectId);
-    //   // 내 모집글 보기 API 있는지 물어보기
-    //   return getProjectDetail(projectId);
-    // },
+    queryFn: () => getProjectDetail(projectId),
+    enabled: !!projectId,
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
   });

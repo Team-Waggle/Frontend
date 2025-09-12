@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
 import BaseTag from '../common/Tag/BaseTag';
 import BookmarkWrapper from '../common/IconWrapper/BookmarkWrapper';
-import { CardData } from '../../types/card';
+import { ProjectPayload } from '../../types/project';
 import { useEffect, useState } from 'react';
 import { SkillIcons } from '../SkillIcons';
 import { useNavigate } from 'react-router-dom';
 import { getIndustry, getPosition, getSkill } from '../../utils/createMapper';
 
 interface CardProps {
-  data: CardData;
+  data: ProjectPayload;
 }
 
 const Card = ({ data }: CardProps) => {

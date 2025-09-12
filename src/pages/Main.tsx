@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useProjectsPostQuery } from '../hooks/useProjectPost';
+import { useProjectsGetQuery } from '../hooks/useProjectPost';
 import { useFilterStore } from '../stores/filterStore';
 import Drawer from '../components/layout/Drawer';
 import SideFilters from '../components/Main/SideFilters';
 import MainSearchBar from '../components/common/SearchBar/MainSearchBar';
 import TagScroller from '../components/Main/TagScroller';
+import SelectTextIn from '../components/common/Select/SelectTextIn';
 import Card from '../components/Main/Card';
 import Pagination from '../components/common/Pagination';
 import TopButton from '../components/TopButton';
 import Footer from '../components/layout/Footer';
-import ArrowDownSmallIcon from '../assets/icons/ic_arrow_down_small.svg?react';
 import {
   positions,
   skills,
@@ -18,22 +18,21 @@ import {
   workWays,
 } from '../constants/formOptions';
 
-type SortData = {
-  id: number;
+interface SortData {
+  id: string;
   label: string;
-};
+}
 
 const sorts: SortData[] = [
-  { id: 1, label: '최신순' },
-  { id: 2, label: '마감순' },
-  { id: 3, label: '인기순' },
+  { id: 'createdAt,desc', label: '최신순' },
+  { id: 'createdAt,asc', label: '오래된순' },
 ];
 
 const Main = () => {
   const [page, setPage] = useState(0);
+  const [sort, setSort] = useState('createdAt,desc');
   const { filters, tags, setFilters } = useFilterStore();
-  const { data, isLoading } = useProjectsPostQuery(page, filters);
-  const [isSortOpen, setIsSortOpen] = useState(false);
+  const { data, isLoading } = useProjectsGetQuery(page, sort, filters);
 
   const allOptions = [
     ...positions,
@@ -84,27 +83,12 @@ const Main = () => {
             {/* 필터 태그 */}
             <TagScroller keywords={tags} onRemove={handleTagRemove} />
             {/* 정렬 */}
-            <div
-              className="relative flex h-[2.8rem] w-[9.2rem] cursor-pointer items-center justify-between pl-[1.2rem] pr-[1rem]"
-              onClick={() => setIsSortOpen(!isSortOpen)}
-            >
-              <span className="w-[4.5rem] whitespace-nowrap text-caption-14_M500">
-                {sorts[0].label}
-              </span>
-              <ArrowDownSmallIcon
-                className={`${isSortOpen ? 'rotate-180' : 'rotate-0'}`}
-              />
-              {isSortOpen && (
-                <div className="absolute left-0 top-[3.4rem] h-[6.4rem] w-[9.2rem] rounded-[0.4rem] bg-black-10 text-body-13_R400 shadow-pop">
-                  <div className="h-[3.2rem] px-[1rem] pb-[0.4rem] pt-[0.8rem]">
-                    <span>{sorts[1].label}</span>
-                  </div>
-                  <div className="h-[3.2rem] px-[1rem] pb-[0.4rem] pt-[0.8rem]">
-                    <span>{sorts[2].label}</span>
-                  </div>
-                </div>
-              )}
-            </div>
+            <SelectTextIn
+              items={sorts}
+              title="최신순"
+              type="default"
+              onChange={(id) => setSort(id)}
+            />
           </div>
 
           {/* 카드 */}
