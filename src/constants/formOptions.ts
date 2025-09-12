@@ -24,12 +24,6 @@ export const workTime = [
   { id: 'DAWN', label: '새벽 (02:00~06:00)' },
 ];
 
-export const onOff = [
-  { id: 'ONLINE', label: '온라인' },
-  { id: 'OFFLINE', label: '오프라인' },
-  { id: 'HYBRID', label: '온/오프라인' },
-];
-
 export const sido = [
   { id: 'SEOUL', label: '서울특별시' },
   { id: 'GYEONGGI', label: '경기도' },

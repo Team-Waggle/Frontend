@@ -84,10 +84,12 @@ const ProfileForm = () => {
         setSkillKeywords(userData.skills || []);
 
         setRows(
-          (userData.positions as PositionItem[] | undefined)?.map((p) => ({
-            job: p.position,
-            exp: String(p.year_count),
-          })) || [{ job: '', exp: '' }],
+          userData.positions && userData.positions.length > 0
+            ? (userData.positions as PositionItem[]).map((p) => ({
+                job: p.position,
+                exp: String(p.year_count),
+              }))
+            : [{ job: '', exp: '' }],
         );
 
         setLinks(
