@@ -20,7 +20,7 @@ interface ControlProfileChipProps extends React.ButtonHTMLAttributes<HTMLButtonE
 interface ProfileChipContentProps {
   name: string;
   jobRole: string;
-  yearCount: string;
+  yearCount: number;
 }
 
 export type ProfileChipProps = 

@@ -43,7 +43,7 @@ const ProfileTag = memo(
           <div className="flex items-center gap-[0.4rem] self-stretch text-caption-13_M500 text-black-70">
             <span>{jobRole}</span>
             <span>|</span>
-            <span className="truncate max-w-full">{yearCount}</span>
+            <span className="truncate max-w-full">{yearCount}년차 이상</span>
           </div>
         </div>
         </div>
