@@ -25,7 +25,7 @@ const ProfileTag = memo(
       'flex items-center justify-center h-[6.4rem] gap-[1rem] pr-[2.2rem] pl-[1.2rem] border-solid border-[1px] rounded-[0.8rem] bg-black-10';
 
     const sizeStyles: Record<string, string> = {
-      extraSmall: '28rem',
+      extraSmall: 'w-[28rem]',
       medium: 'w-[25.6rem]',
       extraLarge: 'w-[24.6rem]',
     };
@@ -40,10 +40,10 @@ const ProfileTag = memo(
               {name}
             </p>
           </div>
-          <div className="flex items-center gap-[0.4rem] self-stretch text-caption-13_M500 text-black-70">
+          <div className="flex items-center gap-[0.4rem] self-stretch whitespace-nowrap text-caption-13_M500 text-black-70">
             <span>{jobRole}</span>
             <span>|</span>
-            <span className="truncate max-w-full">{yearCount}</span>
+            <span className="max-w-full">{yearCount}년차 이상</span>
           </div>
         </div>
         </div>

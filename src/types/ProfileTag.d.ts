@@ -6,5 +6,5 @@ export interface ProfileTagProps {
   size?: ScreenSize;
   name: string;
   jobRole: string;
-  yearCount: string;
+  yearCount: number;
 }
