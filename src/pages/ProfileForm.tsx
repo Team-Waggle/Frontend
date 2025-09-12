@@ -84,10 +84,12 @@ const ProfileForm = () => {
         setSkillKeywords(userData.skills || []);
 
         setRows(
-          (userData.positions as PositionItem[] | undefined)?.map((p) => ({
-            job: p.position,
-            exp: String(p.year_count),
-          })) || [{ job: '', exp: '' }],
+          userData.positions && userData.positions.length > 0
+            ? (userData.positions as PositionItem[]).map((p) => ({
+                job: p.position,
+                exp: String(p.year_count),
+              }))
+            : [{ job: '', exp: '' }],
         );
 
         setLinks(
@@ -248,7 +250,7 @@ const ProfileForm = () => {
     );
 
   return (
-    <div className="flex w-[120rem] h-[207.4rem] flex-col items-center">
+    <div className="flex h-[207.4rem] w-[120rem] flex-col items-center">
       <ProfileImageField
         ProfileImgFieldUrl={profileImageUrl}
         onFileSelect={handleProfileImageUpload}
