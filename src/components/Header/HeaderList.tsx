@@ -40,7 +40,7 @@ const HeaderList = () => {
           <span
             className="text-caption-16_M500"
             onClick={() => {
-              // mutate();
+              mutate();
               useAccessTokenStore.getState().clearAccessToken();
               useRefreshTokenStore.getState().clearRefreshToken();
               window.location.href = '/';
