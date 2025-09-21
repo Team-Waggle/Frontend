@@ -168,3 +168,114 @@ body {
   /* position: fixed;을 위한 상단바 높이만큼의 padding-top값 */
   padding-top: 70px;
 }
+
+.react-calendar.custom-calendar {
+  @apply flex w-[29.2rem] max-w-[29.2rem] flex-col gap-[2rem] border-none pt-[3rem] font-pretendard;
+}
+
+.custom-calendar .react-calendar__navigation {
+  @apply m-0 flex h-[4rem] items-center gap-[5.4rem] px-[1.2rem];
+}
+
+.custom-calendar .react-calendar__navigation__label {
+  @apply h-full text-title-20_Sb600 text-black-130;
+}
+
+.custom-calendar .react-calendar__navigation__label:disabled {
+  @apply bg-black-10;
+}
+
+.custom-calendar .react-calendar__navigation__arrow {
+  @apply h-[4rem] w-[4rem] bg-black-10;
+}
+
+.custom-calendar .react-calendar__navigation__arrow:disabled {
+  @apply bg-black-10;
+}
+
+.custom-calendar .react-calendar__navigation__arrow:hover {
+  @apply bg-black-10 !important;
+}
+
+.custom-calendar .react-calendar__navigation__arrow svg {
+  @apply fill-black-10;
+}
+
+.custom-calendar .react-calendar__navigation__arrow svg path {
+  @apply stroke-black-70;
+}
+
+.custom-calendar .react-calendar__navigation__arrow:hover svg {
+  @apply fill-black-40;
+}
+
+.custom-calendar .react-calendar__navigation__arrow:hover svg path {
+  @apply stroke-black-70;
+}
+
+.custom-calendar .react-calendar__navigation__prev-button:disabled svg path {
+  @apply stroke-black-60;
+}
+
+.custom-calendar .react-calendar__navigation__prev-button:disabled:hover svg {
+  @apply fill-black-10 stroke-black-60;
+}
+
+.custom-calendar .react-calendar__navigation button {
+  @apply min-w-[4rem];
+}
+
+.custom-calendar .react-calendar__month-view {
+  @apply h-[33rem] w-full border-y border-solid border-black-40 py-[2rem];
+}
+
+.custom-calendar .react-calendar__month-view > div > div {
+  @apply flex flex-col gap-[1rem];
+}
+
+.custom-calendar .react-calendar__month-view__weekdays {
+  @apply w-full gap-[0.2rem];
+}
+
+.custom-calendar .react-calendar__month-view__weekdays__weekday {
+  @apply flex h-[4rem] w-[4rem] items-center justify-center p-0;
+  flex: 0 0 4rem !important;
+}
+
+.custom-calendar .react-calendar__month-view__weekdays__weekday abbr {
+  @apply text-caption-12_M500 text-black-100 no-underline;
+}
+
+.custom-calendar .react-calendar__tile {
+  @apply text-caption-14_Sb600 flex h-[4rem] w-[4rem] items-center justify-center p-0 text-black-130;
+  flex: 0 0 4rem !important;
+}
+
+.custom-calendar .react-calendar__tile:hover {
+  @apply rounded-[0.6rem] bg-primary-80 text-black-10 !important;
+}
+
+.custom-calendar .react-calendar__tile:disabled {
+  @apply rounded-[0.6rem] bg-black-10 text-black-130 !important;
+}
+
+.custom-calendar .react-calendar__tile--now {
+  @apply rounded-[0.6rem] bg-primary-20 text-black-130 !important;
+}
+
+.custom-calendar .react-calendar__month-view__days__day--neighboringMonth {
+  @apply text-body-14_M500 text-black-70;
+}
+
+.custom-calendar
+  .react-calendar__month-view__days__day--neighboringMonth:disabled {
+  @apply text-black-70 !important;
+}
+
+.custom-calendar .react-calendar__tile--active {
+  @apply rounded-[0.6rem] bg-primary-80 text-black-10;
+}
+
+.custom-calendar .react-calendar__tile--active:hover {
+  @apply bg-primary-80 !important;
+}
