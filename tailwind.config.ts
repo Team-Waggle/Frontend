@@ -81,6 +81,10 @@ const config: Config = {
           '1.6rem',
           { fontWeight: 500, lineHeight: '2.4rem', letterSpacing: '0' },
         ],
+        'caption-14_Sb600': [
+          '1.4rem',
+          { fontWeight: 600, lineHeight: '150%', letterSpacing: '0' },
+        ],
         'caption-14_M500': [
           '1.4rem',
           { fontWeight: 500, lineHeight: '150%', letterSpacing: '0' },
