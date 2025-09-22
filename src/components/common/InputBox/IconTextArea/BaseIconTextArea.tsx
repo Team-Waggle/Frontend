@@ -19,6 +19,8 @@ const BaseIconTextArea = ({
   useTyping,
   value = '',
   onChange,
+  minLength = 2,
+  maxLength = 10,
   ...rest
 }: BaseIconTextAreaProps) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -37,7 +39,7 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
 
-    onChange?.(e); // 부모에게 전달
+    onChange?.(e);
 
     const typing = val.length > 0;
     setIsTyping(typing);
@@ -50,7 +52,7 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
       if (!regex.test(val)) error = true;
     }
 
-    if (useLengthValidation && (val.length < 2 || val.length > 10)) {
+    if (useLengthValidation && (val.length < minLength || val.length > maxLength)) {
       error = true;
     }
 
