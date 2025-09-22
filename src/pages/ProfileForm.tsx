@@ -250,7 +250,7 @@ const ProfileForm = () => {
     );
 
   return (
-    <div className="flex w-[120rem] h-[207.4rem] flex-col items-center">
+    <div className="flex h-[207.4rem] w-[120rem] flex-col items-center">
       <ProfileImageField
         ProfileImgFieldUrl={profileImageUrl}
         onFileSelect={handleProfileImageUpload}
@@ -321,7 +321,14 @@ const ProfileForm = () => {
             {/* 자기 소개 */}
             <div className="flex w-full flex-col gap-[0.8rem]">
               <FormLabel title="자기 소개" />
-              <BasicTextArea value={detail} onChange={setDetail} size="lg" />
+              <BasicTextArea
+                value={detail}
+                onChange={setDetail}
+                size="lg"
+                showCount={true}
+                countFormatter={(curr, max) => `${curr} / ${max}자`}
+                placeholder="나는 어떤 사람인지, 어떤 프로젝트를 찾고 있는지, 간단한 인사도 좋아요!"
+              />
             </div>
 
             {/* 링크 */}
