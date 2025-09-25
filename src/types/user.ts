@@ -28,7 +28,7 @@ export interface UserMePayload {
   profile_img_url: string;
   detail: string;
   skills: string[];
-  positions: PositionItem;
+  positions: PositionItem[];
   days_of_week: string[];
   introductions: Introduction;
   portfolios: PortfolioUrl[];
