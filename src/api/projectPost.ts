@@ -15,13 +15,13 @@ export interface GetProjectsParams {
 
 export interface PostProjectParams {
   title: string;
-  industry: ProjectIndustry;
-  work_way: ProjectWayofWorking;
+  industry: ProjectIndustry | string;
+  work_way: ProjectWayofWorking | string;
   recruitment_end_date?: string;
   work_period: string;
-  skills?: ProjectSkill[];
+  skills?: ProjectSkill[] | string[];
   recruitments?: {
-    position: ProjectPosition;
+    position: ProjectPosition | string;
     remaining_count: number;
     current_count: number;
   }[];
@@ -45,10 +45,17 @@ export const getProjectDetail = async (projectId: number) => {
   return data.payload;
 };
 
-export const updateProject = async (projectId: number) => {
-  const { data } = await axiosInstance.put(PROJECTS_DETAIL_URL(projectId));
+export const updateProject = async (
+  projectId: number,
+  payload: PostProjectParams,
+) => {
+  const { data } = await axiosInstance.put(
+    PROJECTS_DETAIL_URL(projectId),
+    payload,
+  );
   return data;
 };
+
 export const deleteProject = async (projectId: number) => {
   const { data } = await axiosInstance.delete(PROJECTS_DETAIL_URL(projectId));
   return data;
