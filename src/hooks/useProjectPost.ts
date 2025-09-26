@@ -10,6 +10,7 @@ import {
   GetProjectsParams,
   postProject,
   PostProjectParams,
+  updateProject,
 } from '../api/projectPost';
 import { ProjectPayload } from '../types/project';
 import { PageResponse } from '../types/pageResponse';
@@ -47,7 +48,7 @@ export const useProjectsPostQuery = () => {
       queryClient.invalidateQueries({ queryKey: ['projectPost'] });
     },
     onError: (error) => {
-      console.error('Error posting bookmark:', error);
+      console.error('Error posting:', error);
     },
   });
 };
@@ -60,5 +61,25 @@ export const useProjectsPostDetailQuery = (projectId: number) => {
     enabled: !!projectId,
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
+  });
+};
+
+// 프로젝트 모집글 수정
+export const useProjectsUpdateQuery = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      projectId,
+      payload,
+    }: {
+      projectId: number;
+      payload: PostProjectParams;
+    }) => updateProject(projectId, payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['updateProject'] });
+    },
+    onError: (error) => {
+      console.error('Error updating:', error);
+    },
   });
 };
