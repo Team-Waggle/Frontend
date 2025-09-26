@@ -17,4 +17,6 @@ export interface BaseIconTextAreaProps extends React.InputHTMLAttributes<HTMLInp
   useRegex?: boolean;
   useLengthValidation?: boolean;
   useTyping?: (isTyping: boolean) => void;
+  minLength?: number;
+  maxLength?: number;
 }

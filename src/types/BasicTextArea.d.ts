@@ -7,4 +7,5 @@ export interface BaseBasicTextAreaProps extends React.TextareaHTMLAttributes<HTM
   size?: BasicTextAreaSize;
   state?: BasicTextAreaState;
   useTyping?: (isTyping: boolean) => void;
+  placeholder?: string;
 }

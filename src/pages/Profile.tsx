@@ -21,11 +21,15 @@ import LinkIcons from '../components/LinksIcons';
 import EditIcon from '../assets/icons/ic_edit.svg?react';
 import HeartIcon from '../assets/icons/ic_heart_fill_large.svg?react';
 import IpnList from '../components/Profile/IpnList';
+import { useFollow } from '../hooks/useFollow';
+import FollowBtn from '../components/Profile/FollowBtn';
 
 const Profile = () => {
   const { id } = useParams<{ id?: string }>();
   const { profile: user, isMyProfile, loading } = useUserProfile(id);
   const navigate = useNavigate();
+
+  const { isFollowed, followeesCount } = useFollow(user?.id ?? '');
 
   if (loading || !user) return <div>로딩 중...</div>;
 
@@ -52,7 +56,7 @@ const Profile = () => {
                 {!isMyProfile && (
                   <div className="flex items-center justify-center gap-[0.4rem] text-primary-70">
                     <HeartIcon className="h-[1.6rem] w-[1.6rem]" />
-                    <span className="text-caption-13_M500"> 99만 </span>
+                    <span className="text-caption-13_M500"> {followeesCount ?? 0} </span>
                   </div>
                 )}
                 {/* 프로필 아이콘 */}
@@ -236,9 +240,7 @@ const Profile = () => {
       </div>
       {/* 팔로잉 버튼 */}
       {!isMyProfile && (
-        <div className="mt-[3.4rem] flex h-[4.4rem] w-[4.4rem] flex-shrink-0 items-center justify-center rounded-r-[0.4rem] bg-primary-70">
-          <HeartIcon className="text-black-10" />
-        </div>
+        <FollowBtn userId={user.id} />
       )}
     </div>
   );

@@ -8,6 +8,24 @@ import {
 import { ICON_TEXT_AREA_STYLES } from './styles';
 import SearchIcon from '../../../../assets/inputBox/ic_input_search.svg?react';
 
+// BaseIconTextArea
+
+/**
+ * value: string - 현재 입력값 (필수)
+ * onChange: (e: React.ChangeEvent<HTMLInputElement>) => void - 값 변경 시 호출 (필수)
+ * type: TextAreaType - 텍스트 영역 타입 ('default' | 'fixed')
+ * state: DefaultTextAreaState | FixedTextAreaState - 외부에서 상태 강제 지정 가능
+ * typingMessage: string - 입력 중 안내 메시지
+ * showIcon: boolean - 입력창 오른쪽 아이콘 표시 여부
+ * useRegex: boolean - 입력값에 대한 정규식 검증 사용 여부 (기본: true)
+ * useLengthValidation: boolean - 글자 수 제한 사용 여부 (기본: true)
+ * minLength: number - 최소 글자 수 (기본: 2)
+ * maxLength: number - 최대 글자 수 (기본: 10)
+ * useTyping: (isTyping: boolean) => void - 입력 중 상태 콜백
+ * placeholder: string - placeholder 텍스트
+ * disabled: boolean - 비활성화 여부
+ */
+
 const BaseIconTextArea = ({
   className,
   type = 'default',
@@ -19,6 +37,8 @@ const BaseIconTextArea = ({
   useTyping,
   value = '',
   onChange,
+  minLength = 2,
+  maxLength = 10,
   ...rest
 }: BaseIconTextAreaProps) => {
   const [isTyping, setIsTyping] = useState(false);
@@ -37,7 +57,7 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
 
-    onChange?.(e); // 부모에게 전달
+    onChange?.(e);
 
     const typing = val.length > 0;
     setIsTyping(typing);
@@ -50,7 +70,7 @@ const getCurrentState = (): DefaultTextAreaState | FixedTextAreaState => {
       if (!regex.test(val)) error = true;
     }
 
-    if (useLengthValidation && (val.length < 2 || val.length > 10)) {
+    if (useLengthValidation && (val.length < minLength || val.length > maxLength)) {
       error = true;
     }
 
