@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import { useOutsideClick } from '../../../../hooks/useOutsideClick';
 import { DefaultTextAreaState } from '../../../../types/IconTextArea';
@@ -10,13 +10,13 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const CalendarIconTextArea = ({
-  value,
+  value = '',
   onChange,
   ...rest
 }: React.InputHTMLAttributes<HTMLInputElement>) => {
   const [hasError, setHasError] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [inputValue, setInputValue] = useState(value || '');
+  const [inputValue, setInputValue] = useState(value);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<ValuePiece>(null);
 
@@ -27,7 +27,7 @@ const CalendarIconTextArea = ({
     default: 'border-black-60 text-black-70 bg-black-10',
     typing: 'border-primary text-black-130 bg-black-10',
     complete: 'border-black-60 text-black-130 bg-black-10',
-    error: 'border-red-500 text-black-70 bg-black-10',
+    error: 'border-red-500 text-black-130 bg-black-10',
   };
 
   // YYYY-MM-DD 포맷 변환
@@ -109,6 +109,10 @@ const CalendarIconTextArea = ({
 
   const currentState = getCurrentState();
   const styleByState = ICON_TEXT_AREA_STYLES[currentState];
+
+  useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   return (
     <div

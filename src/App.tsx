@@ -6,8 +6,8 @@ import Main from './pages/Main';
 import ProfileForm from './pages/ProfileForm';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
-// import PostForm from './pages/PostForm';
-// import Post from './pages/Post';
+import PostForm from './pages/PostForm';
+import Post from './pages/Post';
 
 function App() {
   return (
@@ -21,8 +21,9 @@ function App() {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/ProfileForm" element={<ProfileForm />} />
           {/* 모집글 생성 및 보기 페이지 완료되면 주석 해제 */}
-          {/* <Route path="/post/new" element={<PostForm />} />
-          <Route path="/post/:projectId" element={<Post />} /> */}
+          <Route path="/post/new" element={<PostForm />} />
+          <Route path="/post/edit/:projectId" element={<PostForm />} />
+          <Route path="/post/:projectId" element={<Post />} />
         </Route>
       </Routes>
     </>
