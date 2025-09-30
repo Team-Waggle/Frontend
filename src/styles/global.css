@@ -226,7 +226,7 @@ body {
 }
 
 .custom-calendar .react-calendar__month-view {
-  @apply h-[33rem] w-full border-y border-solid border-black-40 py-[2rem];
+  @apply w-full border-y border-solid border-black-40 py-[2rem];
 }
 
 .custom-calendar .react-calendar__month-view > div > div {
@@ -246,8 +246,12 @@ body {
   @apply text-caption-12_M500 text-black-100 no-underline;
 }
 
+.custom-calendar .react-calendar__month-view__days {
+  @apply gap-x-[0.2rem] gap-y-[1rem];
+}
+
 .custom-calendar .react-calendar__tile {
-  @apply text-caption-14_Sb600 flex h-[4rem] w-[4rem] items-center justify-center p-0 text-black-130;
+  @apply flex h-[4rem] w-[4rem] items-center justify-center p-0 text-caption-14_Sb600 text-black-130;
   flex: 0 0 4rem !important;
 }
 
