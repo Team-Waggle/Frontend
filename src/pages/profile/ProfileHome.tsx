@@ -1,4 +1,4 @@
-import { useUserProfile } from '../hooks/useUserProfile';
+import { useUserProfile } from '../../hooks/useUserProfile';
 import {
   getIndustry,
   getWaysOfWorking,
@@ -7,41 +7,44 @@ import {
   getWorkTime,
   getTeamPlayOptionList,
   getDay,
-} from '../utils/createMapper';
+} from '../../utils/createMapper';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import BaseProfileIcon from '../components/common/Profile/ProfileIcon/BaseProfileIcon';
+import BaseProfileIcon from '../../components/common/Profile/ProfileIcon/BaseProfileIcon';
 
-import EmailIc from '../assets/icons/ic_email_small.svg?react';
-import ProfileInfo from '../components/Profile/ProfileInfo';
-import ProfileTag from '../components/Profile/ProfilePageTag';
-import SkillIcons from '../components/SkillIcons';
-import { skillIconMapper } from '../utils/skillIconMapper';
-import LinkIcons from '../components/LinksIcons';
-import EditIcon from '../assets/icons/ic_edit.svg?react';
-import HeartIcon from '../assets/icons/ic_heart_fill_large.svg?react';
-import IpnList from '../components/Profile/IpnList';
-import { useFollow } from '../hooks/useFollow';
-import FollowBtn from '../components/Profile/FollowBtn';
+import EmailIc from '../../assets/icons/ic_email_small.svg?react';
+import ProfileInfo from '../../components/Profile/ProfileInfo';
+import ProfileTag from '../../components/Profile/ProfilePageTag';
+import SkillIcons from '../../components/SkillIcons';
+import { skillIconMapper } from '../../utils/skillIconMapper';
+import LinkIcons from '../../components/LinksIcons';
+import EditIcon from '../../assets/icons/ic_edit.svg?react';
+import HeartIcon from '../../assets/icons/ic_heart_fill_large.svg?react';
+import IpnList from '../../components/Profile/IpnList';
+import { useFollow } from '../../hooks/useFollow';
+import FollowBtn from '../../components/Profile/FollowBtn';
+import { useFollowerCount } from '../../hooks/useFollowerCount';
 
-const Profile = () => {
+const ProfileHome = () => {
   const { id } = useParams<{ id?: string }>();
   const { profile: user, isMyProfile, loading } = useUserProfile(id);
   const navigate = useNavigate();
 
-  const { isFollowed, followeesCount } = useFollow(user?.id ?? '');
+  const followerCount = useFollowerCount(user?.id);
 
   if (loading || !user) return <div>로딩 중...</div>;
 
   const BusinessCardStyle =
     'flex pt-[1.6rem] px-[2rem] pb-[4rem] flex-col items-start gap-[1rem] self-stretch rounded-[0.8rem] border border-solid border-black-50 bg-black-10';
-  
-    return (
-    <div className="mt-[4.2rem] flex h-[159.9rem] w-[120rem] justify-center flex-shrink-0 flex-row">
-      {/* ipn-list */}
-      {isMyProfile && <IpnList />}
-      {/* 내 프로필 */}
-      <div className="flex w-[85.6rem] flex-col items-start gap-[2rem] ml-[2.6rem]"> {/* 나중에 문제 수정 후 2.6rem 제거 */}
+
+  return (
+    <div
+      className={`flex flex-row ${
+        !isMyProfile ? "mt-[4.2rem] flex h-[159.9rem] w-[120rem] justify-center flex-shrink-0 flex-row" : ""
+      }`}
+    >
+      <div className="ml-[2.6rem] flex w-[85.6rem] flex-col items-start gap-[2rem]">
+        {/* 나중에 문제 수정 후 2.6rem 제거 */}
         {/* 총 내 프로필 */}
         <div
           className={`flex w-[85.6rem] items-start gap-[2rem] ${
@@ -56,7 +59,9 @@ const Profile = () => {
                 {!isMyProfile && (
                   <div className="flex items-center justify-center gap-[0.4rem] text-primary-70">
                     <HeartIcon className="h-[1.6rem] w-[1.6rem]" />
-                    <span className="text-caption-13_M500"> {followeesCount ?? 0} </span>
+                    <span className="text-caption-13_M500">
+                      {followerCount ?? 0}
+                    </span>
                   </div>
                 )}
                 {/* 프로필 아이콘 */}
@@ -174,7 +179,6 @@ const Profile = () => {
             </ProfileInfo>
           </div>
         </div>
-
         {/* 프로필 명함 01 */}
         <div className={BusinessCardStyle}>
           {/* 내 성향 */}
@@ -220,7 +224,6 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
         {/* 프로필 명함 02 */}
         <div className={BusinessCardStyle}>
           <div className="flex flex-col items-start gap-[2.6rem] self-stretch">
@@ -239,11 +242,9 @@ const Profile = () => {
         </div>
       </div>
       {/* 팔로잉 버튼 */}
-      {!isMyProfile && (
-        <FollowBtn userId={user.id} />
-      )}
+      {!isMyProfile && <FollowBtn userId={user.id} />}
     </div>
   );
 };
 
-export default Profile;
+export default ProfileHome;
