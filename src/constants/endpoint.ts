@@ -14,6 +14,7 @@ export const USER_PROFILE_IMAGE = '/v1/users/me/profile-image'; // 현재 사용
 export const FOLLOW_URL = '/v1/follows' // 팔로우, 언팔로우 토글
 export const USER_FOLLOEES = '/v1/users/me/followees'
 export const USER_FOLLOWERS = '/v1/users/me/followers'
+export const USER_COUNT_FOLLOWERS = '/v1/users/${userId}/follow-count'
 
 // 프로젝트 모집 게시글 API
 export const PROJECTS_URL = '/v1/projects/post'; // 프로젝트 모집글 목록 조회, 생성
