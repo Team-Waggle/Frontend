@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import { useOutsideClick } from '../../../../hooks/useOutsideClick';
 import { DefaultTextAreaState } from '../../../../types/IconTextArea';
@@ -71,23 +71,39 @@ const CalendarIconTextArea = ({
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVal = e.target.value;
-    setInputValue(newVal);
-    onChange?.(e);
+  // YYYYMMDD → YYYY-MM-DD 자동 포맷 (8자리까지만 허용)
+  const formatWithHyphen = (val: string) => {
+    // 숫자만 추출 후 8자리까지만 자르기
+    const digits = val.replace(/\D/g, '').slice(0, 8);
 
-    if (newVal.length === 0) {
+    if (digits.length <= 4) return digits; // 연도만
+    if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+    return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawVal = e.target.value;
+    const formattedVal = formatWithHyphen(rawVal); // 입력 도중 즉시 하이픈 추가
+
+    setInputValue(formattedVal);
+
+    // 부모에도 포맷된 값 전달
+    onChange?.({
+      ...e,
+      target: { ...e.target, value: formattedVal },
+    });
+
+    if (formattedVal.length === 0) {
       setHasError(false);
       setSelectedDate(null);
-    } else if (isValidDate(newVal)) {
-      const [year, month, day] = newVal.split('-').map(Number);
+    } else if (isValidDate(formattedVal)) {
+      const [year, month, day] = formattedVal.split('-').map(Number);
       const newDate = new Date(year, month - 1, day);
 
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // 시간 제거
+      today.setHours(0, 0, 0, 0);
 
       if (newDate < today) {
-        // 오늘 이전 날짜면 에러
         setSelectedDate(null);
         setHasError(true);
       } else {
@@ -136,7 +152,7 @@ const CalendarIconTextArea = ({
         <CalendarIcon onClick={() => setIsOpen((prev) => !prev)} />
       </button>
       {isOpen && (
-        <div className="absolute left-[-0.1rem] top-[5.6rem] z-10 h-[42rem] w-[35.8rem] rounded-[0.8rem] border border-solid border-black-40 bg-black-10 px-[3.3rem] shadow-dropbox">
+        <div className="absolute left-[-0.1rem] top-[5.6rem] z-10 w-[35.8rem] rounded-[0.8rem] border border-solid border-black-40 bg-black-10 px-[3.3rem] shadow-dropbox">
           <Calendar
             className="custom-calendar"
             calendarType="gregory"
