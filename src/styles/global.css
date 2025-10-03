@@ -260,7 +260,7 @@ body {
 }
 
 .custom-calendar .react-calendar__tile:disabled {
-  @apply rounded-[0.6rem] bg-black-10 text-black-130 !important;
+  @apply rounded-[0.6rem] bg-black-10 text-black-50 !important;
 }
 
 .custom-calendar .react-calendar__tile--now {
@@ -273,7 +273,7 @@ body {
 
 .custom-calendar
   .react-calendar__month-view__days__day--neighboringMonth:disabled {
-  @apply text-black-70 !important;
+  @apply text-black-50 !important;
 }
 
 .custom-calendar .react-calendar__tile--active {
