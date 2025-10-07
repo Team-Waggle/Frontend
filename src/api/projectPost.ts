@@ -11,6 +11,7 @@ export interface GetProjectsParams {
   page: number;
   size: number;
   sort: string;
+  query: string;
 }
 
 export interface PostProjectParams {

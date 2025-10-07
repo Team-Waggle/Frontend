@@ -25,14 +25,17 @@ interface SortData {
 
 const sorts: SortData[] = [
   { id: 'createdAt,desc', label: '최신순' },
-  { id: 'createdAt,asc', label: '오래된순' },
+  { id: 'bookmarkCount', label: '인기순' },
+  { id: 'recruitmentEndDate', label: '마감순' },
 ];
 
 const Main = () => {
   const [page, setPage] = useState(0);
   const [sort, setSort] = useState('createdAt,desc');
+  const [keyword, setKeyword] = useState('');
+  const [query, setQuery] = useState('');
   const { filters, tags, setFilters } = useFilterStore();
-  const { data, isLoading } = useProjectsGetQuery(page, sort, filters);
+  const { data, isLoading } = useProjectsGetQuery(page, sort, filters, query);
 
   const allOptions = [
     ...positions,
@@ -67,18 +70,22 @@ const Main = () => {
     <>
       <div className="flex h-full justify-center sm:gap-[1.6rem] md:gap-[4.2rem] lg:gap-[5.6rem]">
         {/* 모바일 화면에서 Drawer 보여주기 */}
-        <div className="sm:hidden">
+        <div className="md:hidden">
           <Drawer>
             <SideFilters />
           </Drawer>
         </div>
         {/* 모바일 화면에서 Drawer 가리기 */}
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           <SideFilters />
         </div>
         {/* 메인 컨텐츠 */}
         <div className="mt-[4.2rem] flex min-h-[170rem] w-[32rem] flex-col items-center sm:w-[45.8rem] md:w-[63rem]">
-          <MainSearchBar />
+          <MainSearchBar
+            keyword={keyword}
+            setKeyword={setKeyword}
+            onSearch={() => setQuery(keyword)}
+          />
           <div className="mt-[1rem] flex h-[4.4rem] w-full items-center gap-[1.6rem] md:pl-[2.4rem] md:pr-[2.2rem]">
             {/* 필터 태그 */}
             <TagScroller keywords={tags} onRemove={handleTagRemove} />

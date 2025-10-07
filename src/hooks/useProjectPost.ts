@@ -20,6 +20,7 @@ export const useProjectsGetQuery = (
   page: number,
   sort: string,
   filters: Record<string, string[]>,
+  query: string,
 ) => {
   const params: GetProjectsParams = {
     page,
@@ -28,9 +29,10 @@ export const useProjectsGetQuery = (
     ...Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value.join(',')]),
     ),
+    query,
   };
   return useQuery<PageResponse<ProjectPayload>, Error>({
-    queryKey: ['projectPost', page, sort, filters],
+    queryKey: ['projectPost', page, sort, filters, query],
     queryFn: () => getProjects(params),
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
@@ -41,7 +43,6 @@ export const useProjectsGetQuery = (
 // 프로젝트 모집글 생성
 export const useProjectsPostQuery = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (payload: PostProjectParams) => postProject(payload),
     onSuccess: () => {
@@ -65,18 +66,13 @@ export const useProjectsPostDetailQuery = (projectId: number) => {
 };
 
 // 프로젝트 모집글 수정
-export const useProjectsUpdateQuery = () => {
+export const useProjectsUpdateQuery = (projectId: number) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      projectId,
-      payload,
-    }: {
-      projectId: number;
-      payload: PostProjectParams;
-    }) => updateProject(projectId, payload),
+    mutationFn: (payload: PostProjectParams) =>
+      updateProject(projectId, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['updateProject'] });
+      queryClient.invalidateQueries({ queryKey: ['updateProject', projectId] });
     },
     onError: (error) => {
       console.error('Error updating:', error);

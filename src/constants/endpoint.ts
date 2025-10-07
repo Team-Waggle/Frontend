@@ -6,14 +6,15 @@ export const LOGOUT_URL = '/v2/auth/logout'; // 로그아웃
 export const REISSUE_URL = '/v2/auth/tokens/reissue'; // 액세스 토큰 재발급
 
 // 사용자 API
+export const USER_SEARCH_URL = '/v1/users'; //사용자 검색
 export const USER_URL = (userId: string) => `/v1/users/${userId}`; // 특정 사용자 조회
 export const USER_ME_URL = '/v1/users/me'; // 현재 사용자 조회, 수정, 삭제
 export const USER_PROFILE_IMAGE = '/v1/users/me/profile-image'; // 현재 사용자 이미지
 
 // 팔로우 API
-export const FOLLOW_URL = '/v1/follows' // 팔로우, 언팔로우 토글
-export const USER_FOLLOEES = '/v1/users/me/followees'
-export const USER_FOLLOWERS = '/v1/users/me/followers'
+export const FOLLOW_URL = '/v1/follows'; // 팔로우, 언팔로우 토글
+export const USER_FOLLOEES = '/v1/users/me/followees';
+export const USER_FOLLOWERS = '/v1/users/me/followers';
 
 // 프로젝트 모집 게시글 API
 export const PROJECTS_URL = '/v1/projects/post'; // 프로젝트 모집글 목록 조회, 생성
