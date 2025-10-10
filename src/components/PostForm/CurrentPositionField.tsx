@@ -47,7 +47,7 @@ const CurrentPositionField = ({ value = [], onChange }: Props) => {
             <BaseSelect
               items={positions}
               title="직무 선택"
-              width="w-[35.8rem]"
+              width="w-[32rem] sm:w-[30.1rem] md:w-[35.8rem]"
               value={block.position}
               onChange={(id) => handlePositionChange(block.id, id)}
             />

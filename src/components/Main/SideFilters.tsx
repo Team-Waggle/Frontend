@@ -57,7 +57,7 @@ const SideFilters = () => {
   };
 
   return (
-    <aside className="w-[29rem] pt-[5.8rem] sm:w-[23rem]">
+    <aside className="w-[29rem] sm:w-[23rem] sm:pt-[3.2rem] md:pt-[5.8rem]">
       <div className="flex h-[5.6rem] items-center justify-between py-[1rem] pl-[1.4rem] pr-[0.2rem]">
         <span className="text-caption-13_Sb600">필터</span>
         <BaseButton

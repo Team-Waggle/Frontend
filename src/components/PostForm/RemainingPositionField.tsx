@@ -49,16 +49,18 @@ const RemainingPositionField = ({ value, onChange }: Props) => {
 
   return (
     <div className="flex flex-col gap-[2.4rem]">
-      <FormLabel title="모집 인원" isRequired />
       {value.map((block, index) => (
         <div key={block.id} className="flex gap-[5rem]">
-          <BaseSelect
-            items={positions}
-            title="직무 선택"
-            width="w-[35.8rem]"
-            value={block.position}
-            onChange={(id) => handlePositionChange(block.id, id)}
-          />
+          <div className="flex flex-col gap-[0.8rem]">
+            {index === 0 && <FormLabel title="모집 인원" isRequired />}
+            <BaseSelect
+              items={positions}
+              title="직무 선택"
+              width="w-[32rem] sm:w-[30.1rem] md:w-[35.8rem]"
+              value={block.position}
+              onChange={(id) => handlePositionChange(block.id, id)}
+            />
+          </div>
 
           <div className="flex items-end gap-[5rem]">
             <div className="flex h-[4.6rem] items-center gap-[0.5rem] py-[0.8rem]">

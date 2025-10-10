@@ -53,7 +53,7 @@ const KeywordTextArea = ({
   return (
     <div className="flex flex-col items-start self-stretch">
       <IconTextArea
-        className="w-[734px] items-center"
+        className="w-[32rem] items-center sm:w-[62rem] md:w-[73.4rem]"
         placeholder={placeholder}
         value={inputValue}
         useRegex={false}

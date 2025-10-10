@@ -132,7 +132,7 @@ const CalendarIconTextArea = ({
 
   return (
     <div
-      className={`relative flex h-[4.6rem] w-[35.8rem] items-center rounded-[0.8rem] border border-solid pl-[1.8rem] pr-[0.8rem] ${styleByState}`}
+      className={`relative flex h-[4.6rem] w-[32rem] items-center rounded-[0.8rem] border border-solid pl-[1.8rem] pr-[0.8rem] sm:w-[30.1rem] md:w-[35.8rem] ${styleByState}`}
       ref={textAreaRef}
     >
       <input
@@ -152,7 +152,7 @@ const CalendarIconTextArea = ({
         <CalendarIcon onClick={() => setIsOpen((prev) => !prev)} />
       </button>
       {isOpen && (
-        <div className="absolute left-[-0.1rem] top-[5.6rem] z-10 w-[35.8rem] rounded-[0.8rem] border border-solid border-black-40 bg-black-10 px-[3.3rem] shadow-dropbox">
+        <div className="absolute left-[-0.1rem] top-[5.6rem] z-10 w-[32rem] rounded-[0.8rem] border border-solid border-black-40 bg-black-10 px-[3.3rem] shadow-dropbox sm:w-[30.1rem] md:w-[35.8rem]">
           <Calendar
             className="custom-calendar"
             calendarType="gregory"
