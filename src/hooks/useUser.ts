@@ -4,12 +4,10 @@ import {
   updateUserMe,
   deleteUserMe,
   uploadUserProfileImage,
-  getUsersAll,
 } from '../api/user';
 import { useUserStore } from '../stores/userStore';
 import { useAccessTokenStore, useRefreshTokenStore } from '../stores/authStore';
 import type { UserMePayload, UpdateUserDto } from '../types/user';
-import { useQuery } from '@tanstack/react-query';
 
 export function useUser() {
   const { user, setUser, clearUser } = useUserStore();
@@ -77,19 +75,5 @@ export function useUser() {
     [setUser],
   );
 
-  return {
-    user,
-    fetchUser,
-    updateUser,
-    uploadProfileImage,
-  };
+  return { user, fetchUser, updateUser, uploadProfileImage };
 }
-
-export const useGetUserAllQuery = (query: string) => {
-  return useQuery({
-    queryKey: ['query', query],
-    queryFn: () => getUsersAll(query),
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
-  });
-};
