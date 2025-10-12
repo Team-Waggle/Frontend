@@ -1,4 +1,9 @@
-import { USER_ME_URL, USER_PROFILE_IMAGE, USER_URL } from '../constants/endpoint';
+import {
+  USER_ME_URL,
+  USER_PROFILE_IMAGE,
+  USER_SEARCH_URL,
+  USER_URL,
+} from '../constants/endpoint';
 import type { UserMeResponse, UpdateUserDto } from '../types/user';
 import axiosInstance from './axiosInstance';
 
@@ -12,10 +17,16 @@ export async function getUserById(userId: string): Promise<UserMeResponse> {
   return data;
 }
 
-export async function updateUserMe(payload: UpdateUserDto): Promise<UserMeResponse> {
-  const { data } = await axiosInstance.put<UserMeResponse>(USER_ME_URL, payload, {
-    headers: { 'Content-Type': 'application/json' },
-  });
+export async function updateUserMe(
+  payload: UpdateUserDto,
+): Promise<UserMeResponse> {
+  const { data } = await axiosInstance.put<UserMeResponse>(
+    USER_ME_URL,
+    payload,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  );
   return data;
 }
 
@@ -24,11 +35,23 @@ export async function deleteUserMe(): Promise<UserMeResponse> {
   return data;
 }
 
-export async function uploadUserProfileImage(file: File): Promise<UserMeResponse> {
+export async function uploadUserProfileImage(
+  file: File,
+): Promise<UserMeResponse> {
   const formData = new FormData();
   formData.append('profileImage', file);
 
-  const { data } = await axiosInstance.post<UserMeResponse>(USER_PROFILE_IMAGE, formData);
+  const { data } = await axiosInstance.post<UserMeResponse>(
+    USER_PROFILE_IMAGE,
+    formData,
+  );
 
   return data;
+}
+
+export const getUsersAll = async (query: string) => {
+  const { data } = await axiosInstance.get(USER_SEARCH_URL, {
+    params: { query },
+  });
+  return data.payload;
 };
