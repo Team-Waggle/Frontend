@@ -13,7 +13,7 @@ const HeaderNotification = () => {
 
   return (
     // pb 값 수정할 것
-    <div className="absolute right-[-4.4rem] top-[5rem] flex h-[38.2rem] w-[32.4rem] flex-col gap-[2rem] rounded-[1.2rem] bg-black-10 px-[2rem] pb-[3.6rem] pt-[2.2rem] shadow-pop sm:right-0">
+    <div className="absolute right-[-4.4rem] top-[5rem] flex h-[38.2rem] w-[32.4rem] flex-col gap-[2rem] rounded-[1.2rem] bg-black-10 px-[2rem] pb-[3.8rem] pt-[2.2rem] shadow-pop sm:right-0">
       <div className="flex h-[2.4rem] w-[28.4rem] justify-between">
         <span className="text-subtitle-16_Sb600">나의 활동</span>
         {!isEmailSetting && (
@@ -41,12 +41,12 @@ const HeaderNotification = () => {
         )}
       </div>
       {/* 데이터 없을 때 */}
-      {/* <div className="flex h-[28rem] w-[28.4rem] items-center justify-center">
+      {/* <div className="flex h-[28rem] w-[29rem] items-center justify-center">
         <div className="flex h-[11.647rem] w-[15.6rem] flex-col items-center gap-[2rem]">
-        <BlueModalIcon />
-        <span className="text-body-14_M500">새로운 활동을 시작해보세요!</span>
+          <BlueModalIcon />
+          <span className="text-body-14_M500">새로운 활동을 시작해보세요!</span>
         </div>
-        </div> */}
+      </div> */}
       <div className="flex h-[28rem] w-[29rem] flex-col gap-[1.2rem] overflow-y-auto overflow-x-hidden">
         <div className="flex flex-col gap-[0.6rem]">
           <div className="flex gap-[0.4rem]">

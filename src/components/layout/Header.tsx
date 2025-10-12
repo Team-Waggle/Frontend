@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAccessTokenStore } from '../../stores/authStore';
 import { useFilterStore } from '../../stores/filterStore';
 import BaseModal from '../Modal/BaseModal';
@@ -44,7 +44,7 @@ const Header = () => {
   const isMainPage = pathname === '/';
 
   return (
-    <header className="fixed top-0 z-[1] flex h-[7rem] w-full items-center justify-between border-b border-solid border-black-50 bg-black-10 px-[2rem]">
+    <header className="fixed top-0 z-[45] flex h-[7rem] w-full items-center justify-between border-b border-solid border-black-50 bg-black-10 px-[2rem]">
       {/* <HeaderContents> */}
       <div className="mx-auto flex w-full max-w-[120rem] items-center justify-between">
         <div className="cursor-pointer text-primary">
@@ -54,20 +54,19 @@ const Header = () => {
                 color="line"
                 leftIcon={<FilterIcon />}
                 onClick={toggle}
-                className="block sm:hidden"
+                className="block md:hidden"
               >
                 필터
               </BaseButton>
-              <LogoLargeIcon
-                className="hidden sm:block"
-                onClick={() => navigate('/')}
-              />
+              <Link to="/">
+                <LogoLargeIcon className="hidden md:block" />
+              </Link>
             </>
           ) : (
-            <div onClick={() => navigate('/')}>
-              <LogoLargeIcon className="hidden sm:block" />
-              <LogoSmallIcon className="block sm:hidden" />
-            </div>
+            <Link to="/">
+              <LogoLargeIcon className="hidden md:block" />
+              <LogoSmallIcon className="block md:hidden" />
+            </Link>
           )}
         </div>
         {/* </HeaderContents> */}
@@ -102,7 +101,9 @@ const Header = () => {
                   type="profile"
                   onClick={() => setIsHeaderListOpen((prev) => !prev)}
                 />
-                {isHeaderListOpen && <HeaderList />}
+                {isHeaderListOpen && (
+                  <HeaderList onClose={() => setIsHeaderListOpen(false)} />
+                )}
               </div>
             </div>
           ) : (
