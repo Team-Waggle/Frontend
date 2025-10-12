@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
         // 리프레시 토큰 없으면 바로 로그아웃
         useAccessTokenStore.getState().clearAccessToken();
         useRefreshTokenStore.getState().clearRefreshToken();
-        window.location.href = '/login';
+        window.location.href = '/';
         return Promise.reject(error);
       }
 
@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use(
         console.error('리프레시 토큰도 만료됨:', refreshError);
         useAccessTokenStore.getState().clearAccessToken();
         useRefreshTokenStore.getState().clearRefreshToken();
-        window.location.href = '/login';
+        window.location.href = '/';
         return Promise.reject(refreshError);
       }
     }

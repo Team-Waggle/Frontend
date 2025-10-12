@@ -64,29 +64,32 @@ const Card = ({ data }: CardProps) => {
       <div
         className={`flex w-full gap-[0.8rem] whitespace-nowrap border-b border-solid border-black-40 pb-[1.6rem] ${isEnd ? 'opacity-30' : ''}`}
       >
-        {data?.recruitments.map((data, idx) => (
-          <BaseTag
-            key={idx}
-            size="lg"
-            type="filled"
-            color="basic"
-            shape="square"
-          >
-            {data?.remaining_count}/{data?.current_count}명
-          </BaseTag>
-        ))}
+        <BaseTag size="lg" type="filled" color="basic" shape="square">
+          {data?.recruitments.reduce(
+            (sum, item) => sum + item.remaining_count,
+            0,
+          )}
+          /
+          {data?.recruitments.reduce(
+            (sum, item) => sum + item.remaining_count + item.current_count,
+            0,
+          )}
+          명
+        </BaseTag>
         <div className="flex flex-wrap gap-[0.4rem]">
-          {data?.recruitments.map((data, idx) => (
-            <BaseTag
-              key={idx}
-              size="lg"
-              type="outline"
-              color="basic"
-              shape="square"
-            >
-              {getPosition(data?.position)}
-            </BaseTag>
-          ))}
+          {data?.recruitments
+            ?.filter((data) => data.remaining_count >= 1)
+            .map((data, idx) => (
+              <BaseTag
+                key={idx}
+                size="lg"
+                type="outline"
+                color="basic"
+                shape="square"
+              >
+                {getPosition(data?.position)}
+              </BaseTag>
+            ))}
         </div>
       </div>
       <div

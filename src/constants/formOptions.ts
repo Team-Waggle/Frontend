@@ -136,8 +136,7 @@ export const industries = [
   { id: 'INTERIOR', label: '인테리어' },
   { id: 'RELIGION', label: '종교' },
   { id: 'SALES_DISTRIBUTION', label: '판매/유통' },
-  // 기타 가능하면 추가할 것
-  // ex) { id: 'ETC', label: '기타' },
+  { id: 'ETC', label: '기타' },
 ];
 
 export const workPeriods = [
