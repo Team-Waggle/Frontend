@@ -22,8 +22,8 @@ import Close from '../../assets/icons/ic_x_xlarge.svg?react';
 const BaseModal = ({
   // size = 'large', // 기본 크기는 large로 설정
   isOpen,
-  handleDone, // 확인 버튼 클릭 시 실행할 함수
   onClose,
+  handleDone, // 확인 버튼 클릭 시 실행할 함수
   CharacterComponent, // SVG 컴포넌트로 캐릭터 이미지 받기
   title, // 모달 제목
   content, // 모달 내용
