@@ -9,11 +9,11 @@ import {
   getProjects,
   GetProjectsParams,
   postProject,
-  PostProjectParams,
   updateProject,
 } from '../api/projectPost';
-import { ProjectPayload } from '../types/project';
+import { ProjectPayload } from '../types/api/response/payload/project';
 import { PageResponse } from '../types/pageResponse';
+import { ProjectBody } from '../types/api/request/project';
 
 // 프로젝트 모집글 목록 조회
 export const useProjectsGetQuery = (
@@ -44,7 +44,7 @@ export const useProjectsGetQuery = (
 export const useProjectsPostQuery = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (payload: PostProjectParams) => postProject(payload),
+    mutationFn: (payload: ProjectBody) => postProject(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectPost'] });
     },
@@ -69,8 +69,7 @@ export const useProjectsPostDetailQuery = (projectId: number) => {
 export const useProjectsUpdateQuery = (projectId: number) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (payload: PostProjectParams) =>
-      updateProject(projectId, payload),
+    mutationFn: (payload: ProjectBody) => updateProject(projectId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['updateProject', projectId] });
     },

@@ -1,11 +1,6 @@
 import axiosInstance from './axiosInstance';
 import { PROJECTS_DETAIL_URL, PROJECTS_URL } from '../constants/endpoint';
-import {
-  ProjectIndustry,
-  ProjectPosition,
-  ProjectSkill,
-  ProjectWayofWorking,
-} from '../types/project';
+import { ProjectBody } from '../types/api/request/project';
 
 export interface GetProjectsParams {
   page: number;
@@ -14,29 +9,12 @@ export interface GetProjectsParams {
   query: string;
 }
 
-export interface PostProjectParams {
-  title: string;
-  industry: ProjectIndustry | string;
-  work_way: ProjectWayofWorking | string;
-  recruitment_end_date?: string;
-  work_period: string;
-  skills?: ProjectSkill[] | string[];
-  recruitments?: {
-    position: ProjectPosition | string;
-    remaining_count: number;
-    current_count: number;
-  }[];
-  detail?: string;
-  contact_url?: string;
-  reference_url?: string;
-}
-
 export const getProjects = async (params: GetProjectsParams) => {
   const { data } = await axiosInstance.get(PROJECTS_URL, { params });
   return data.payload;
 };
 
-export const postProject = async (payload: PostProjectParams) => {
+export const postProject = async (payload: ProjectBody) => {
   const { data } = await axiosInstance.post(PROJECTS_URL, payload);
   return data;
 };
@@ -48,7 +26,7 @@ export const getProjectDetail = async (projectId: number) => {
 
 export const updateProject = async (
   projectId: number,
-  payload: PostProjectParams,
+  payload: ProjectBody,
 ) => {
   const { data } = await axiosInstance.put(
     PROJECTS_DETAIL_URL(projectId),

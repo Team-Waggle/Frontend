@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import BaseTag from '../common/Tag/BaseTag';
 import BookmarkWrapper from '../common/IconWrapper/BookmarkWrapper';
-import { ProjectPayload } from '../../types/project';
+import { ProjectPayload } from '../../types/api/response/payload/project';
 import { useEffect, useState } from 'react';
 import { SkillIcons } from '../SkillIcons';
 import { useNavigate } from 'react-router-dom';
