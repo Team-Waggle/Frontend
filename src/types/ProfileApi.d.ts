@@ -10,14 +10,13 @@ export interface BookmarkApiItem {
   skills: string[];
 }
 
-export interface FollowingApiItem {
-  id: string;
+export interface FollowUser {
+  userId: string;
   name: string;
-}
-
-export interface FollowerApiItem {
-  id: string;
-  name: string;
+  email: string;
+  profileImageUrl?: string;
+  position?: string;
+  yearCount?: number;
 }
 
 // Applications
