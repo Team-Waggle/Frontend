@@ -15,6 +15,7 @@ const bodyVariant: Record<ColumnVariant, string> = {
   icon3: 'flex w-[14rem] h-[6rem] items-center justify-center',
 };
 
+
 const headVariant: Record<ColumnVariant, string> = {
   default:
     'text-center flex h-[3.2rem] min-w-[8.6rem] max-w-[9.8rem] px-[1.2rem] py-0 justify-center items-center flex-shrink-0',
@@ -46,7 +47,7 @@ export function ThFrame({
 }) {
   return (
     <div
-      className={`bg-black-10 text-caption-12_M500 text-black-70 ${headVariant[variant]} ${className ?? ''}`}
+      className={`bg-black-10 text-caption-12_M500 text-black-70 border border-solid border-black-50 border-x-0 border-t-0 ${headVariant[variant]} ${className ?? ''}`}
     >
       {children}
     </div>
