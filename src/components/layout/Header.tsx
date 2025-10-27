@@ -94,7 +94,12 @@ const Header = () => {
                   type="bell"
                   onClick={() => setIsHeaderNotificationOpen((prev) => !prev)}
                 />
-                {isHeaderNotificationOpen && <HeaderNotification />}
+                {isHeaderNotificationOpen && (
+                  <HeaderNotification
+                    isOpen={isHeaderNotificationOpen}
+                    onClose={() => setIsHeaderNotificationOpen(false)}
+                  />
+                )}
               </div>
               <div className="relative" ref={headerListRef}>
                 <NavigationButton
@@ -102,7 +107,10 @@ const Header = () => {
                   onClick={() => setIsHeaderListOpen((prev) => !prev)}
                 />
                 {isHeaderListOpen && (
-                  <HeaderList onClose={() => setIsHeaderListOpen(false)} />
+                  <HeaderList
+                    isOpen={isHeaderListOpen}
+                    onClose={() => setIsHeaderListOpen(false)}
+                  />
                 )}
               </div>
             </div>
