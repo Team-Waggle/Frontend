@@ -22,7 +22,6 @@ const CurrentPositionField = ({ value = [], onChange }: Props) => {
   };
 
   const handleRemoveBlock = (id: number) => {
-    if (value[0]?.id === id) return;
     onChange?.(value.filter((b) => b.id !== id));
   };
 

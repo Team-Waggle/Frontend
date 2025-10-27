@@ -18,6 +18,20 @@ interface Props {
 }
 
 const RemainingPositionField = ({ value, onChange }: Props) => {
+  const handleAddBlock = () => {
+    const newBlock: Recruitment = {
+      id: Date.now(),
+      position: '',
+      remaining_count: 1,
+      current_count: 0,
+    };
+    onChange([...value, newBlock]);
+  };
+
+  const handleRemoveBlock = (id: number) => {
+    onChange(value.filter((b) => b.id !== id));
+  };
+
   const handlePositionChange = (id: number, position: string) => {
     onChange(value.map((b) => (b.id === id ? { ...b, position } : b)));
   };
@@ -30,21 +44,6 @@ const RemainingPositionField = ({ value, onChange }: Props) => {
           : b,
       ),
     );
-  };
-
-  const handleAddBlock = () => {
-    const newBlock: Recruitment = {
-      id: Date.now(),
-      position: '',
-      remaining_count: 1,
-      current_count: 0,
-    };
-    onChange([...value, newBlock]);
-  };
-
-  const handleRemoveBlock = (id: number) => {
-    if (value[0]?.id === id) return;
-    onChange(value.filter((b) => b.id !== id));
   };
 
   return (
