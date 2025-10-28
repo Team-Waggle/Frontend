@@ -1,6 +1,6 @@
 export type ProfileChipType = 'default' | 'control';
 export type DefaultChipState = 'default' | 'hover' | 'active';
-export type ControlChipState = 'default' | 'hover' | 'disabled';
+export type ControlChipState = 'default' | 'hover' | 'disabled' | 'wait';
 export type ScreenSize = 'extraSmall' | 'medium' | 'extraLarge';
 
 interface DefaultProfileChipProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -19,7 +19,7 @@ interface ControlProfileChipProps extends React.ButtonHTMLAttributes<HTMLButtonE
 
 interface ProfileChipContentProps {
   name: string;
-  jobRole: string;
+  jobRole: string | undefined;
   yearCount: number;
 }
 
