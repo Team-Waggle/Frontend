@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useUser } from '../hooks/useUser';
-import type { UpdateUserDto, PositionItem, Introduction } from '../types/user';
+import type { UpdateUserDto, Introduction } from '../types/user';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -19,11 +19,6 @@ import DayAndTimeField from '../components/NewProfile/DayAndTimeField';
 import WorkWayAndRegionField from '../components/NewProfile/WorkWayAndRegionField';
 import LinksField from '../components/NewProfile/LinksField';
 
-interface Row {
-  job: string;
-  exp: string;
-}
-
 interface LinkRow {
   id: string;
   site: string;
@@ -41,11 +36,12 @@ const ProfileForm = () => {
 
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
-  const [rows, setRows] = useState<Row[]>([{ job: '', exp: '' }]);
   const [links, setLinks] = useState<LinkRow[]>([
     { id: crypto.randomUUID(), site: '', url: '' },
   ]);
   const [skillKeywords, setSkillKeywords] = useState<string[]>([]);
+  const [position, setPosition] = useState('');
+  const [yearCount, setYearCount] = useState<number | ''>('');
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [preferredTime, setPreferredTime] = useState('');
@@ -82,14 +78,9 @@ const ProfileForm = () => {
         setSelectedIndustries(userData.industries || []);
         setSelectedDays(userData.days_of_week || []);
         setSkillKeywords(userData.skills || []);
-
-        setRows(
-          userData.positions && userData.positions.length > 0
-            ? (userData.positions as PositionItem[]).map((p) => ({
-                job: p.position,
-                exp: String(p.year_count),
-              }))
-            : [{ job: '', exp: '' }],
+        setPosition(userData.position || '');
+        setYearCount(
+          typeof userData.year_count === 'number' ? userData.year_count : '',
         );
 
         setLinks(
@@ -139,30 +130,37 @@ const ProfileForm = () => {
   // 저장 (put)
   const handleSubmit = async () => {
     let hasError = false;
+
     if (!nickname.trim()) {
       setNicknameRequiredMessage(true);
       hasError = true;
     } else setNicknameRequiredMessage(false);
+
     if (selectedIndustries.length === 0) {
       setIndustryRequiredMessage(true);
       hasError = true;
     } else setIndustryRequiredMessage(false);
+
+    if (!position.trim()) {
+      hasError = true;
+    }
+    const yearNum =
+      typeof yearCount === 'string' ? Number(yearCount) : yearCount;
+    if (!Number.isFinite(yearNum) || (yearNum as number) < 0) {
+      hasError = true;
+    }
+
     if (hasError) return;
 
     const payload: UpdateUserDto = {
       name: nickname,
       detail,
       skills: skillKeywords,
-      positions: rows.map((r) => ({
-        position: r.job,
-        year_count: Number(r.exp),
-      })),
+      position: position.trim(),
+      year_count: Number(yearNum),
       portfolios: links
         .filter((l) => l.url.trim() !== '')
-        .map((l) => ({
-          portfolio_type: l.site,
-          url: l.url,
-        })),
+        .map((l) => ({ portfolio_type: l.site, url: l.url })),
       industries: selectedIndustries,
       preferred_days_of_week: selectedDays,
       preferred_work_way: workWay,
@@ -174,9 +172,6 @@ const ProfileForm = () => {
 
     try {
       await updateUser(payload);
-      console.log('selectedDays', selectedDays);
-      console.log('selectedIndustries', selectedIndustries);
-      console.log('introductions', introductions);
       alert('프로필이 업데이트되었습니다.');
     } catch (err) {
       console.error(err);
@@ -221,19 +216,19 @@ const ProfileForm = () => {
   };
 
   // 직무 및 경력 minus, plus btn
-  const addJobExperienceRow = () => {
-    setRows((prev) => [...prev, { job: '', exp: '' }]);
-  };
+  // const addJobExperienceRow = () => {
+  //   setRows((prev) => [...prev, { job: '', exp: '' }]);
+  // };
 
-  const removeJobExperienceRow = (index: number) => {
-    setRows((prev) => prev.filter((_, i) => i !== index));
-  };
+  // const removeJobExperienceRow = (index: number) => {
+  //   setRows((prev) => prev.filter((_, i) => i !== index));
+  // };
 
-  const updateJobRow = (index: number, key: 'job' | 'exp', value: string) => {
-    setRows((prev) =>
-      prev.map((row, i) => (i === index ? { ...row, [key]: value } : row)),
-    );
-  };
+  // const updateJobRow = (index: number, key: 'job' | 'exp', value: string) => {
+  //   setRows((prev) =>
+  //     prev.map((row, i) => (i === index ? { ...row, [key]: value } : row)),
+  //   );
+  // };
 
   const addLink = () =>
     setLinks((prev) => [
@@ -270,10 +265,10 @@ const ProfileForm = () => {
 
             {/* 직무 및 경력 */}
             <JobExperienceField
-              rows={rows}
-              addRow={addJobExperienceRow}
-              removeRow={removeJobExperienceRow}
-              updateRow={updateJobRow}
+              position={position}
+              onChangePosition={setPosition}
+              yearCount={yearCount === '' ? '' : String(yearCount)}
+              onChangeYearCount={(v) => setYearCount(v === '' ? '' : Number(v))}
             />
 
             {/* 관심 산업 분야 */}
