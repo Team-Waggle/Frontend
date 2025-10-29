@@ -283,3 +283,7 @@ body {
 .custom-calendar .react-calendar__tile--active:hover {
   @apply bg-primary-80 !important;
 }
+
+@layer utilities {
+  [data-row-closed="true"] [data-variant="skill"] { opacity: 0.5; }
+}
