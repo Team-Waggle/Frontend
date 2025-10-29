@@ -40,6 +40,7 @@ interface PlusMinusButtonProps extends IconProps {
 interface ShadowButtonProps extends IconProps {
   color: 'point' | 'white';
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 export const NavigationButton = ({
@@ -144,11 +145,13 @@ export const ShadowButton = ({
   color,
   disabled,
   children,
+  onClick
 }: ShadowButtonProps) => {
   return (
     <button className="group flex h-[3.8rem] w-[3.8rem] items-center justify-center">
       <div
         className={`flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-[0.4rem] ${disabled ? 'bg-black-50' : color === 'point' ? 'bg-primary group-hover:bg-primary-80' : 'bg-black-10 group-hover:bg-black-30'} shadow-applicant`}
+        onClick={onClick}
       >
         {children}
       </div>

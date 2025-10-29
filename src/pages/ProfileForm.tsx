@@ -19,6 +19,10 @@ import DayAndTimeField from '../components/NewProfile/DayAndTimeField';
 import WorkWayAndRegionField from '../components/NewProfile/WorkWayAndRegionField';
 import LinksField from '../components/NewProfile/LinksField';
 
+import BaseModal from '../components/Modal/BaseModal';
+import ModalIcon from '../assets/character/modal/large/ch_modal_heart_square_yellow_large.svg?react';
+import CancelModal from '../components/Modal/CancelModal';
+
 interface LinkRow {
   id: string;
   site: string;
@@ -31,6 +35,9 @@ const ProfileForm = () => {
   const { user, fetchUser, updateUser } = useUser();
   const [loading, setLoading] = useState(true);
   const isExistingUser = !!user?.id;
+
+  const [openWelcome, setOpenWelcome] = useState(false);
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
 
   const navigate = useNavigate();
 
@@ -172,7 +179,11 @@ const ProfileForm = () => {
 
     try {
       await updateUser(payload);
-      alert('프로필이 업데이트되었습니다.');
+      if (isExistingUser) {
+        alert('프로필이 업데이트되었습니다.');
+      } else {
+        setOpenWelcome(true);
+      }
     } catch (err) {
       console.error(err);
       alert('업데이트에 실패했습니다.');
@@ -341,7 +352,7 @@ const ProfileForm = () => {
 
         {isExistingUser && (
           <CustomButton
-            // onClick={handleDelete}
+            onClick={() => setOpenDeleteConfirm(true)}
             color="special"
             size="md"
           >
@@ -349,6 +360,33 @@ const ProfileForm = () => {
           </CustomButton>
         )}
       </div>
+
+      <CancelModal
+        size="large"
+        isOpen={openDeleteConfirm}
+        onClose={() => setOpenDeleteConfirm(false)}
+        handleDone={() => {
+          setOpenDeleteConfirm(false);
+          // handleDelete();
+        }}
+        title="정말 탈퇴하시겠어요?"
+        content="탈퇴 시 데이터가 삭제될 수 있으며 되돌릴 수 없습니다."
+      />
+
+      <BaseModal
+        size="large"
+        isOpen={openWelcome}
+        onClose={() => {
+          setOpenWelcome(false);
+        }}
+        handleDone={() => {
+          setOpenWelcome(false);
+          navigate('/');
+        }}
+        CharacterComponent={ModalIcon}
+        title="Waggle과 함께해요!"
+        content="저장하고 회원가입을 마무리 해보아요."
+      />
     </div>
   );
 };
