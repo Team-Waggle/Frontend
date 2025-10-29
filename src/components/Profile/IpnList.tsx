@@ -18,9 +18,10 @@ const IpnList = () => {
             <NavLink
               end={path === ""}
               to={`${ROUTES.PROFILE}${path ? `/${path}` : ""}`}
-            >
-              <InPageNavigation items={label} />
-            </NavLink>
+              children={({ isActive }) => (
+                <InPageNavigation items={label} isActive={isActive} />
+              )}
+            />
           </li>
         ))}
       </ul>

@@ -92,7 +92,7 @@ const SelectTextIn = ({
 
       {isOpen && (
         <div
-          className={`absolute top-full z-10 box-border flex flex-col items-start rounded-[0.4rem] border bg-black-10 shadow-dropbox`}
+          className={`absolute top-full z-50 box-border flex flex-col items-start rounded-[0.4rem] border bg-black-10 shadow-dropbox`}
         >
           {items.map((item) => (
             <div
