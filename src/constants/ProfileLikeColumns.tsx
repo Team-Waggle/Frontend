@@ -1,6 +1,7 @@
 import type { ColumnDef, CellCtx } from '../types/table';
 import { IconActions } from '../components/common/Table/cells/IconActions';
 import SkillIcons from '../components/SkillIcons';
+import { skillIconMapper } from '../utils/skillIconMapper';
 
 export type BookmarkRow = {
   id: string;
@@ -35,7 +36,7 @@ export const BookmarkColumns: ColumnDef<BookmarkRow>[] = [
     key: 'skills',
     header: '사용 스킬',
     variant: 'skill',
-    accessor: (r) => r.skills ?? [],
+    accessor: (r) => (r.skills ?? []).map((s) => skillIconMapper[s] ?? s),
     cell: ({ value }: CellCtx<BookmarkRow, any>) => (
       <SkillIcons iconKeys={value ?? []} size="large" limit={3} />
     ),
