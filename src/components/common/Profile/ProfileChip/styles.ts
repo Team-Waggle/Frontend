@@ -27,5 +27,6 @@ export const PROFILE_CHIP_STYLES: Record<ProfileChipType, Record<string, string>
     default: `bg-black-10 ${COMMON_DEFAULT_BORDER_STYLE} ${CONTROL_PADDING}`,
     hover: `bg-black-60 ${COMMON_DEFAULT_BORDER_STYLE} ${CONTROL_PADDING}`,
     disabled: `bg-black-30 ${COMMON_DEFAULT_BORDER_STYLE} ${CONTROL_PADDING}`,
+    wait: `bg-primary-10 border-solid border-[1px] border-primary-40 rounded-[0.8rem] ${CONTROL_PADDING}`
   },
 };

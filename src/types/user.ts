@@ -1,9 +1,5 @@
 // /v1/users/me (PUT)
 // 직무/경력
-export interface PositionItem {
-  position: string;
-  year_count: number;
-}
 
 // 포트폴리오
 export interface PortfolioUrl {
@@ -28,7 +24,8 @@ export interface UserMePayload {
   profile_img_url: string;
   detail: string;
   skills: string[];
-  positions: PositionItem[];
+  position: string;
+  year_count: number;
   days_of_week: string[];
   introductions: Introduction;
   portfolios: PortfolioUrl[];
