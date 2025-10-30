@@ -42,7 +42,8 @@ export const router = createBrowserRouter(
         {/* 다른 사람 프로필 */}
         <Route path={`${ROUTES.PROFILE}/:id`} element={<ProfileRoute />} />
 
-        <Route path="/ProfileForm" element={<ProfileForm />} />
+        <Route path="/profile/new" element={<ProfileForm />} />
+        <Route path="/profile/edit/:id" element={<ProfileForm />} />
 
         <Route path="/post/new" element={<PostForm />} />
         <Route path="/post/edit/:projectId" element={<PostForm />} />
