@@ -41,6 +41,7 @@ import LogoCharacterIcon from '../assets/character/bubble-character.svg?react';
 import RequireIcon from '../assets/icons/ic_require.svg?react';
 import CompleteIcon from '../assets/icons/ic_snackbar_complete.svg?react';
 import ModalIcon from '../assets/character/modal/large/ch_modal_basic_triangle_yellow_large.svg?react';
+import { useScrollToInvalidField } from '../hooks/useScrollToInvalidField';
 
 interface TextAreaprops {
   subject: string;
@@ -79,6 +80,7 @@ const PostForm = () => {
   const { mutate: updateMutate } = useProjectsUpdateQuery(Number(projectId));
   const { data: usersAllData } = useGetUserAllQuery('');
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isValidated, setIsValidated] = useState(false);
 
   const [formTextArea, setFormTextArea] = useState<TextAreaprops>({
     subject: '',
@@ -183,6 +185,28 @@ const PostForm = () => {
 
   // 임시저장
   const handleTempSave = () => {
+    setIsValidated(true);
+
+    const isValid =
+      formData.title?.trim() &&
+      formData.industry?.trim() &&
+      formData.work_way?.trim() &&
+      formData.recruitment_end_date?.trim() &&
+      formData.work_period?.trim() &&
+      formData.skills &&
+      formData.skills.length > 0 &&
+      remainingBlocks.length > 0 &&
+      currentBlocks.length > 0 &&
+      formTextArea.subject.trim() &&
+      formTextArea.progress.trim() &&
+      formTextArea.requirements.trim() &&
+      formData.contact_url?.trim();
+
+    if (!isValid) {
+      scrollToFirstInvalidField();
+      return;
+    }
+
     const tempPayload = {
       formData,
       formTextArea,
@@ -198,6 +222,28 @@ const PostForm = () => {
 
   // 등록
   const handleSubmit = () => {
+    setIsValidated(true);
+
+    const isValid =
+      formData.title?.trim() &&
+      formData.industry?.trim() &&
+      formData.work_way?.trim() &&
+      formData.recruitment_end_date?.trim() &&
+      formData.work_period?.trim() &&
+      formData.skills &&
+      formData.skills.length > 0 &&
+      remainingBlocks.length > 0 &&
+      currentBlocks.length > 0 &&
+      formTextArea.subject.trim() &&
+      formTextArea.progress.trim() &&
+      formTextArea.requirements.trim() &&
+      formData.contact_url?.trim();
+
+    if (!isValid) {
+      scrollToFirstInvalidField();
+      return;
+    }
+
     const payload = {
       memberEmails: [''],
       title: formData.title ?? '',
@@ -211,16 +257,53 @@ const PostForm = () => {
       contact_url: formData.contact_url ?? '',
       reference_url: formData.reference_url ?? '',
     };
-    if (isEdit) {
-      updateMutate(payload);
-      localStorage.removeItem('tempPostForm');
-      console.log('update payload ->', payload);
-    } else {
-      postMutate(payload);
-      localStorage.removeItem('tempPostForm');
-      console.log('post payload ->', payload);
-    }
+
+    initialState.current = {
+      formData,
+      formTextArea,
+      remainingBlocks,
+      currentBlocks,
+    };
+
+    setTimeout(() => {
+      if (isEdit) {
+        updateMutate(payload);
+      } else {
+        postMutate(payload);
+      }
+    }, 0);
   };
+
+  const refs = {
+    title: useRef<HTMLDivElement>(null),
+    industry: useRef<HTMLDivElement>(null),
+    work_way: useRef<HTMLDivElement>(null),
+    recruitment_end_date: useRef<HTMLDivElement>(null),
+    work_period: useRef<HTMLDivElement>(null),
+    skills: useRef<HTMLDivElement>(null),
+    remaining: useRef<HTMLDivElement>(null),
+    current: useRef<HTMLDivElement>(null),
+    subject: useRef<HTMLDivElement>(null),
+    progress: useRef<HTMLDivElement>(null),
+    requirements: useRef<HTMLDivElement>(null),
+    contact_url: useRef<HTMLDivElement>(null),
+  };
+
+  const { scrollToFirstInvalidField } = useScrollToInvalidField(refs, {
+    title: () => !!formData.title?.trim(),
+    industry: () => !!formData.industry?.trim(),
+    work_way: () => !!formData.work_way?.trim(),
+    recruitment_end_date: () => !!formData.recruitment_end_date?.trim(),
+    work_period: () => !!formData.work_period?.trim(),
+    skills: () => Boolean(formData.skills && formData.skills.length > 0),
+    remaining: () =>
+      remainingBlocks.every((r) => r.position.trim() && r.remaining_count > 0),
+    current: () => currentBlocks.every((c) => c.position.trim() && c.count > 0),
+    subject: () => !!formTextArea.subject.trim(),
+    progress: () => !!formTextArea.progress.trim(),
+    requirements: () => !!formTextArea.requirements.trim(),
+    contact_url: () => !!formData.contact_url?.trim(),
+  });
 
   // Edit 모드일 경우 초기값 세팅
   useEffect(() => {
@@ -297,8 +380,12 @@ const PostForm = () => {
         <div className="flex w-full flex-col gap-[14rem]">
           <div className="flex flex-col gap-[2.6rem]">
             <div className="flex flex-col gap-[2.6rem]">
-              <div className="flex flex-col gap-[0.8rem]">
-                <FormLabel title="프로젝트 제목" isRequired requiredMessage />
+              <div ref={refs.title} className="flex flex-col gap-[0.8rem]">
+                <FormLabel
+                  title="프로젝트 제목"
+                  isRequired
+                  requiredMessage={isValidated && !formData.title?.trim()}
+                />
                 <BaseIconTextArea
                   value={formData.title}
                   placeholder="내용을 입력하세요."
@@ -312,8 +399,17 @@ const PostForm = () => {
               {/* 산업 분야, 진행 방식 */}
               <div className="flex flex-col gap-[2.6rem]">
                 <div className="flex w-full gap-[1.8rem]">
-                  <div className="flex flex-col gap-[0.8rem]">
-                    <FormLabel title="산업 분야" isRequired />
+                  <div
+                    ref={refs.industry}
+                    className="flex flex-col gap-[0.8rem]"
+                  >
+                    <FormLabel
+                      title="산업 분야"
+                      isRequired
+                      requiredMessage={
+                        isValidated && !formData.industry?.trim()
+                      }
+                    />
                     <BaseSelect
                       items={industries}
                       title="산업분야"
@@ -324,8 +420,17 @@ const PostForm = () => {
                       }
                     />
                   </div>
-                  <div className="flex flex-col gap-[0.8rem]">
-                    <FormLabel title="진행 방식" isRequired />
+                  <div
+                    ref={refs.work_way}
+                    className="flex flex-col gap-[0.8rem]"
+                  >
+                    <FormLabel
+                      title="진행 방식"
+                      isRequired
+                      requiredMessage={
+                        isValidated && !formData.work_way?.trim()
+                      }
+                    />
                     <BaseSelect
                       items={workWays}
                       title="진행 방식"
@@ -339,8 +444,17 @@ const PostForm = () => {
                 </div>
                 {/* 프로젝트 주제, 진행기간 */}
                 <div className="flex w-full gap-[1.8rem]">
-                  <div className="flex flex-col gap-[0.8rem]">
-                    <FormLabel title="프로젝트 마감일" isRequired />
+                  <div
+                    ref={refs.recruitment_end_date}
+                    className="flex flex-col gap-[0.8rem]"
+                  >
+                    <FormLabel
+                      title="프로젝트 마감일"
+                      isRequired
+                      requiredMessage={
+                        isValidated && !formData.recruitment_end_date?.trim()
+                      }
+                    />
                     <CalendarIconTextArea
                       value={formData.recruitment_end_date || ''}
                       onChange={(e) =>
@@ -351,8 +465,17 @@ const PostForm = () => {
                       }
                     />
                   </div>
-                  <div className="flex flex-col gap-[0.8rem]">
-                    <FormLabel title="진행 기간" isRequired />
+                  <div
+                    ref={refs.work_period}
+                    className="flex flex-col gap-[0.8rem]"
+                  >
+                    <FormLabel
+                      title="진행 기간"
+                      isRequired
+                      requiredMessage={
+                        isValidated && !formData.work_period?.trim()
+                      }
+                    />
                     <BaseSelect
                       items={workPeriods}
                       title="진행 기간"
@@ -369,8 +492,15 @@ const PostForm = () => {
             {/* 사용 스킬 이후 */}
             <div className="flex flex-col gap-[2.6rem]">
               <div className="flex flex-col gap-[3.8rem]">
-                <div className="flex flex-col gap-[0.8rem]">
-                  <FormLabel title="사용 스킬" isRequired requiredMessage />
+                <div ref={refs.skills} className="flex flex-col gap-[0.8rem]">
+                  <FormLabel
+                    title="사용 스킬"
+                    isRequired
+                    requiredMessage={
+                      isValidated &&
+                      (!formData.skills || formData.skills.length === 0)
+                    }
+                  />
                   {/* 스킬 input 자리 */}
                   <KeywordTextArea
                     value={formData.skills || []}
@@ -403,43 +533,54 @@ const PostForm = () => {
                 </div>
                 <div className="flex flex-col gap-[2rem]">
                   <RemainingPositionField
+                    ref={refs.remaining}
                     value={remainingBlocks}
                     onChange={setRemainingBlocks}
+                    isValidated={isValidated}
                   />
                   <CurrentPositionField
+                    ref={refs.current}
                     value={currentBlocks}
                     onChange={setCurrentBlocks}
+                    isValidated={isValidated}
                   />
                 </div>
               </div>
-              {/* 아이디 */}
-              <KeywordTextArea
-                value={formData.idKeywords || []}
-                onChange={(ids) =>
-                  setFormData((prev) => ({ ...prev, idKeywords: ids }))
-                }
-                // items 수정할 것
-                items={skills}
-                placeholder="@ 이메일을 입력해 주세요"
-                // renderChip 수정할 것
-                renderChip={(skill, onRemove) => {
-                  const displayLabel = getSkill(skill.id) || skill.label;
-                  const iconFileName = skillIconMapper[skill.id];
-                  return (
-                    <KeywordChip
-                      key={skill.id}
-                      shape="square"
-                      label={displayLabel}
-                      onRemove={onRemove}
-                      icon={
-                        iconFileName ? (
-                          <SkillIcons iconKeys={[iconFileName]} size="small" />
-                        ) : null
-                      }
-                    />
-                  );
-                }}
-              />
+              {/* 이메일 */}
+              <div className="flex flex-col gap-[0.8rem]">
+                <FormLabel title="함께하는 동료 태그하기" />
+                <KeywordTextArea
+                  value={formData.idKeywords || []}
+                  onChange={(ids) =>
+                    setFormData((prev) => ({ ...prev, idKeywords: ids }))
+                  }
+                  // items 수정할 것
+                  items={skills}
+                  placeholder="@ 이메일을 입력해 주세요"
+                  // renderChip 수정할 것
+                  renderChip={(skill, onRemove) => {
+                    const displayLabel = getSkill(skill.id) || skill.label;
+                    const iconFileName = skillIconMapper[skill.id];
+                    return (
+                      <KeywordChip
+                        key={skill.id}
+                        shape="square"
+                        label={displayLabel}
+                        onRemove={onRemove}
+                        icon={
+                          iconFileName ? (
+                            <SkillIcons
+                              iconKeys={[iconFileName]}
+                              size="small"
+                            />
+                          ) : null
+                        }
+                      />
+                    );
+                  }}
+                />
+              </div>
+
               {/* 총 구성인원 */}
               <div className="border-black70 border-t-2 border-solid pt-[1rem]">
                 <div className="flex justify-end gap-[0.8rem] text-title-18_Sb600">
@@ -457,12 +598,17 @@ const PostForm = () => {
           <div className="flex flex-col gap-[7.6rem]">
             {/* TextArea */}
             <div className="flex flex-col gap-[4rem]">
-              <div className="flex flex-col gap-[0.8rem]">
+              <div ref={refs.subject} className="flex flex-col gap-[0.8rem]">
                 <div className="flex flex-col">
                   <div className="flex items-center gap-[0.2rem]">
                     <span className="text-title-20_Sb600">프로젝트 주제</span>
-                    <div className="flex h-[1.8rem] items-center">
+                    <div className="flex h-[1.8rem] items-center gap-[0.6rem]">
                       <RequireIcon />
+                      {isValidated && !formTextArea.subject.trim() && (
+                        <span className="text-caption-12_M500 text-error">
+                          필수 입력입니다.
+                        </span>
+                      )}
                     </div>
                   </div>
                   <span className="text-caption-13_M500">
@@ -479,12 +625,17 @@ const PostForm = () => {
                   showCount={false}
                 />
               </div>
-              <div className="flex flex-col gap-[0.8rem]">
+              <div ref={refs.progress} className="flex flex-col gap-[0.8rem]">
                 <div className="flex flex-col">
                   <div className="flex items-center gap-[0.2rem]">
                     <span className="text-title-20_Sb600">진행 상황</span>
-                    <div className="flex h-[1.8rem] items-center">
+                    <div className="flex h-[1.8rem] items-center gap-[0.6rem]">
                       <RequireIcon />
+                      {isValidated && !formTextArea.progress.trim() && (
+                        <span className="text-caption-12_M500 text-error">
+                          필수 입력입니다.
+                        </span>
+                      )}
                     </div>
                   </div>
                   <span className="text-caption-13_M500">
@@ -501,12 +652,20 @@ const PostForm = () => {
                   showCount={false}
                 />
               </div>
-              <div className="flex flex-col gap-[0.8rem]">
+              <div
+                ref={refs.requirements}
+                className="flex flex-col gap-[0.8rem]"
+              >
                 <div className="flex flex-col">
                   <div className="flex items-center gap-[0.2rem]">
                     <span className="text-title-20_Sb600">지원 자격</span>
-                    <div className="flex h-[1.8rem] items-center">
+                    <div className="flex h-[1.8rem] items-center gap-[0.6rem]">
                       <RequireIcon />
+                      {isValidated && !formTextArea.requirements.trim() && (
+                        <span className="text-caption-12_M500 text-error">
+                          필수 입력입니다.
+                        </span>
+                      )}
                     </div>
                   </div>
                   <span className="text-caption-13_M500">
@@ -568,8 +727,15 @@ const PostForm = () => {
             </div>
             {/* 연락 방법 & 참고 링크 */}
             <div className="flex flex-col gap-[2.6rem]">
-              <div className="flex flex-col gap-[0.8rem]">
-                <FormLabel title="연락 방법" isRequired requiredMessage />
+              <div
+                ref={refs.contact_url}
+                className="flex flex-col gap-[0.8rem]"
+              >
+                <FormLabel
+                  title="연락 방법"
+                  isRequired
+                  requiredMessage={isValidated && !formData.contact_url?.trim()}
+                />
                 <BaseIconTextArea
                   value={formData.contact_url || ''}
                   placeholder="오픈채팅, 구글폼, 이메일 등 하나를 입력하세요."

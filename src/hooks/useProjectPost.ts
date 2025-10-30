@@ -14,6 +14,7 @@ import {
 import { ProjectPayload } from '../types/api/response/payload/project';
 import { PageResponse } from '../types/pageResponse';
 import { ProjectBody } from '../types/api/request/project';
+import { useNavigate } from 'react-router-dom';
 
 // 프로젝트 모집글 목록 조회
 export const useProjectsGetQuery = (
@@ -43,10 +44,14 @@ export const useProjectsGetQuery = (
 // 프로젝트 모집글 생성
 export const useProjectsPostQuery = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: (payload: ProjectBody) => postProject(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['projectPost'] });
+      localStorage.removeItem('tempPostForm');
+      navigate('/');
     },
     onError: (error) => {
       console.error('Error posting:', error);
@@ -60,7 +65,7 @@ export const useProjectsPostDetailQuery = (projectId: number) => {
     queryKey: ['projectPost', projectId],
     queryFn: () => getProjectDetail(projectId),
     enabled: !!projectId,
-    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+    staleTime: 0,
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
   });
 };
@@ -68,10 +73,14 @@ export const useProjectsPostDetailQuery = (projectId: number) => {
 // 프로젝트 모집글 수정
 export const useProjectsUpdateQuery = (projectId: number) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
   return useMutation({
     mutationFn: (payload: ProjectBody) => updateProject(projectId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['updateProject', projectId] });
+      localStorage.removeItem('tempPostForm');
+      navigate(`/post/${projectId}`);
     },
     onError: (error) => {
       console.error('Error updating:', error);
