@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import FolderTab from "./FolderTab";
 
 interface TabItem {
-  label: string;
+  id: string | number; 
+  label: React.ReactNode;
   className?: string;
 }
 
@@ -27,7 +28,7 @@ export const FolderTabGroup: React.FC<FolderTabGroupProps> = ({
     <div className={`flex h-[7rem] items-center justify-between self-stretch rounded-tl-[1.2rem] rounded-tr-[1.2rem] bg-black-30 ${className}`}>
       {tabs.map((tab, idx) => (
         <FolderTab
-          key={tab.label}
+          key={tab.id ?? idx}
           isActive={idx === activeIndex}
           onClick={() => handleClick(idx)}
           className={`flex-1 basis-0 cursor-pointer ${tab.className ?? ""}`}
