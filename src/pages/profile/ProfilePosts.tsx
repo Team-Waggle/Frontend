@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { FolderTabGroup } from '../../components/common/Tab/FolderTabGroup';
 import { Table } from '../../components/common/Table/Table';
 import ExpandableRow from '../../components/common/Table/ExpandableRow';
+import ProfileSearchBar from '../../components/Profile/ProfileSearchBar';
 import BaseModal from '../../components/Modal/BaseModal';
-import BasicSearchBar from '../../components/common/SearchBar/BasicSearchBar';
 import SelectTextIn from '../../components/common/Select/SelectTextIn';
 
 import { profilePostTabs } from '../../constants/ProfilePostColumns';
@@ -254,7 +254,7 @@ export default function ProfilePosts() {
               setSortKey((v as SortKey) || sortItems[0].id)
             }
           />
-          <BasicSearchBar onSearch={setSearchText} />
+          <ProfileSearchBar onSearch={setSearchText} />
         </div>
 
         {loading ? (
