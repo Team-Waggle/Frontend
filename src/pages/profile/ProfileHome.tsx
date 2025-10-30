@@ -8,7 +8,7 @@ import {
   getTeamPlayOptionList,
   getDay,
 } from '../../utils/createMapper';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import BaseProfileIcon from '../../components/common/Profile/ProfileIcon/BaseProfileIcon';
 
@@ -31,6 +31,16 @@ const ProfileHome = () => {
   const navigate = useNavigate();
 
   const followerCount = useFollowerCount(user?.id);
+
+  const location = useLocation();
+
+  const goEditPage = () => {
+    if (!user?.id) return;
+    navigate(`/profile/edit/${user.id}`, {
+      state: { from: location.pathname },
+      replace: false,
+    });
+  };
 
   if (loading || !user) return <div>로딩 중...</div>;
 
@@ -79,14 +89,14 @@ const ProfileHome = () => {
                   </span>
                 </div>
                 <div className="flex flex-col items-center gap-[0.6rem] self-stretch">
-                  {user.positions?.[0] && (
+                  {user.position?.[0] && (
                     <div className="flex items-center justify-center gap-[0.4rem] text-caption-13_M500 text-black-70">
                       <span>
-                        {getPosition(user.positions[0].position) ||
-                          user.positions[0].position}
+                        {getPosition(user.position) ||
+                          user.position}
                       </span>
                       <span> | </span>
-                      <span> {user.positions[0].year_count}년차 </span>
+                      <span> {user.year_count}년차 </span>
                     </div>
                   )}
                 </div>
@@ -104,7 +114,7 @@ const ProfileHome = () => {
             {isMyProfile && (
               <div
                 className="absolute right-[1.6rem] top-[1.6rem] flex h-[3.2rem] w-[3.2rem] cursor-pointer items-center justify-center rounded-[6px] bg-black-30 pl-[0.1rem]"
-                onClick={() => navigate('/NewProfile')}
+                onClick={goEditPage}
               >
                 <EditIcon className="text-black-60" />
               </div>

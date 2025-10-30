@@ -10,6 +10,7 @@ import {
   GetProjectsParams,
   postProject,
   updateProject,
+  deleteProject
 } from '../api/projectPost';
 import { ProjectPayload } from '../types/api/response/payload/project';
 import { PageResponse } from '../types/pageResponse';
@@ -84,6 +85,27 @@ export const useProjectsUpdateQuery = (projectId: number) => {
     },
     onError: (error) => {
       console.error('Error updating:', error);
+    },
+  });
+};
+
+// 프로젝트 모집글 삭제
+export const useProjectsDeleteQuery = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (projectId: number) => deleteProject(projectId),
+    onSuccess: (_data, projectId) => {
+      queryClient.invalidateQueries({ queryKey: ['projectPost'] });
+      queryClient.removeQueries({ queryKey: ['projectPost', projectId] });
+    },
+    onError: (err) => {
+      console.error('Error deleting:', err);
+      const msg =
+        (err as any)?.response?.data?.message ||
+        (err as any)?.response?.data?.error ||
+        (err as any)?.message ||
+        '삭제에 실패했습니다.';
+      alert(msg);
     },
   });
 };

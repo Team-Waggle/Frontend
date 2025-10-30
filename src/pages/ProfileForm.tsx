@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useUser } from '../hooks/useUser';
 import type { UpdateUserDto, Introduction } from '../types/user';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import FormLabel from '../components/FormLabel';
 import DropdownBasicTab from '../components/common/Tab/DropdownBasicTab';
@@ -19,6 +19,10 @@ import DayAndTimeField from '../components/NewProfile/DayAndTimeField';
 import WorkWayAndRegionField from '../components/NewProfile/WorkWayAndRegionField';
 import LinksField from '../components/NewProfile/LinksField';
 
+import BaseModal from '../components/Modal/BaseModal';
+import ModalIcon from '../assets/character/modal/large/ch_modal_heart_square_yellow_large.svg?react';
+import CancelModal from '../components/Modal/CancelModal';
+
 interface LinkRow {
   id: string;
   site: string;
@@ -28,11 +32,21 @@ interface LinkRow {
 const ProfileForm = () => {
   // delete User 오류 해결 후 주석 해제
   // const { user, fetchUser, updateUser, deleteUser } = useUser();
-  const { user, fetchUser, updateUser } = useUser();
+  const { user, fetchUser, updateUser, uploadProfileImage } = useUser();
   const [loading, setLoading] = useState(true);
-  const isExistingUser = !!user?.id;
 
+  const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  /** 라우트 기반 모드 분기 */
+  const isCreateRoute = location.pathname === '/profile/new';
+  const isEditRoute = location.pathname.startsWith('/profile/edit/') && !!id;
+
+  const isExistingUser = isEditRoute;
+
+  const [openWelcome, setOpenWelcome] = useState(false);
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
 
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -55,19 +69,15 @@ const ProfileForm = () => {
     problem_solving_approaches: [],
     mbti: '',
   });
-  const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>(
-    undefined,
-  );
+  const [profileImageUrl, setProfileImageUrl] = useState<string | undefined>();
 
   const [nicknameRequiredMessage, setNicknameRequiredMessage] = useState(false);
   const [industryRequiredMessage, setIndustryRequiredMessage] = useState(false);
 
   // 초기값 (get)
-  useEffect(() => {
+    useEffect(() => {
     const loadUser = async () => {
       const userData = await fetchUser();
-      console.log(userData);
-
       if (userData) {
         setNickname(userData.name);
         setEmail(userData.email || '');
@@ -116,7 +126,6 @@ const ProfileForm = () => {
     loadUser();
   }, [fetchUser]);
 
-  const { uploadProfileImage } = useUser();
   const handleProfileImageUpload = async (file: File) => {
     try {
       await uploadProfileImage(file);
@@ -172,14 +181,19 @@ const ProfileForm = () => {
 
     try {
       await updateUser(payload);
-      alert('프로필이 업데이트되었습니다.');
+      if (isCreateRoute) {
+        setOpenWelcome(true);
+      } else {
+        alert('프로필이 업데이트되었습니다.');
+        navigate('/profile');
+      }
     } catch (err) {
       console.error(err);
       alert('업데이트에 실패했습니다.');
     }
   };
 
-  // const handleDelete = async () => {
+    // const handleDelete = async () => {
   //   if (!confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.'))
   //     return;
 
@@ -334,6 +348,7 @@ const ProfileForm = () => {
               updateLink={updateLink}
             />
           </div>
+
           <CustomButton onClick={handleSubmit} color="primary" size="full">
             저장
           </CustomButton>
@@ -341,7 +356,7 @@ const ProfileForm = () => {
 
         {isExistingUser && (
           <CustomButton
-            // onClick={handleDelete}
+            onClick={() => setOpenDeleteConfirm(true)}
             color="special"
             size="md"
           >
@@ -349,6 +364,31 @@ const ProfileForm = () => {
           </CustomButton>
         )}
       </div>
+
+      <CancelModal
+        size="large"
+        isOpen={openDeleteConfirm}
+        onClose={() => setOpenDeleteConfirm(false)}
+        handleDone={() => {
+          setOpenDeleteConfirm(false);
+          // handleDelete();
+        }}
+        title="정말 탈퇴하시겠어요?"
+        content="탈퇴 시 데이터가 삭제될 수 있으며 되돌릴 수 없습니다."
+      />
+
+      <BaseModal
+        size="large"
+        isOpen={openWelcome}
+        onClose={() => setOpenWelcome(false)}
+        handleDone={() => {
+          setOpenWelcome(false);
+          navigate('/');
+        }}
+        CharacterComponent={ModalIcon}
+        title="Waggle과 함께해요!"
+        content="저장하고 회원가입을 마무리 해보아요."
+      />
     </div>
   );
 };
