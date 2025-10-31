@@ -25,7 +25,7 @@ import {
 import CancelModal from '../../assets/character/modal/large/ch_modal_x_square_gray_large.svg?react';
 import BaseBadge from '../../components/common/Tag/BaseBadge';
 
-import { getProjectMembersCount } from '../../services/projects.service';
+import { getProjectMembersCount } from '../../api/projectRoster';
 
 const LS_KEY = 'profileTabBaselines';
 function loadBaselines(): Record<TabKey, number> {
