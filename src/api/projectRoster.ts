@@ -1,4 +1,4 @@
-import axiosInstance from '../api/axiosInstance';
+import axiosInstance from './axiosInstance';
 import { USER_PROJECT } from '../constants/endpoint';
 import { PROJECTS_APPLICATION_URL, PROJECTS_MEMBER_URL } from '../constants/endpoint';
 import type { ProjectPayload } from '../types/api/response/payload/project';

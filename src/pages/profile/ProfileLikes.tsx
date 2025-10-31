@@ -141,8 +141,11 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
     <div className="w-[81.8rem]">
       {/* 상단 폴더 탭 */}
       <FolderTabGroup
-        tabs={tabs.map((tab) => ({ label: tab.label }))}
-        activeIndex={tabs.findIndex((tab) => tab.key === activeTab)}
+        tabs={tabs.map((t) => ({ id: t.key, label: t.label }))}
+        activeIndex={Math.max(
+          0,
+          tabs.findIndex((t) => t.key === activeTab),
+        )}
         onTabChange={(idx) =>
           setActiveTab(tabs[idx].key as 'bookmark' | 'following' | 'follower')
         }

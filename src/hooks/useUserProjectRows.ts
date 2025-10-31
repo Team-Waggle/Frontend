@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   getUserProjects,
   getProjectApplicantsCount,
-} from '../services/projects.service';
+} from '../api/projectRoster';
 import type { ProjectPayload } from '../types/api/response/payload/project';
 import type { PostRow } from '../constants/ProfilePostColumns';
 import { formatYYMMDDKST, isClosedKST } from '../utils/dateKST';
