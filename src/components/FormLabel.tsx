@@ -15,7 +15,6 @@ const FormLabel = ({
   sideNote,
   isRequired,
   requiredMessage = false,
-  className = "",
 }: FormLabelProps) => {
   return (
     <div className="flex flex-col items-start self-stretch text-black-130">

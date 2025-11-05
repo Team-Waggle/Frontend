@@ -102,7 +102,7 @@ const Post = () => {
                   <span className="text-caption-13_R400">진행 방식</span>
                 </div>
                 <div className="text-caption-13_Sb600">
-                  {getWaysOfWorking(data?.ways_of_working ?? '')}
+                  {getWaysOfWorking(data?.work_way ?? '')}
                 </div>
               </div>
               <div className="flex w-[15.4rem] flex-col gap-[1.4rem] rounded-[0.8rem] bg-black-30 px-[1.7rem] py-[2rem] sm:w-[13.2rem] md:w-[19rem]">

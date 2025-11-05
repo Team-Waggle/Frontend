@@ -161,14 +161,14 @@ const CalendarIconTextArea = ({
             onChange={handleDateChange}
             value={selectedDate}
             minDate={new Date()}
-            formatMonthYear={(locale, date) => {
+            formatMonthYear={(_locale, date) => {
               const year = date.getFullYear();
               const month = date.getMonth() + 1;
               const formattedMonth = month < 10 ? `0${month}` : `${month}`;
 
               return `${year}.${formattedMonth}`;
             }}
-            formatDay={(locale, date) => `${date.getDate()}`}
+            formatDay={(_locale, date) => `${date.getDate()}`}
             tileClassName={({ date }) =>
               selectedDate &&
               date.toDateString() === selectedDate.toDateString()

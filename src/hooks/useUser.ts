@@ -2,19 +2,19 @@ import { useCallback } from 'react';
 import {
   getUserMe,
   updateUserMe,
-  deleteUserMe,
   uploadUserProfileImage,
   getUsersAll,
 } from '../api/user';
 import { useUserStore } from '../stores/userStore';
-import { useAccessTokenStore, useRefreshTokenStore } from '../stores/authStore';
+// import { useAccessTokenStore, useRefreshTokenStore } from '../stores/authStore';
 import type { UserMePayload, UpdateUserDto } from '../types/user';
 import { useQuery } from '@tanstack/react-query';
 
 export function useUser() {
   const { user, setUser, clearUser } = useUserStore();
-  const { clearAccessToken } = useAccessTokenStore();
-  const { clearRefreshToken } = useRefreshTokenStore();
+  // 2025.11.04 사용 예정
+  // const { clearAccessToken } = useAccessTokenStore();
+  // const { clearRefreshToken } = useRefreshTokenStore();
 
   const fetchUser = useCallback(async (): Promise<UserMePayload | null> => {
     const res = await getUserMe();

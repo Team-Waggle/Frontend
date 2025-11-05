@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   BaseIconTextAreaProps,
-  TextAreaType,
   DefaultTextAreaState,
   FixedTextAreaState,
 } from '../../../../types/IconTextArea';

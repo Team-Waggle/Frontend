@@ -34,7 +34,6 @@ import {
   useProjectsPostQuery,
   useProjectsUpdateQuery,
 } from '../hooks/useProjectPost';
-import { useGetUserAllQuery } from '../hooks/useUser';
 import { getSkill } from '../utils/createMapper';
 import { skillIconMapper } from '../utils/skillIconMapper';
 import LogoCharacterIcon from '../assets/character/bubble-character.svg?react';
@@ -78,7 +77,6 @@ const PostForm = () => {
   const { data } = useProjectsPostDetailQuery(Number(projectId));
   const { mutate: postMutate } = useProjectsPostQuery();
   const { mutate: updateMutate } = useProjectsUpdateQuery(Number(projectId));
-  const { data: usersAllData } = useGetUserAllQuery('');
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isValidated, setIsValidated] = useState(false);
 

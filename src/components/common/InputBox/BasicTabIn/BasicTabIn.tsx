@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import BasicTabChip from '../../Chip/BasicTabChip/BasicTabChip';
 import IdentityChip from '../../Chip/IdentityChip/IdentityChip';
 import {

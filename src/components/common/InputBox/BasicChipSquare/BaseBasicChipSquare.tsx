@@ -1,4 +1,3 @@
-import React from 'react';
 import BaseBasicChip from '../../Chip/BasicChip/BaseBasicChip';
 import { BaseBasicChipProps } from '../../../../types/BasicChip';
 

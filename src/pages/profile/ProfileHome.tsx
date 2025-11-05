@@ -20,8 +20,6 @@ import { skillIconMapper } from '../../utils/skillIconMapper';
 import LinkIcons from '../../components/LinksIcons';
 import EditIcon from '../../assets/icons/ic_edit.svg?react';
 import HeartIcon from '../../assets/icons/ic_heart_fill_large.svg?react';
-import IpnList from '../../components/Profile/IpnList';
-import { useFollow } from '../../hooks/useFollow';
 import FollowBtn from '../../components/Profile/FollowBtn';
 import { useFollowerCount } from '../../hooks/useFollowerCount';
 

@@ -6,7 +6,6 @@ import emailIc from '../../../../assets/icons/profile/ic_email.svg?react';
 import linkIc from '../../../../assets/icons/profile/ic_link.svg?react';
 import deleteIc from '../../../../assets/icons/profile/ic_trashcan.svg?react';
 import checkGreyIc from '../../../../assets/icons/profile/ic_check_grey.svg?react';
-import checkGreenIc from '../../../../assets/icons/profile/ic_check_green.svg?react';
 import editIc from '../../../../assets/icons/profile/ic_edit.svg?react';
 import arrowIc from '../../../../assets/icons/ic_arrow_down_large.svg?react';
 

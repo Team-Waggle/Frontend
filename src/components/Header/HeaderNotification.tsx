@@ -1,7 +1,6 @@
 import ArrowRightIcon from '../../assets/icons/ic_arrow_right_small.svg?react';
 import ArrowLeftIcon from '../../assets/icons/ic_arrow_left_small.svg?react';
 import BaseToggleSwitch from './BaseToggleSwitch';
-import BlueModalIcon from '../../assets/character/modal/small/ch_modal_check_square_blue_small.svg?react';
 import AlarmCircle from '../../assets/icons/ic_alarm_circle.svg?react';
 import { useEffect, useState } from 'react';
 import BaseTag from '../common/Tag/BaseTag';

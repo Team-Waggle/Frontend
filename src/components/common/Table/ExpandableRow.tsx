@@ -81,7 +81,7 @@ const ExpandableRow = ({
   const [approveTargetId, setApproveTargetId] = useState<string | null>(null);
   const [approving, setApproving] = useState(false);
 
-  const { closeRecruitment, isUpdating, isDetailLoading } =
+  const { closeRecruitment } =
     useCloseRecruitment(pid);
   const [closeOpen, setCloseOpen] = useState(false);
   const [closing, setClosing] = useState(false);

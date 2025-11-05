@@ -1,4 +1,4 @@
-import { TextAreaType, DefaultTextAreaState, FixedTextAreaState } from "../../../../types/IconTextArea";
+import { TextAreaType } from "../../../../types/IconTextArea";
 
 type StateStyleMap = {
   [key in TextAreaType]: Record<string, string>;

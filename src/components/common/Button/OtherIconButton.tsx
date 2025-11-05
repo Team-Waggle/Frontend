@@ -5,7 +5,6 @@ import HeartStrokeIcon from '../../../assets/icons/ic_heart_stroke_large.svg?rea
 import BookmarkIcon from '../../../assets/icons/nav/ic_nav_bookmark_large.svg?react';
 import PlusIcon from '../../../assets/icons/ic_plus_large.svg?react';
 import MinusIcon from '../../../assets/icons/ic_minus.svg?react';
-import { usePostBookmarkQuery } from '../../../hooks/useBookmark';
 import { useState } from 'react';
 import { useAccessTokenStore } from '../../../stores/authStore';
 import LoginSuggestionModal from '../../Modal/LoginSuggestionModal';
@@ -84,12 +83,11 @@ export const FollowingButton = ({ onClick }: IconProps) => {
 };
 
 export const BookmarkButton = ({
-  projectId,
   isBookmarked,
   disabled,
 }: BookmarkButtonProps) => {
   // const updateBookmark = usePostBookmarkQuery(projectId);
-  const [isActive, setIsActive] = useState(isBookmarked);
+  const [_isActive, setIsActive] = useState(isBookmarked);
   const [isLoginSuggestionModalOpen, setIsLoginSuggestionModalOpen] =
     useState(false);
 
