@@ -88,7 +88,7 @@ export const BookmarkButton = ({
   isBookmarked,
   disabled,
 }: BookmarkButtonProps) => {
-  // const updateBookmark = usePostBookmarkQuery(projectId);
+  const updateBookmark = usePostBookmarkQuery(projectId!);
   const [isActive, setIsActive] = useState(isBookmarked);
   const [isLoginSuggestionModalOpen, setIsLoginSuggestionModalOpen] =
     useState(false);
@@ -101,17 +101,19 @@ export const BookmarkButton = ({
       setIsLoginSuggestionModalOpen(true);
       return;
     }
-    // updateBookmark.mutate();
+    updateBookmark.mutate();
     setIsActive((prev) => !prev);
   };
 
   return (
     <>
       <button
-        className="group flex h-[4.4rem] w-[4.4rem] items-center justify-center rounded-b-[0.4rem] bg-black-40 hover:bg-primary-10"
+        className={`group flex h-[4.4rem] w-[4.4rem] items-center justify-center rounded-b-[0.4rem] ${isActive ? 'bg-primary-10' : 'bg-black-40'} hover:bg-primary-10`}
         onClick={handleClick}
       >
-        <BookmarkIcon className="fill-transparent stroke-black-70 group-hover:fill-primary group-hover:stroke-transparent" />
+        <BookmarkIcon
+          className={`${isActive ? 'fill-primary stroke-transparent' : 'fill-transparent stroke-black-70'} group-hover:fill-primary group-hover:stroke-transparent`}
+        />
       </button>
       <LoginSuggestionModal
         size="large"
@@ -145,7 +147,7 @@ export const ShadowButton = ({
   color,
   disabled,
   children,
-  onClick
+  onClick,
 }: ShadowButtonProps) => {
   return (
     <button className="group flex h-[3.8rem] w-[3.8rem] items-center justify-center">
