@@ -1,9 +1,12 @@
 import axios from './axiosInstance';
 import {
+  PROJECT_ME_URL,
   PROJECTS_APPLICATION_URL,
+  PROJECTS_APPLY_URL,
   PROJECTS_APPROVAL_URL,
   PROJECTS_REJECT_URL,
 } from '../constants/endpoint';
+import axiosInstance from './axiosInstance';
 
 export type UserProfile = {
   id: string;
@@ -50,7 +53,6 @@ export function normalizeApplicants(payload: any): UserProfile[] {
     : [];
 }
 
-
 export async function getApplicants(projectId: number): Promise<UserProfile[]> {
   const { data } = await axios.get(PROJECTS_APPLICATION_URL(projectId));
   return normalizeApplicants(data?.payload);
@@ -65,3 +67,15 @@ export async function rejectApplicant(projectId: number, userId: string) {
   const { data } = await axios.put(PROJECTS_REJECT_URL(projectId, userId));
   return data;
 }
+
+export const postApply = async (projectId: number, position: string) => {
+  const { data } = await axiosInstance.post(PROJECTS_APPLY_URL(projectId), {
+    position,
+  });
+  return data.payload;
+};
+
+export const getMyApply = async (status?: string) => {
+  const { data } = await axiosInstance.get(PROJECT_ME_URL, { params: status });
+  return data.payload;
+};
