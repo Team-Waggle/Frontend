@@ -14,7 +14,6 @@ import EditIc from '../assets/icons/profile/ic_edit.svg?react';
 import TrashIc from '../assets/icons/profile/ic_trashcan.svg?react';
 import BaseTag from '../components/common/Tag/BaseTag';
 import ArrowIc from '../assets/icons/ic_arrow_down_large.svg?react';
-import BaseBadge from '../components/common/Tag/BaseBadge.tsx';
 
 export type PostRow = {
   id: string;

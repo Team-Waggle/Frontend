@@ -4,6 +4,7 @@ import FolderTab from "./FolderTab";
 interface TabItem {
   id: string | number; 
   label: React.ReactNode;
+  alarm?: number;
   className?: string;
 }
 
@@ -32,9 +33,9 @@ export const FolderTabGroup: React.FC<FolderTabGroupProps> = ({
           isActive={idx === activeIndex}
           onClick={() => handleClick(idx)}
           className={`flex-1 basis-0 cursor-pointer ${tab.className ?? ""}`}
-        >
-          {tab.label}
-        </FolderTab>
+          TabTitle={tab.label}
+          TabAlarm={tab.alarm}
+        />
       ))}
     </div>
   );

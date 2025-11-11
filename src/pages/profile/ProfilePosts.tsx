@@ -127,7 +127,8 @@ export default function ProfilePosts() {
     [data, sortKey, searchText],
   );
 
-  const [baselines, setBaselines] = useState<Record<TabKey, number>>(loadBaselines());
+  const [baselines, setBaselines] =
+    useState<Record<TabKey, number>>(loadBaselines());
   const [totals, setTotals] = useState<Record<TabKey, number>>({
     postManagement: 0,
     applicantManagement: 0,
@@ -143,7 +144,9 @@ export default function ProfilePosts() {
   useEffect(() => {
     let alive = true;
     (async () => {
-      const ids = rows.map((r) => Number(r.id)).filter((n) => Number.isFinite(n));
+      const ids = rows
+        .map((r) => Number(r.id))
+        .filter((n) => Number.isFinite(n));
       if (ids.length === 0) {
         if (!alive) return;
         setTotals((prev) => ({ ...prev, memberManagement: 0 }));
@@ -177,9 +180,18 @@ export default function ProfilePosts() {
   }, [postsTotal, applicantsTotal]);
 
   const badgeCounts = {
-    postManagement: Math.max(0, totals.postManagement - baselines.postManagement),
-    applicantManagement: Math.max(0, totals.applicantManagement - baselines.applicantManagement),
-    memberManagement: Math.max(0, totals.memberManagement - baselines.memberManagement),
+    postManagement: Math.max(
+      0,
+      totals.postManagement - baselines.postManagement,
+    ),
+    applicantManagement: Math.max(
+      0,
+      totals.applicantManagement - baselines.applicantManagement,
+    ),
+    memberManagement: Math.max(
+      0,
+      totals.memberManagement - baselines.memberManagement,
+    ),
   };
 
   useEffect(() => {
@@ -193,18 +205,10 @@ export default function ProfilePosts() {
   const tabsWithBadges = useMemo(() => {
     return profilePostTabs.map((t) => {
       const key = t.key as TabKey;
-      const n = badgeCounts[key];
-      const badge =
-        n > 0 ? <BaseBadge size="lg">{n > 99 ? '99+' : n}</BaseBadge> : null;
-
       return {
         ...t,
-        label: (
-          <span className="flex items-center gap-[0.6rem]">
-            {t.label}
-            {badge}
-          </span>
-        ),
+        label: t.label,
+        alarm: badgeCounts[key],
       };
     });
   }, [badgeCounts]);
@@ -237,7 +241,8 @@ export default function ProfilePosts() {
       <FolderTabGroup
         tabs={tabsWithBadges.map((t) => ({
           id: t.key,
-          label: t.label,
+          label: <>{t.label}</>,
+          alarm: badgeCounts[t.key],
         }))}
         activeIndex={tabsWithBadges.findIndex((t) => t.key === activeKey)}
         onTabChange={(idx) => setActiveKey(tabsWithBadges[idx].key as TabKey)}
