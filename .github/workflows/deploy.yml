@@ -1,9 +1,9 @@
 name: waggle deployment (PR to deploy)
 
 on:
-  pull_request:
-    branches: [ deploy ]
-    types: [ opened, synchronize, reopened, ready_for_review ]
+  push:
+    branches:
+      - main
 
 jobs:
   build:
