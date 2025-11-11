@@ -9,7 +9,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: read
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ROLE_ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_OIDC_ROLE_NAME }}
+      S3_BUCKET: ${{ secrets.AWS_BUCKET_NAME }}
+      CF_DISTRIBUTION_ID: ${{ secrets.AWS_DISTRIBUTION_ID }}
 
     steps:
       - name: Checkout source
@@ -31,12 +37,12 @@ jobs:
         env:
           VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
 
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          role-session-name: github-actions-${{ github.run_id }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy to S3 (validate & upload)
         shell: bash
@@ -45,21 +51,20 @@ jobs:
 
           test -f dist/index.html
 
-          BUCKET="${{ secrets.AWS_BUCKET_NAME }}"
-          [[ -n "$BUCKET" ]]
-          [[ "$BUCKET" != s3://* ]]
+          [[ -n "${S3_BUCKET}" ]]
+          [[ "${S3_BUCKET}" != s3://* ]]
 
-          aws s3 cp "dist" "s3://$BUCKET" \
+          aws s3 cp "dist" "s3://${S3_BUCKET}" \
             --recursive \
             --exclude "index.html" \
             --cache-control "public, max-age=31536000, immutable"
 
-          aws s3 cp "dist/index.html" "s3://$BUCKET/index.html" \
+          aws s3 cp "dist/index.html" "s3://${S3_BUCKET}/index.html" \
             --cache-control "no-cache, no-store, must-revalidate" \
             --content-type "text/html"
 
       - name: Invalidate CloudFront cache (HTML only)
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} \
-            --paths "/index.html"
+            --distribution-id "${CF_DISTRIBUTION_ID}" \
+            --paths "/index.html" "/assets/*" "/static/*"
