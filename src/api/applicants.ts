@@ -4,6 +4,7 @@ import {
   PROJECTS_APPLICATION_URL,
   PROJECTS_APPLY_URL,
   PROJECTS_APPROVAL_URL,
+  PROJECTS_CONFIRM_URL,
   PROJECTS_REJECT_URL,
 } from '../constants/endpoint';
 import axiosInstance from './axiosInstance';
@@ -75,7 +76,19 @@ export const postApply = async (projectId: number, position: string) => {
   return data.payload;
 };
 
+export const deleteApply = async (projectId: number) => {
+  const { data } = await axiosInstance.delete(PROJECTS_APPLY_URL(projectId));
+  return data.payload;
+};
+
 export const getMyApply = async (status?: string) => {
-  const { data } = await axiosInstance.get(PROJECT_ME_URL, { params: status });
+  const { data } = await axiosInstance.get(PROJECT_ME_URL, {
+    params: { status },
+  });
+  return data.payload;
+};
+
+export const confirmApply = async (projectId: number) => {
+  const { data } = await axios.put(PROJECTS_CONFIRM_URL(projectId));
   return data.payload;
 };

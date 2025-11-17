@@ -10,7 +10,7 @@ export const USER_SEARCH_URL = '/v1/users'; //사용자 검색
 export const USER_URL = (userId: string) => `/v1/users/${userId}`; // 특정 사용자 조회
 export const USER_ME_URL = '/v1/users/me'; // 현재 사용자 조회, 수정, 삭제
 export const USER_PROFILE_IMAGE = '/v1/users/me/profile-image'; // 현재 사용자 이미지
-export const USER_PROJECT = '/v1/users/me/projects' // 현재 사용자의 프로젝트
+export const USER_PROJECT = '/v1/users/me/projects'; // 현재 사용자의 프로젝트
 
 // 팔로우 API
 export const FOLLOW_URL = '/v1/follows'; // 팔로우, 언팔로우 토글
@@ -28,6 +28,8 @@ export const PROJECTS_APPLY_URL = (projectId: number) =>
   `/v1/projects/${projectId}`; // 프로젝트 지원, 취소
 export const PROJECTS_APPLICATION_URL = (projectId: number) =>
   `/v1/projects/${projectId}/applications`; // 프로젝트 지원자 조회
+export const PROJECTS_CONFIRM_URL = (projectId: number) =>
+  `/v1/projects/${projectId}/confirm`; // 프로젝트 지원 확정
 export const PROJECTS_APPROVAL_URL = (projectId: number, userId: string) =>
   `/v1/projects/${projectId}/users/${userId}/approval`; // 프로젝트 모집글 참여자 승인
 export const PROJECTS_REJECT_URL = (projectId: number, userId: string) =>
