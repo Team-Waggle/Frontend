@@ -6,8 +6,11 @@ import {
   UserProfile,
   getMyApply,
   postApply,
+  confirmApply,
+  deleteApply,
 } from '../api/applicants';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { ProjectPayload } from '../types/api/response/payload/project';
 
 export function useApplicants(projectId?: number) {
   const [list, setList] = useState<UserProfile[]>([]);
@@ -64,7 +67,6 @@ export function useApplicants(projectId?: number) {
 export default useApplicants;
 
 // 프로젝트 지원
-
 export const usePostApply = (projectId: number) => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -78,13 +80,39 @@ export const usePostApply = (projectId: number) => {
   });
 };
 
-// 내가 지원한 프로젝트 조회
+export const useDeleteApply = (projectId: number) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (projectId: number) => deleteApply(projectId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['deleteApply', projectId] });
+    },
+    onError: (error) => {
+      console.error('Error Delete:', error);
+    },
+  });
+};
 
+// 내가 지원한 프로젝트 조회
 export const useGetMyApply = (status?: string) => {
-  return useQuery({
+  return useQuery<ProjectPayload[], Error>({
     queryKey: ['getMyApply', status],
     queryFn: () => getMyApply(status),
     staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
     refetchOnWindowFocus: false, // 윈도우 포커스 시 재요청하지 않음
+  });
+};
+
+//프로젝트 합류 확정
+export const useConfirmApplyQuery = (projectId: number) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (projectId: number) => confirmApply(projectId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['confirmApply', projectId] });
+    },
+    onError: (error) => {
+      console.error('Error confirm:', error);
+    },
   });
 };
