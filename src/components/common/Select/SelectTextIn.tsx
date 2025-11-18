@@ -67,7 +67,8 @@ const SelectTextIn = ({
   };
 
   const getItemClassName = (state: 'up' | 'down' = 'down') => {
-    const padding = state === 'up' ? 'pt-[0.2rem] pb-[0.8rem]' : 'pt-[0.8rem] pb-[0.2rem]';
+    const padding =
+      state === 'up' ? 'pt-[0.2rem] pb-[0.8rem]' : 'pt-[0.8rem] pb-[0.2rem]';
     return `${SELECT_TEXT_IN_STATE_STYLE.default} ${padding} ${SELECT_TEXT_IN_STATE_STYLE.hover}`;
   };
 
@@ -94,15 +95,17 @@ const SelectTextIn = ({
         <div
           className={`absolute top-full z-50 box-border flex flex-col items-start rounded-[0.4rem] border bg-black-10 shadow-dropbox`}
         >
-          {items.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => handleItemClick(item)}
-              className={getItemClassName(state)}
-            >
-              {item.label}
-            </div>
-          ))}
+          {items
+            .filter((item) => item.label !== selectedItem)
+            .map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleItemClick(item)}
+                className={getItemClassName(state)}
+              >
+                {item.label}
+              </div>
+            ))}
         </div>
       )}
     </div>

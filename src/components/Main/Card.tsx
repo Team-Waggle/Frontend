@@ -29,7 +29,7 @@ const Card = ({ data }: CardProps) => {
       className="flex min-w-[32rem] max-w-[63rem] cursor-pointer flex-col gap-[1.6rem] rounded-[2rem] border border-solid border-black-50 bg-black-10 px-[2.4rem] pb-[3rem] pt-[2rem]"
       onClick={() => navigate(`/post/${data.id}`)}
     >
-      <div className="flex h-[6.1rem] w-full flex-col gap-[1rem]">
+      <div className="flex w-full flex-col gap-[1rem]">
         <div className="flex justify-between">
           {/* 도메인 이름 */}
           <span
