@@ -14,6 +14,7 @@ import ModalIcon from '../../assets/character/modal/large/ch_modal_check_square_
 import HeaderList from '../Header/HeaderList';
 import HeaderNotification from '../Header/HeaderNotification';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useUserStore } from '../../stores/userStore';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -28,6 +29,9 @@ const Header = () => {
     useState(false);
   const { toggle } = useFilterStore();
   const token = useAccessTokenStore((state) => state.accessToken);
+  const userId = useUserStore((state) => state.user?.id);
+
+  const hasTempPost = !!localStorage.getItem(`tempPostForm_${userId}`);
 
   const notificationRef = useRef<HTMLDivElement | null>(null);
   const headerListRef = useRef<HTMLDivElement | null>(null);
@@ -79,8 +83,10 @@ const Header = () => {
                 setIsLoginSuggestionModalOpen(true);
                 return;
               }
-              // 저장한 글이 있는 상태인지 확인할 수 있는 값이 필요하다.
-              // setIsModalOpen(true);
+              if (hasTempPost) {
+                setIsModalOpen(true);
+                return;
+              }
               navigate('/post/new');
             }}
           >
@@ -134,6 +140,15 @@ const Header = () => {
         content="이전에 임시저장하신 글이 있습니다."
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        handleDone={() => {
+          setIsModalOpen(false);
+          navigate('/post/new');
+        }}
+        handleCancel={() => {
+          localStorage.removeItem(`tempPostForm_${userId}`);
+          setIsModalOpen(false);
+          navigate('/post/new');
+        }}
       />
       <LoginModal
         size="large"
