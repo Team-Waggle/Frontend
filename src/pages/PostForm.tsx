@@ -34,7 +34,7 @@ import {
   useProjectsPostQuery,
   useProjectsUpdateQuery,
 } from '../hooks/useProjectPost';
-import { useGetUserAllQuery } from '../hooks/useUser';
+import { useGetUserAllQuery, useUser } from '../hooks/useUser';
 import { getSkill } from '../utils/createMapper';
 import { skillIconMapper } from '../utils/skillIconMapper';
 import LogoCharacterIcon from '../assets/character/bubble-character.svg?react';
@@ -75,10 +75,14 @@ const PostForm = () => {
 
   const isEdit = Boolean(projectId) && pathname.includes('/edit');
 
+  const { user, fetchUser } = useUser();
+  const userId = user?.id;
+  const getStorageKey = () => `tempPostForm_${userId}`;
+
   const { data } = useProjectsPostDetailQuery(Number(projectId));
+  const { data: usersAllData } = useGetUserAllQuery('');
   const { mutate: postMutate } = useProjectsPostQuery();
   const { mutate: updateMutate } = useProjectsUpdateQuery(Number(projectId));
-  const { data: usersAllData } = useGetUserAllQuery('');
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [isValidated, setIsValidated] = useState(false);
 
@@ -185,35 +189,22 @@ const PostForm = () => {
 
   // 임시저장
   const handleTempSave = () => {
-    setIsValidated(true);
-
-    const isValid =
-      formData.title?.trim() &&
-      formData.industry?.trim() &&
-      formData.work_way?.trim() &&
-      formData.recruitment_end_date?.trim() &&
-      formData.work_period?.trim() &&
-      formData.skills &&
-      formData.skills.length > 0 &&
-      remainingBlocks.length > 0 &&
-      currentBlocks.length > 0 &&
-      formTextArea.subject.trim() &&
-      formTextArea.progress.trim() &&
-      formTextArea.requirements.trim() &&
-      formData.contact_url?.trim();
-
-    if (!isValid) {
-      scrollToFirstInvalidField();
-      return;
-    }
-
     const tempPayload = {
       formData,
       formTextArea,
       remainingBlocks,
       currentBlocks,
     };
-    localStorage.setItem('tempPostForm', JSON.stringify(tempPayload));
+
+    localStorage.setItem(getStorageKey(), JSON.stringify(tempPayload));
+
+    initialState.current = {
+      formData,
+      formTextArea,
+      remainingBlocks,
+      currentBlocks,
+    };
+
     toast.success('임시저장 되었습니다!', {
       icon: <CompleteIcon />,
       className: 'text-black-80 text-body-16_M500 text-caption-16_M500',
@@ -352,7 +343,7 @@ const PostForm = () => {
   useEffect(() => {
     if (isEdit) return;
 
-    const tempData = localStorage.getItem('tempPostForm');
+    const tempData = localStorage.getItem(getStorageKey());
     if (!tempData) return;
 
     try {
@@ -362,6 +353,13 @@ const PostForm = () => {
       if (parsed.formTextArea) setFormTextArea(parsed.formTextArea);
       if (parsed.remainingBlocks) setRemainingBlocks(parsed.remainingBlocks);
       if (parsed.currentBlocks) setCurrentBlocks(parsed.currentBlocks);
+
+      initialState.current = {
+        formData: parsed.formData,
+        formTextArea: parsed.formTextArea,
+        remainingBlocks: parsed.remainingBlocks,
+        currentBlocks: parsed.currentBlocks,
+      };
     } catch (error) {
       console.error('임시 저장 데이터 파싱 오류:', error);
     }
@@ -372,6 +370,10 @@ const PostForm = () => {
       setIsModalOpen(true);
     }
   }, [blocker.state, isModalOpen]);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <div className="flex flex-col items-center">

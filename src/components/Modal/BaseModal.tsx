@@ -24,6 +24,7 @@ const BaseModal = ({
   isOpen,
   onClose,
   handleDone, // 확인 버튼 클릭 시 실행할 함수
+  handleCancel,
   CharacterComponent, // SVG 컴포넌트로 캐릭터 이미지 받기
   title, // 모달 제목
   content, // 모달 내용
@@ -66,7 +67,11 @@ const BaseModal = ({
             </div>
             {/* 버튼 */}
             <div className="mt-[3.8rem] flex w-[23.2rem] gap-[0.8rem]">
-              <BaseButton onClick={onClose} size="xl" color="line">
+              <BaseButton
+                onClick={handleCancel ?? onClose}
+                size="xl"
+                color="line"
+              >
                 취소
               </BaseButton>
               <BaseButton onClick={handleDone} size="xl" color="primary">
