@@ -24,6 +24,7 @@ export interface ProjectPayload {
   bookmark_cnt: number;
   user: UserMePayload;
   bookmarked: boolean;
+  applied_position: PositionType;
   created_at: string;
   updated_at: string;
 }
