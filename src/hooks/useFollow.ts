@@ -35,9 +35,9 @@ export const useFollow = (userId: string) => {
     try {
       await axiosInstance.post(FOLLOW_URL, { userId });
       setFolloweesCount((prev) => {
-  const n = typeof prev === 'number' ? prev : 0;
-  return isFollowed ? n - 1 : n + 1;
-});
+        const n = typeof prev === 'number' ? prev : 0;
+        return isFollowed ? n - 1 : n + 1;
+      });
     } catch (err) {
       console.error('팔로우 처리 실패:', err);
       toggleFollowStore(userId);
