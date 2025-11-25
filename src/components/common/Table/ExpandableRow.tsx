@@ -119,10 +119,12 @@ const ExpandableRow = ({
 
         {!loading &&
           !error &&
-          list.map((u) => {
+          list
+          .filter((u) => u.status !== 'CONFIRMED')
+          .map((u) => {
             const isApproved =
               typeof u.status === 'string' &&
-              u.status.toUpperCase() === 'APPROVED';
+              u.status === 'APPROVED';
 
             const chipState = isApplicants && isApproved ? 'wait' : 'default';
 

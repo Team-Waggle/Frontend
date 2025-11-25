@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import BasicTabChip from '../../Chip/BasicTabChip/BasicTabChip';
 import IdentityChip from '../../Chip/IdentityChip/IdentityChip';
 import {
@@ -7,26 +8,22 @@ import {
 } from '../../../../constants/teamPlay';
 
 interface DropdownTabProps {
-  openedCategories: string[];
-  setOpenedCategories: (list: string[]) => void;
+  openedCategory: string;
+  setOpenedCategory: (category: string) => void;
   selectedOption: string[];
   setSelectedOption: (list: string[]) => void;
   className?: string;
 }
 
 const DropdownTab = ({
-  openedCategories,
-  setOpenedCategories,
+  openedCategory,
+  setOpenedCategory,
   selectedOption,
   setSelectedOption,
   className,
 }: DropdownTabProps) => {
   const toggleCategory = (category: string) => {
-    if (openedCategories.includes(category)) {
-      setOpenedCategories(openedCategories.filter((c) => c !== category));
-    } else {
-      setOpenedCategories([...openedCategories, category]);
-    }
+    setOpenedCategory(openedCategory === category ? '' : category);
   };
 
   const optionClick = (id: string) => {
@@ -38,21 +35,16 @@ const DropdownTab = ({
   };
 
   return (
-    <div
-      className={`flex w-[32rem] flex-col items-start justify-center ${className}`}
-    >
+    <div className={`flex w-[32rem] flex-col items-start justify-center ${className}`}>
       {teamPlay.map((category, idx) => {
         const categoryIndex = idx + 1;
         const optionIds = teamPlaySelectedOptionMap[String(categoryIndex)] || [];
         const options = teamPlayOptionList.filter((opt) => optionIds.includes(opt.id));
         const isMBTI = category === teamPlay[4];
-        const isActive = openedCategories.includes(category);
+        const isActive = openedCategory === category;
 
         return (
-          <div
-            key={category}
-            className="flex w-[32rem] flex-col items-start gap-[1rem] pb-[2rem]"
-          >
+          <div key={category} className="flex w-[32rem] flex-col items-start gap-[1rem] pb-[2rem]">
             <BasicTabChip
               state={isActive ? 'active' : 'default'}
               className="flex h-[4.6rem] w-full items-center justify-center gap-[1rem] self-stretch"
@@ -62,7 +54,7 @@ const DropdownTab = ({
             </BasicTabChip>
 
             {isActive && (
-              <div className="flex h-[44.8rem] flex-wrap content-start items-start justify-between gap-y-[1.2rem] self-stretch">
+              <div className="flex h-full flex-wrap content-start items-start justify-between gap-y-[1.2rem] self-stretch">
                 {options.map(({ id, label }) => {
                   const isSelected = selectedOption.includes(id);
                   return (

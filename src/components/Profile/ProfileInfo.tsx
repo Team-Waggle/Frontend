@@ -7,7 +7,7 @@ interface ProfileInfoProps {
 const ProfileInfo = ({ label, values, children }: ProfileInfoProps) => {
   return (
     <div className="flex items-start gap-[1.2rem] self-stretch">
-      <div className="flex w-[9.4rem] items-start justify-between self-stretch">
+      <div className="flex w-[9.4rem] items-start justify-between self-stretch flex-shrink-0">
         <span className="text-center text-subtitle-14_Sb600 text-black-130">
           {label}
         </span>

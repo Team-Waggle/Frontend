@@ -37,85 +37,98 @@ export function Table<T>({
   const template = useGridTemplate(columns);
 
   return (
-    <div className="w-full overflow-x-auto scrollbar-none">
-      <div
-        role="rowgroup"
-        className="w-full"
-        style={{ display: 'grid', gridTemplateColumns: template }}
-      >
-        {columns.map((c) => (
-          <div
-            key={`h-${c.key}`}
-            role="columnheader"
-            className={`${stickyHeader ? 'sticky top-0 z-10' : ''} min-w-0 overflow-hidden`}
-          >
-            <ThFrame
-              variant={c.headerVariant ?? c.variant}
-              className={c.headerClassName}
+    <div className="w-full overflow-x-auto overflow-y-auto scrollbar-none md:overflow-x-visible">
+      <div className="relative grid min-w-[81.8rem] sm:min-w-[72rem] md:min-w-full">
+        <div
+          role="rowgroup"
+          className="min-w-full"
+          style={{
+            gridTemplateColumns: template,
+          }}
+        >
+          {columns.map((c) => (
+            <div
+              key={`h-${c.key}`}
+              role="columnheader"
+              className={`min-w-0 overflow-hidden border-b border-black-100 bg-white ${
+                stickyHeader ? 'sticky top-0 z-20' : ''
+              }`}
             >
-              {c.header}
-            </ThFrame>
-          </div>
-        ))}
-      </div>
-
-      <div role="rowgroup" className="w-full">
-        {data.map((row, ri) => {
-          const k = String(rowKey ? rowKey(row, ri) : ((row as any)?.id ?? ri));
-          const closed = isRowClosed?.(row) ?? false;
-
-          return (
-            <div key={k}>
-              <div
-                role="row"
-                style={{ display: 'grid', gridTemplateColumns: template }}
-                data-row-closed={closed ? 'true' : 'false'}
-                className={closed ? 'text-black-70' : undefined}
+              <ThFrame
+                variant={c.headerVariant ?? c.variant}
+                className={c.headerClassName}
               >
-                {columns.map((c) => {
-                  const value = c.accessor
-                    ? c.accessor(row, ri)
-                    : (row as any)[c.key];
-                  const C = c.cell ? resolveCell(c.cell as any, reg) : null;
-                  const variant = (c.cellVariant ?? c.variant) as
-                    | string
-                    | undefined;
-
-                  return (
-                    <div
-                      key={`c-${c.key}-${ri}`}
-                      role="gridcell"
-                      className={`min-w-0 overflow-hidden border border-x-0 border-t-0 border-solid border-black-50 ${closed ? 'text-black-70' : ''}`}
-                      data-variant={variant}
-                    >
-                      <TdFrame
-                        variant={c.cellVariant ?? c.variant}
-                        title={typeof value === 'string' ? value : undefined}
-                        className={`${c.className ?? ''} ${closed ? 'text-black-70' : ''}`}
-                      >
-                        {C ? (
-                          (C as any)({ row, rowIndex: ri, value, column: c })
-                        ) : (
-                          <span className="block truncate">
-                            {String(value ?? '')}
-                          </span>
-                        )}
-                      </TdFrame>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {renderRowDetail && (isRowExpanded?.(row, ri) ?? false) && (
-                <div style={{ display: 'grid', gridTemplateColumns: template }}>
-                  <div style={{ gridColumn: '1 / -1' }}>
-                    {renderRowDetail(row, ri)}
-                  </div>
-                </div>
-              )}
+                {c.header}
+              </ThFrame>
             </div>
-          );
-        })}
+          ))}
+        </div>
+
+        <div className="min-w-full">
+          {data.map((row, ri) => {
+            const k = String(
+              rowKey ? rowKey(row, ri) : ((row as any)?.id ?? ri),
+            );
+            const closed = isRowClosed?.(row) ?? false;
+
+            return (
+              <div key={k}>
+                <div
+                  role="row"
+                  className={`grid ${closed ? 'text-black-70' : undefined}`}
+                  style={{ gridTemplateColumns: template }}
+                  data-row-closed={closed ? 'true' : 'false'}
+                >
+                  {columns.map((c) => {
+                    const value = c.accessor
+                      ? c.accessor(row, ri)
+                      : (row as any)[c.key];
+                    const C = c.cell ? resolveCell(c.cell as any, reg) : null;
+                    const variant = (c.cellVariant ?? c.variant) as
+                      | string
+                      | undefined;
+
+                    return (
+                      <div
+                        key={`c-${c.key}-${ri}`}
+                        role="gridcell"
+                        className={[
+                          'min-w-0 overflow-hidden border border-x-0 border-t-0 border-solid border-black-50',
+                          closed ? 'text-black-70' : '',
+                          'whitespace-nowrap',
+                        ].join(' ')}
+                        data-variant={variant}
+                      >
+                        <TdFrame
+                          variant={c.cellVariant ?? c.variant}
+                          title={typeof value === 'string' ? value : undefined}
+                          className={`${c.className ?? ''} ${closed ? 'text-black-70' : ''}`}
+                        >
+                          {C ? (
+                            (C as any)({ row, rowIndex: ri, value, column: c })
+                          ) : (
+                            <span className="block">{String(value ?? '')}</span>
+                          )}
+                        </TdFrame>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {renderRowDetail && (isRowExpanded?.(row, ri) ?? false) && (
+                  <div
+                    className="grid min-w-full"
+                    style={{ gridTemplateColumns: template }}
+                  >
+                    <div style={{ gridColumn: '1 / -1' }}>
+                      {renderRowDetail(row, ri)}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

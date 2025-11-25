@@ -3,13 +3,15 @@ import HeartFillIcon from '../../assets/icons/ic_heart_fill_large.svg?react';
 import HeartStrokeIcon from '../../assets/icons/ic_heart_stroke_large.svg?react';
 import { useFollow } from '../../hooks/useFollow';
 
+const base_style = 'h-[4.4rem] w-[4.4rem] flex items-center justify-center mt-[3.6rem] border border-solid border-l-0 border-t-0 border-b-0 sm:border-r-0 rounded-tl-[0.4rem] rounded-bl-[0.4rem] sm:rounded-tl-[0rem] sm:rounded-bl-[0rem] sm:rounded-tr-[0.4rem] sm:rounded-br-[0.4rem]';
+
 const BUTTON_STYLES = {
   default:
-    'h-[4.4rem] w-[4.4rem] flex items-center justify-center mt-[3.6rem] rounded-tr-[0.4rem] rounded-br-[0.4rem] bg-black-40 text-black-60',
+    `${base_style} border-primary-50 bg-black-40 text-black-60`,
   hover:
-    'h-[4.4rem] w-[4.4rem] flex items-center justify-center mt-[3.6rem] rounded-tr-[0.4rem] rounded-br-[0.4rem] bg-primary-70 text-black-10',
+    `${base_style} border-right-primary-0 border-primary-50 bg-primary-70 text-black-10`,
   active:
-    'h-[4.4rem] w-[4.4rem] flex items-center justify-center mt-[3.6rem] rounded-tr-[0.4rem] rounded-br-[0.4rem] bg-primary-70 text-black-10',
+    `${base_style} border-right-primary-0 border-primary-50 bg-primary-70 text-black-10`,
 };
 
 

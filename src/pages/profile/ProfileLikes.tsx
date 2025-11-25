@@ -138,7 +138,7 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
   const positionLabelMap = useMemo(() => idLabelMap(positions), []);
 
   return (
-    <div className="w-[81.8rem]">
+    <div className="w-[32rem] sm:w-[72rem] md:w-[81.8rem]">
       {/* 상단 폴더 탭 */}
       <FolderTabGroup
         tabs={tabs.map((t) => ({ id: t.key, label: t.label }))}
@@ -155,7 +155,7 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
       {activeTab === 'bookmark' && activeTabInfo && (
         <div className="flex h-[74.4rem] flex-col items-start gap-[1rem] self-stretch rounded-bl-[0.8rem] rounded-br-[0.8rem] border border-solid border-black-50 bg-black-10 px-[2.6rem] pb-[3rem] pt-[1rem]">
           <div className="flex items-center justify-end gap-[1rem] self-stretch px-0 py-[0.8rem]">
-            <SelectTextIn
+            {/* <SelectTextIn
               type="outline"
               title="마감일"
               items={[
@@ -163,7 +163,7 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
                 { id: '2', label: '사용 스킬' },
                 { id: '3', label: '산업 분야' },
               ]}
-            />
+            /> */}
             <BasicSearchBar />
           </div>
 
