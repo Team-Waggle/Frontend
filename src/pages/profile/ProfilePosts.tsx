@@ -261,35 +261,22 @@ export default function ProfilePosts() {
           /> */}
           <ProfileSearchBar onSearch={setSearchText} />
         </div>
-
-        {loading ? (
-          <div className="px-4 py-8 text-caption-12_M500 text-black-130">
-            불러오는 중…
-          </div>
-        ) : error ? (
-          <div className="px-4 py-8 text-caption-12_M500 text-red-600">
-            에러: {error}
-          </div>
-        ) : processed.length === 0 ? (
-          emptyContentByKey[activeKey]
-        ) : (
-          <Table<PostRow>
-            columns={activeTab.columns}
-            data={processed}
-            rowKey={(r) => r.id}
-            isRowExpanded={(row) => expanded.has(row.id)}
-            isRowClosed={(row) => isRowClosedForUI(row)}
-            renderRowDetail={(row) => (
-              <ExpandableRow
-                postId={Number(row.id)}
-                type={
-                  activeKey === 'applicantManagement' ? 'applicants' : 'members'
-                }
-                showCloseAction={activeKey === 'applicantManagement'}
-              />
-            )}
-          />
-        )}
+        <Table<PostRow>
+          columns={activeTab.columns}
+          data={processed}
+          rowKey={(r) => r.id}
+          isRowExpanded={(row) => expanded.has(row.id)}
+          isRowClosed={(row) => isRowClosedForUI(row)}
+          renderRowDetail={(row) => (
+            <ExpandableRow
+              postId={Number(row.id)}
+              type={
+                activeKey === 'applicantManagement' ? 'applicants' : 'members'
+              }
+              showCloseAction={activeKey === 'applicantManagement'}
+            />
+          )}
+        />
       </div>
 
       <BaseModal
