@@ -9,18 +9,18 @@ const ProfilePageTag = ({ title, items }: ProfilePageTagProps) => {
   return (
     <div className="flex flex-wrap content-start items-start gap-x-[1.4rem] gap-y-[3.2rem] self-stretch">
         {/* 제목 */}
-      <div className="flex w-[15.2rem] flex-col items-center gap-[1.6rem]">
+      <div className="flex w-[13.2rem] sm:w-[18.2rem] md:w-[15.2rem] flex-col items-center gap-[1.6rem]">
         <BaseTag
           size="lg"
           type="filled"
           color="blue"
           shape="square"
           children={title}
-          className="w-[15.2rem] justify-center"
+          className="w-[13.2rem] sm:w-[18.2rem] md:w-[15.2rem] justify-center"
         />
 
         {/* 태그 목록 */}
-        <div className="flex flex-col items-center gap-[0.8rem] self-stretch">
+        <div className="flex flex-col items-center gap-[0.8rem] whitespace-nowrap self-stretch">
         {items.map((item, idx) => (
           <BaseTag
             key={idx}
@@ -29,7 +29,7 @@ const ProfilePageTag = ({ title, items }: ProfilePageTagProps) => {
             color="basic"
             shape="square"
             children={item}
-            className="w-[15.2rem] justify-center"
+            className="w-[13.2rem] sm:w-[18.2rem] md:w-[15.2rem] justify-center"
           />
         ))}
         </div>

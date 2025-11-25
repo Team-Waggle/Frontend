@@ -183,7 +183,7 @@ const ProfileApplications = () => {
   }, []);
 
   return (
-    <div className="w-[81.8rem]">
+    <div className="w-[32rem] sm:w-[72rem] md:w-[81.8rem]">
       <FolderTabGroup
         tabs={tabs.map((t) => ({ id: t.key, label: t.label }))}
         activeIndex={tabs.findIndex((t) => t.key === activeKey)}

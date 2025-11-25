@@ -259,14 +259,14 @@ const ProfileForm = () => {
     );
 
   return (
-    <div className="flex h-[207.4rem] w-[120rem] flex-col items-center">
+    <div className="flex h-[207.4rem] w-[36rem] md:w-[62rem] sm:w-[120rem] flex-col items-center">
       <ProfileImageField
         ProfileImgFieldUrl={profileImageUrl}
         onFileSelect={handleProfileImageUpload}
       />
       <div className="flex flex-col items-center gap-[1.6rem] self-stretch">
         <div className="flex flex-col items-center gap-[10rem] self-stretch">
-          <div className="flex w-[73.4rem] flex-col items-start gap-[2.6rem]">
+          <div className="flex w-[32rem] sm:w-[62rem] md:w-[73.4rem] flex-col items-start gap-[2.6rem]">
             {/* 닉네임 */}
             <NickNameField
               nickname={nickname}

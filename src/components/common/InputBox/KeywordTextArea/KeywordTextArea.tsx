@@ -50,7 +50,7 @@ const KeywordTextArea = ({
       !value.includes(item.id),
   );
 
-  return (
+    return (
     <div className="flex flex-col items-start self-stretch">
       <IconTextArea
         className="w-[32rem] items-center sm:w-[62rem] md:w-[73.4rem]"
@@ -63,8 +63,8 @@ const KeywordTextArea = ({
       />
 
       {inputValue && filterList.length > 0 && (
-        <div className="flex max-h-fit min-h-[64px] flex-wrap items-center self-stretch rounded-[0.8rem] border border-solid border-black-50 px-[1rem] py-[1.8rem]">
-          <div className="flex flex-wrap content-center items-center gap-[1rem]">
+        <div className="flex flex-wrap items-center self-stretch rounded-[0.8rem] border border-solid border-black-50 px-[1rem] py-[1.8rem]">
+          <div className="flex flex-wrap gap-[1rem]">
             {filterList.map((item) => (
               <BaseBasicChip
                 shape="square"
@@ -81,7 +81,7 @@ const KeywordTextArea = ({
 
       {value.length > 0 &&
         value.some((id) => items.find((i) => i.id === id)) && (
-          <div className="mt-[18px] flex h-[30px] flex-wrap content-start items-start gap-[1rem] self-stretch">
+          <div className="mt-[1.8rem] flex flex-wrap content-start items-start gap-[1rem] self-stretch">
             {value.map((id) => {
               const item = items.find((i) => i.id === id);
               if (!item) return null;

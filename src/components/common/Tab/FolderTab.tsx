@@ -30,7 +30,9 @@ const FolderTab = ({
       } ${className}`}
       onClick={onClick}
     >
-      <div>{TabTitle}</div>
+      <div>
+        <span className="whitespace-nowrap">{TabTitle}</span>
+      </div>
       {badge}
     </div>
   );

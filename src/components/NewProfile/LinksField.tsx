@@ -32,10 +32,13 @@ const LinksField = ({
       <FormLabel title="링크" />
 
       {links.map((link, index) => (
-        <div key={link.id} className="flex items-center gap-[0.6rem]">
-          <div className="flex w-[63rem] items-center gap-[1.8rem]">
+        <div
+          key={link.id}
+          className="flex flex-col items-start gap-[0.6rem] sm:flex-row sm:items-center"
+        >
+          <div className="flex flex-row items-center gap-[1.8rem]">
             <IconTextArea
-              className="w-[30.6rem]"
+              className="w-[15.1rem] sm:w-[30.6rem]"
               placeholder="주소"
               useRegex={false}
               useLengthValidation={false}
@@ -45,7 +48,7 @@ const LinksField = ({
             <Select
               items={formOptions.site}
               title="사이트"
-              width="w-[30.6rem]"
+              width="w-[15.1rem] sm:w-[30.6rem]"
               value={link.site}
               onChange={(v) => updateLink(link.id, 'site', v)}
               renderItem={(item) => (
@@ -56,18 +59,18 @@ const LinksField = ({
               )}
             />
           </div>
-
-          {index === links.length - 1 && (
-            <button type="button" onClick={addLink}>
-              <PlusIcon />
-            </button>
-          )}
-
-          {links.length > 1 && (
-            <button type="button" onClick={() => removeLink(link.id)}>
-              <MinusIcon />
-            </button>
-          )}
+          <div className="flex">
+            {index === links.length - 1 && (
+              <button type="button" onClick={addLink}>
+                <PlusIcon />
+              </button>
+            )}
+            {links.length > 1 && (
+              <button type="button" onClick={() => removeLink(link.id)}>
+                <MinusIcon />
+              </button>
+            )}
+          </div>
         </div>
       ))}
     </div>

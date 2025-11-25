@@ -237,7 +237,7 @@ export default function ProfilePosts() {
   };
 
   return (
-    <div className="w-[81.8rem]">
+    <div className="w-[32rem] sm:w-[72rem] md:w-[81.8rem]">
       <FolderTabGroup
         tabs={tabsWithBadges.map((t) => ({
           id: t.key,
@@ -250,7 +250,7 @@ export default function ProfilePosts() {
 
       <div className="flex h-[74.4rem] flex-col items-start gap-[1rem] self-stretch rounded-bl-[0.8rem] rounded-br-[0.8rem] border border-solid border-black-50 bg-black-10 px-[2.6rem] pb-[3rem] pt-[1rem]">
         <div className="flex flex-wrap items-center justify-end gap-[1rem] self-stretch px-0 py-[0.8rem]">
-          <SelectTextIn
+          {/* <SelectTextIn
             type="outline"
             title="정렬"
             items={sortItems}
@@ -258,38 +258,25 @@ export default function ProfilePosts() {
             onChange={(v: string) =>
               setSortKey((v as SortKey) || sortItems[0].id)
             }
-          />
+          /> */}
           <ProfileSearchBar onSearch={setSearchText} />
         </div>
-
-        {loading ? (
-          <div className="px-4 py-8 text-caption-12_M500 text-black-130">
-            불러오는 중…
-          </div>
-        ) : error ? (
-          <div className="px-4 py-8 text-caption-12_M500 text-red-600">
-            에러: {error}
-          </div>
-        ) : processed.length === 0 ? (
-          emptyContentByKey[activeKey]
-        ) : (
-          <Table<PostRow>
-            columns={activeTab.columns}
-            data={processed}
-            rowKey={(r) => r.id}
-            isRowExpanded={(row) => expanded.has(row.id)}
-            isRowClosed={(row) => isRowClosedForUI(row)}
-            renderRowDetail={(row) => (
-              <ExpandableRow
-                postId={Number(row.id)}
-                type={
-                  activeKey === 'applicantManagement' ? 'applicants' : 'members'
-                }
-                showCloseAction={activeKey === 'applicantManagement'}
-              />
-            )}
-          />
-        )}
+        <Table<PostRow>
+          columns={activeTab.columns}
+          data={processed}
+          rowKey={(r) => r.id}
+          isRowExpanded={(row) => expanded.has(row.id)}
+          isRowClosed={(row) => isRowClosedForUI(row)}
+          renderRowDetail={(row) => (
+            <ExpandableRow
+              postId={Number(row.id)}
+              type={
+                activeKey === 'applicantManagement' ? 'applicants' : 'members'
+              }
+              showCloseAction={activeKey === 'applicantManagement'}
+            />
+          )}
+        />
       </div>
 
       <BaseModal

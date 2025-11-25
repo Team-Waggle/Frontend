@@ -15,8 +15,8 @@ const DayAndTimeField = ({ selectedDays, toggleDay, preferredTime, setPreferredT
     return(
         <div className="flex w-full flex-col gap-[0.8rem]">
           <FormLabel title="선호 요일 및 시간" />
-          <div className="flex items-center gap-[1.6rem] self-stretch">
-            <div className="flex flex-1 items-center justify-between rounded-[0.8rem]">
+          <div className="flex flex-col sm:flex-row items-center gap-[1.6rem] self-stretch">
+            <div className="flex w-[32rem] sm:w-[30.1rem] md:w-[35.8rem] flex-1 items-center justify-between rounded-[0.8rem]">
               {formOptions.day.map((day) => (
                 <BasicChipSquare
                   key={day.id}
@@ -27,12 +27,13 @@ const DayAndTimeField = ({ selectedDays, toggleDay, preferredTime, setPreferredT
                 </BasicChipSquare>
               ))}
             </div>
-            <div className="w-[35.8rem]">
+            <div className="w-[32rem] sm:w-[30.1rem] md:w-[35.8rem]">
               <Select
                 items={formOptions.workTime}
                 title="선호 시간"
                 value={preferredTime}
                 onChange={setPreferredTime}
+                width="w-[32rem] sm:w-[30.1rem] md:w-[35.8rem]"
               />
             </div>
           </div>
