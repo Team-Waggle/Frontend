@@ -41,7 +41,7 @@ export function Table<T>({
       <div className="relative grid min-w-[81.8rem] sm:min-w-[72rem] md:min-w-full">
         <div
           role="rowgroup"
-          className="min-w-full"
+          className="relative grid min-w-full"
           style={{
             gridTemplateColumns: template,
           }}
