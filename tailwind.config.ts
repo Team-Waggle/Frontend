@@ -217,7 +217,8 @@ const config: Config = {
       screens: {
         // tailwind는 mobile-first 방식
         // 360px 이하의 화면은 따로 적지 않음
-        sm: '361px', // 361 ~ 768 tablet
+        // sm: '361px', // 361 ~ 768 tablet
+        sm: '431px',
         md: '769px', // 769 ~ 1200 desktop
         lg: '1201px', // 1201 ~ 1920 max-desktop
       },
