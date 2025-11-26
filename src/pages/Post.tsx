@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useProjectsPostDetailQuery } from '../hooks/useProjectPost';
 import { useProjectsMemberQuery } from '../hooks/useProjectMember';
 import { BookmarkButton } from '../components/common/Button/OtherIconButton';
 import BaseButton from '../components/common/Button/BaseButton';
 import SkillIcons from '../components/SkillIcons';
 import TopButton from '../components/TopButton';
-import MemberProfileIcon from '../assets/profile/profileIcon/ic_profile_default_circle_medium.svg?react';
+import LoginSuggestionModal from '../components/Modal/LoginSuggestionModal';
+import ProfileTag from '../components/common/Profile/ProfileTag/ProfileTag';
+import SupplyModal from '../components/Modal/SupplyModal';
+import BaseProfileIcon from '../components/common/Profile/ProfileIcon/BaseProfileIcon';
 import PersonIcon from '../assets/icons/ic_person.svg?react';
 import IndustryIcon from '../assets/icons/filter/ic_filter_industry_small.svg?react';
 import SystemIcon from '../assets/icons/filter/ic_filter_system_small.svg?react';
@@ -19,10 +22,9 @@ import {
   getWaysOfWorking,
   getWorkPeriod,
 } from '../utils/createMapper';
-import SupplyModal from '../components/Modal/SupplyModal';
-import BaseProfileIcon from '../components/common/Profile/ProfileIcon/BaseProfileIcon';
 import { usePostApply } from '../hooks/useApplicants';
 import { useUser } from '../hooks/useUser';
+import { useAccessTokenStore } from '../stores/authStore';
 
 interface TextAreaprops {
   subject: string;
@@ -38,15 +40,23 @@ const Post = () => {
   const { projectId } = useParams();
 
   const [id, setId] = useState<number>(0);
+  const [isLoginSuggestionModalOpen, setIsLoginSuggestionModalOpen] =
+    useState(false);
   const { data: projectData, isLoading } = useProjectsPostDetailQuery(id!);
   const { data: memberData } = useProjectsMemberQuery(id!);
   const { mutate } = usePostApply(Number(projectId));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const token = useAccessTokenStore((state) => state.accessToken);
+
+  console.log(token);
+
   useEffect(() => {
     setId(Number(projectId));
-    fetchUser();
+    if (token) {
+      fetchUser();
+    }
   }, [projectId]);
 
   const parseDetail = (detail: string): TextAreaprops => {
@@ -62,6 +72,13 @@ const Post = () => {
     };
   };
 
+  // 현재 참여중인 팀원 중 작성자 맨 앞으로 오게 정렬
+  const sortedMemberData = memberData?.sort((a, b) => {
+    if (a.id === projectData?.user.id) return -1;
+    if (b.id === projectData?.user.id) return 1;
+    return 0;
+  });
+
   return (
     <>
       <div className="w-[32rem] sm:w-[62rem] md:w-[85.6rem]">
@@ -69,7 +86,17 @@ const Post = () => {
           <div className="text-heading-34_Sb600">{projectData?.title}</div>
           <div className="h-[4.8rem] border-b border-solid border-black-80 pb-[2rem]">
             <div className="flex h-[2.6rem] items-center gap-[1.2rem]">
-              <div className="flex items-center gap-[0.4rem]">
+              <Link
+                to={`/profile/${projectData?.user.id}`}
+                className="flex items-center gap-[0.4rem]"
+                onClick={(e) => {
+                  if (!token) {
+                    e.preventDefault();
+                    setIsLoginSuggestionModalOpen(true);
+                    return;
+                  }
+                }}
+              >
                 {/* 사용자 프로필 */}
                 <BaseProfileIcon
                   imageUrl={projectData?.user.profile_img_url}
@@ -83,12 +110,11 @@ const Post = () => {
                     </span>
                     <span className="text-body-14_M500">님,</span>
                   </div>
-                  {/* 서버 데이터 필요 */}
                   <span className="text-subtitle-14_Sb600">
                     {getPosition(projectData?.user.position!)}
                   </span>
                 </div>
-              </div>
+              </Link>
               <div className="h-[2rem] w-[0.1rem] bg-black-60" />
               <div className="text-body-16_M500 text-black-80">
                 {projectData?.created_at.slice(0, 10)}
@@ -190,20 +216,34 @@ const Post = () => {
                           </span>
                           <div className="flex items-center gap-[1.8rem]">
                             <span className="flex h-[2.8rem] min-w-[3.5rem] items-center justify-center text-body-14_M500 text-primary">
-                              {data.remaining_count - data.current_count}/
-                              {data.remaining_count}
+                              {projectData.applicant_counts.find(
+                                (applicant) =>
+                                  applicant.position === data.position,
+                              )?.count ?? 0}
+                              /{data.remaining_count}
                             </span>
                             {/* 지원일 경우에만! */}
-                            <BaseButton
-                              size="sm"
-                              color="line"
-                              onClick={() => {
-                                mutate(data.position);
-                                setIsModalOpen(true);
-                              }}
-                            >
-                              지원
-                            </BaseButton>
+                            {data.position === projectData.applied_position ? (
+                              <BaseButton size="sm" color="primary">
+                                완료
+                              </BaseButton>
+                            ) : (
+                              <BaseButton
+                                size="sm"
+                                color="line"
+                                onClick={() => {
+                                  if (user?.id === projectData?.user.id) return;
+                                  if (!token) {
+                                    setIsLoginSuggestionModalOpen(true);
+                                    return;
+                                  }
+                                  mutate(data.position);
+                                  setIsModalOpen(true);
+                                }}
+                              >
+                                지원
+                              </BaseButton>
+                            )}
                           </div>
                         </div>
                       ))}
@@ -290,31 +330,21 @@ const Post = () => {
             </div>
             <div className="flex flex-col gap-[1.6rem]">
               <div className="grid grid-cols-3 gap-[1.2rem] px-[2rem]">
-                {memberData?.map((data, idx) => (
-                  <div
-                    key={idx}
-                    className="flex h-[6.4rem] w-[24.6rem] items-center rounded-[0.8rem] border border-solid border-black-50 pl-[1.2rem] pr-[2.2rem]"
-                  >
-                    <div className="flex gap-[1.8rem]">
-                      <div className="flex h-[3.8rem] w-[3.8rem] items-center justify-center">
-                        <MemberProfileIcon />
-                      </div>
-                      <div>
-                        <span className="text-subtitle-14_Sb600">
-                          {data.name}
-                        </span>
-                        <div className="flex items-center gap-[0.4rem] text-caption-13_M500">
-                          <span className="text-black-70">
-                            {getPosition(data.position)}
-                          </span>
-                          <div className="h-[1.2rem] w-[0.1rem] bg-black-60" />
-                          <span className="text-black-70">
-                            {data.year_count}년차 이상
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                {sortedMemberData?.map((data, idx) => (
+                  <ProfileTag
+                    path={data.id}
+                    imageUrl={data.profile_img_url}
+                    name={data.name}
+                    jobRole={getPosition(data.position)}
+                    yearCount={data.year_count}
+                    type={
+                      data.id === projectData?.user.id ? 'creator' : 'default'
+                    }
+                    token={token}
+                    setIsLoginSuggestionModalOpen={
+                      setIsLoginSuggestionModalOpen
+                    }
+                  />
                 ))}
               </div>
               <div className="flex justify-center">
@@ -336,6 +366,11 @@ const Post = () => {
         size="large"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+      <LoginSuggestionModal
+        size="large"
+        isOpen={isLoginSuggestionModalOpen}
+        onClose={() => setIsLoginSuggestionModalOpen(false)}
       />
     </>
   );

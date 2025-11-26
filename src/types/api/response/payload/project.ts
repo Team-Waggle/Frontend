@@ -21,7 +21,11 @@ export interface ProjectPayload {
   detail: string;
   contact_url: string;
   reference_url: string;
-  bookmark_cnt: number;
+  bookmark_count: number;
+  applicant_counts: {
+    position: PositionType;
+    count: number;
+  }[];
   user: UserMePayload;
   bookmarked: boolean;
   applied_position: PositionType;
