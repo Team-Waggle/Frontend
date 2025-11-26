@@ -261,22 +261,26 @@ export default function ProfilePosts() {
           /> */}
           <ProfileSearchBar onSearch={setSearchText} />
         </div>
-        <Table<PostRow>
-          columns={activeTab.columns}
-          data={processed}
-          rowKey={(r) => r.id}
-          isRowExpanded={(row) => expanded.has(row.id)}
-          isRowClosed={(row) => isRowClosedForUI(row)}
-          renderRowDetail={(row) => (
-            <ExpandableRow
-              postId={Number(row.id)}
-              type={
-                activeKey === 'applicantManagement' ? 'applicants' : 'members'
-              }
-              showCloseAction={activeKey === 'applicantManagement'}
-            />
-          )}
-        />
+        {data.length === 0 ? (
+          emptyContentByKey[activeKey]
+        ) : (
+          <Table<PostRow>
+            columns={activeTab.columns}
+            data={processed}
+            rowKey={(r) => r.id}
+            isRowExpanded={(row) => expanded.has(row.id)}
+            isRowClosed={(row) => isRowClosedForUI(row)}
+            renderRowDetail={(row) => (
+              <ExpandableRow
+                postId={Number(row.id)}
+                type={
+                  activeKey === 'applicantManagement' ? 'applicants' : 'members'
+                }
+                showCloseAction={activeKey === 'applicantManagement'}
+              />
+            )}
+          />
+        )}
       </div>
 
       <BaseModal
