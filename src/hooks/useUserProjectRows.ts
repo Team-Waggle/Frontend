@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
-  getUserProjects,
-  getProjectApplicantsCount,
-} from '../api/projectRoster';
+  getUserPosts,
+  getPostApplicantsCount,
+} from '../api/postRoster';
 import type { ProjectPayload } from '../types/api/response/payload/project';
 import type { PostRow } from '../constants/ProfilePostColumns';
 import { formatYYMMDDKST, isClosedKST } from '../utils/dateKST';
@@ -35,12 +35,12 @@ export function useUserProjectRows() {
         setLoading(true);
         setError(null);
 
-        const list = await getUserProjects();
+        const list = await getUserPosts();
         if (!alive) return;
         setProjects(list);
 
         const results = await Promise.allSettled(
-          list.map(async (p) => [p.id, await getProjectApplicantsCount(p.id)] as const),
+          list.map(async (p) => [p.id, await getPostApplicantsCount(p.id)] as const),
         );
         if (!alive) return;
 
