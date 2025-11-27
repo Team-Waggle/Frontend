@@ -21,7 +21,14 @@ const Card = ({ data }: CardProps) => {
   const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
-    if (diff < 0) setIsEnd(true);
+    if (
+      diff < 0 ||
+      data?.recruitments.reduce(
+        (sum, item) => sum + item.remaining_count,
+        0,
+      ) === 0
+    )
+      setIsEnd(true);
   }, []);
 
   return (
