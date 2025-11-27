@@ -11,6 +11,7 @@ export const USER_URL = (userId: string) => `/v1/users/${userId}`; // 특정 사
 export const USER_ME_URL = '/v1/users/me'; // 현재 사용자 조회, 수정, 삭제
 export const USER_PROFILE_IMAGE = '/v1/users/me/profile-image'; // 현재 사용자 이미지
 export const USER_PROJECT = '/v1/users/me/projects'; // 현재 사용자의 프로젝트
+export const USER_POST = '/v1/users/me/posts'; // 현재 사용자의 프로젝트
 
 // 팔로우 API
 export const FOLLOW_URL = '/v1/follows'; // 팔로우, 언팔로우 토글

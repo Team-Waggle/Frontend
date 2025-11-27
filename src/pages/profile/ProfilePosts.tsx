@@ -25,7 +25,7 @@ import {
 import CancelModal from '../../assets/character/modal/large/ch_modal_x_square_gray_large.svg?react';
 import BaseBadge from '../../components/common/Tag/BaseBadge';
 
-import { getProjectMembersCount } from '../../api/projectRoster';
+import { getPostMembersCount } from '../../api/postRoster';
 
 const LS_KEY = 'profileTabBaselines';
 function loadBaselines(): Record<TabKey, number> {
@@ -154,7 +154,7 @@ export default function ProfilePosts() {
       }
 
       const results = await Promise.allSettled(
-        ids.map((id) => getProjectMembersCount(id)),
+        ids.map((id) => getPostMembersCount(id)),
       );
 
       if (!alive) return;
