@@ -1,5 +1,6 @@
 import {
   USER_ME_URL,
+  USER_PROFILE_COMPLETE,
   USER_PROFILE_IMAGE,
   USER_SEARCH_URL,
   USER_URL,
@@ -53,5 +54,10 @@ export const getUsersAll = async (query: string) => {
   const { data } = await axiosInstance.get(USER_SEARCH_URL, {
     params: { query },
   });
+  return data.payload;
+};
+
+export const getUserProfileComplete = async () => {
+  const { data } = await axiosInstance.get(USER_PROFILE_COMPLETE);
   return data.payload;
 };

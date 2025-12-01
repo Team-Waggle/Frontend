@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAccessTokenStore, useRefreshTokenStore } from '../stores/authStore';
+import { useGetUserProfileCompleteQuery } from '../hooks/useUser';
 
 const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { data, isLoading } = useGetUserProfileCompleteQuery();
 
   const setAccessToken = useAccessTokenStore((state) => state.setAccessToken);
   const setRefreshToken = useRefreshTokenStore(
@@ -19,9 +21,14 @@ const Login = () => {
     if (isSuccess && access_token && refresh_token) {
       setAccessToken(access_token);
       setRefreshToken(refresh_token);
-      navigate('/');
+      if (isLoading) return;
+      if (data?.isCompleted) {
+        navigate('/');
+      } else {
+        navigate('/profile/new');
+      }
     }
-  }, []);
+  }, [data]);
 
   return <div>Loading...</div>;
 };
