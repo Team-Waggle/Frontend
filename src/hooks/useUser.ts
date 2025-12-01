@@ -5,6 +5,7 @@ import {
   deleteUserMe,
   uploadUserProfileImage,
   getUsersAll,
+  getUserProfileComplete,
 } from '../api/user';
 import { useUserStore } from '../stores/userStore';
 import { useAccessTokenStore, useRefreshTokenStore } from '../stores/authStore';
@@ -90,6 +91,14 @@ export const useGetUserAllQuery = (query: string) => {
     queryKey: ['query', query],
     queryFn: () => getUsersAll(query),
     staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useGetUserProfileCompleteQuery = () => {
+  return useQuery({
+    queryKey: ['profile-complete'],
+    queryFn: () => getUserProfileComplete(),
     refetchOnWindowFocus: false,
   });
 };
