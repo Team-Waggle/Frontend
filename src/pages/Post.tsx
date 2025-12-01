@@ -50,8 +50,6 @@ const Post = () => {
 
   const token = useAccessTokenStore((state) => state.accessToken);
 
-  console.log(token);
-
   useEffect(() => {
     setId(Number(projectId));
     if (token) {
@@ -201,54 +199,64 @@ const Post = () => {
               {/* 모집 인원, 현재 참여중인 인원, 스킬 */}
               <div className="flex flex-col gap-[2rem]">
                 {/* 모집 인원 */}
-                <div className="flex flex-col gap-[1.8rem] rounded-[0.8rem] border border-solid border-black-50 px-[2.2rem] pb-[3rem] pt-[2rem]">
-                  <span className="text-caption-13_Sb600">모집 인원</span>
-                  <div className="grid grid-cols-1 gap-y-[2rem] px-[2rem] sm:grid-cols-2 sm:gap-x-[3.8rem] md:gap-x-[5.2rem]">
-                    {projectData?.recruitments
-                      ?.filter((data) => data.remaining_count >= 1)
-                      .map((data, idx) => (
-                        <div
-                          key={idx}
-                          className="flex h-[2.8rem] w-[22.2rem] gap-[4.2rem]"
-                        >
-                          <span className="min-w-[6.2rem] max-w-[6.2rem] text-body-14_M500">
-                            {getPosition(data?.position)}
-                          </span>
-                          <div className="flex items-center gap-[1.8rem]">
-                            <span className="flex h-[2.8rem] min-w-[3.5rem] items-center justify-center text-body-14_M500 text-primary">
-                              {projectData.applicant_counts.find(
-                                (applicant) =>
-                                  applicant.position === data.position,
-                              )?.count ?? 0}
-                              /{data.remaining_count}
+                {projectData?.recruitments.reduce(
+                  (sum, item) => sum + item.remaining_count,
+                  0,
+                ) === 0 ? (
+                  ''
+                ) : (
+                  <div className="flex flex-col gap-[1.8rem] rounded-[0.8rem] border border-solid border-black-50 px-[2.2rem] pb-[3rem] pt-[2rem]">
+                    <span className="text-caption-13_Sb600">모집 인원</span>
+                    <div className="grid grid-cols-1 gap-y-[2rem] px-[2rem] sm:grid-cols-2 sm:gap-x-[3.8rem] md:gap-x-[5.2rem]">
+                      {projectData?.recruitments
+                        ?.filter((data) => data.remaining_count >= 1)
+                        .map((data, idx) => (
+                          <div
+                            key={idx}
+                            className="flex h-[2.8rem] w-[22.2rem] gap-[4.2rem]"
+                          >
+                            <span className="min-w-[6.2rem] max-w-[6.2rem] text-body-14_M500">
+                              {getPosition(data?.position)}
                             </span>
-                            {/* 지원일 경우에만! */}
-                            {data.position === projectData.applied_position ? (
-                              <BaseButton size="sm" color="primary">
-                                완료
-                              </BaseButton>
-                            ) : (
-                              <BaseButton
-                                size="sm"
-                                color="line"
-                                onClick={() => {
-                                  if (user?.id === projectData?.user.id) return;
-                                  if (!token) {
-                                    setIsLoginSuggestionModalOpen(true);
-                                    return;
-                                  }
-                                  mutate(data.position);
-                                  setIsModalOpen(true);
-                                }}
-                              >
-                                지원
-                              </BaseButton>
-                            )}
+                            <div className="flex items-center gap-[1.8rem]">
+                              <span className="flex h-[2.8rem] min-w-[3.5rem] items-center justify-center text-body-14_M500 text-primary">
+                                {projectData.applicant_counts.find(
+                                  (applicant) =>
+                                    applicant.position === data.position,
+                                )?.count ?? 0}
+                                /{data.remaining_count}
+                              </span>
+                              {/* 지원일 경우에만! */}
+                              {data.position ===
+                              projectData.applied_position ? (
+                                <BaseButton size="sm" color="primary">
+                                  완료
+                                </BaseButton>
+                              ) : (
+                                <BaseButton
+                                  size="sm"
+                                  color="line"
+                                  onClick={() => {
+                                    if (user?.id === projectData?.user.id)
+                                      return;
+                                    if (!token) {
+                                      setIsLoginSuggestionModalOpen(true);
+                                      return;
+                                    }
+                                    mutate(data.position);
+                                    setIsModalOpen(true);
+                                  }}
+                                >
+                                  지원
+                                </BaseButton>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                    </div>
                   </div>
-                </div>
+                )}
+
                 {/* 현재 참여중인 인원 */}
                 <div className="flex flex-col gap-[1.8rem] rounded-[0.8rem] border border-solid border-black-50 px-[2.2rem] pb-[3rem] pt-[2rem]">
                   <span className="text-caption-13_Sb600">
@@ -332,6 +340,7 @@ const Post = () => {
               <div className="grid grid-cols-3 gap-[1.2rem] px-[2rem]">
                 {sortedMemberData?.map((data, idx) => (
                   <ProfileTag
+                    key={idx}
                     path={data.id}
                     imageUrl={data.profile_img_url}
                     name={data.name}
