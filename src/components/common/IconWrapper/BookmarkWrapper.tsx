@@ -15,7 +15,7 @@ const BookmarkWrapper = ({
   isBookmarked,
   disabled,
 }: BookmarkWrapperProps) => {
-  const updateBookmark = usePostBookmarkQuery(projectId);
+  const updateBookmark = usePostBookmarkQuery();
   const [isActive, setIsActive] = useState(isBookmarked);
   const [isLoginSuggestionModalOpen, setIsLoginSuggestionModalOpen] =
     useState(false);
@@ -29,7 +29,7 @@ const BookmarkWrapper = ({
       setIsLoginSuggestionModalOpen(true);
       return;
     }
-    updateBookmark.mutate();
+    updateBookmark.mutate(projectId);
     setIsActive((prev) => !prev);
   };
 

@@ -23,7 +23,9 @@ export function startOfDayKST(dateLike: string): Date | null {
 export function isClosedKST(deadline?: string): boolean {
   const start = startOfDayKST(deadline ?? '');
   if (!start) return false;
-  return nowKST().getTime() >= start.getTime();
+  const end = new Date(start.getTime());
+  end.setDate(end.getDate() + 1);
+  return nowKST().getTime() >= end.getTime();
 }
 
 export function formatYYMMDDKST(dateLike?: string): string {

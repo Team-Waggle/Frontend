@@ -2,6 +2,10 @@ import type { ColumnDef, CellCtx } from '../types/table';
 import { IconActions } from '../components/common/Table/cells/IconActions';
 import SkillIcons from '../components/SkillIcons';
 import { skillIconMapper } from '../utils/skillIconMapper';
+import { Link } from 'react-router-dom';
+import BookmarkIc from '../assets/icons/nav/ic_nav_bookmark_large.svg?react';
+import TrashIc from '../assets/icons/profile/ic_trashcan.svg?react';
+import { isClosedKST } from '../utils/dateKST';
 
 export type BookmarkRow = {
   id: string;
@@ -12,7 +16,9 @@ export type BookmarkRow = {
 };
 
 // 북마크 관련
-export const BookmarkColumns: ColumnDef<BookmarkRow>[] = [
+export const BookmarkColumns = (
+  onBookmarkClick: (projectId: number) => void,
+): ColumnDef<BookmarkRow>[] => [
   { key: 'deadline', header: '마감일', variant: 'default' },
   {
     key: 'industry',
@@ -28,7 +34,13 @@ export const BookmarkColumns: ColumnDef<BookmarkRow>[] = [
     variant: 'title',
     cell: ({ row }: CellCtx<BookmarkRow, any>) => (
       <div className="w-0 min-w-0 flex-1">
-        <span className="block truncate">{row.title}</span>
+        <Link
+          to={`/post/${encodeURIComponent(row.id)}`}
+          className="block truncate"
+          title={row.title}
+        >
+          {row.title}
+        </Link>
       </div>
     ),
   },
@@ -47,10 +59,36 @@ export const BookmarkColumns: ColumnDef<BookmarkRow>[] = [
     headerVariant: 'icon1',
     cellVariant: 'icon',
     accessor: (r) => r,
-    cell: (ctx: CellCtx<BookmarkRow, any>) => <IconActions {...ctx} />,
-    meta: {
-      preset: ['bookmark'],
-      round: true,
+    cell: (ctx: CellCtx<BookmarkRow, any>) => {
+      const { row, column } = ctx;
+      const closed = isClosedKST(row.deadline);
+      const actions = closed
+        ? [{ key: 'delete', icon: TrashIc, ariaLabel: 'delete', title: '삭제' }]
+        : [
+            {
+              key: 'bookmark',
+              icon: () => <BookmarkIc className="text-primary" />,
+              ariaLabel: 'bookmark',
+              title: '북마크',
+              onClick: (row: BookmarkRow) => {
+                onBookmarkClick(Number(row.id));
+              },
+            },
+          ];
+      return (
+        <IconActions
+          {...ctx}
+          column={{
+            ...column,
+            meta: {
+              ...(column.meta || {}),
+              actions,
+              round: true,
+            },
+          }}
+        />
+      );
     },
+    meta: { round: true },
   },
 ];

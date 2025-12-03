@@ -8,7 +8,7 @@ import BaseProfileChip from '../../components/common/Profile/ProfileChip/BasePro
 import LineTab from '../../components/common/Tab/LineTab';
 import { useFollowList } from '../../hooks/useFollowList';
 import { profileTabs } from '../../constants/ProfileTabConfig';
-import { positions } from '../../constants/formOptions';
+import { industries, positions, skills } from '../../constants/formOptions';
 import { Table } from '../../components/common/Table/Table';
 import {
   BookmarkColumns,
@@ -24,24 +24,18 @@ import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import CancelIcon from '../../assets/icons/ic_snackbar_cancel.svg?react';
+import NoBookmarkIcon from '../../assets/character/loading/ch_loading_basic_square_gray_small.svg?react';
+import {
+  useGetBookmarkQuery,
+  usePostBookmarkQuery,
+} from '../../hooks/useBookmark';
+import { formatYYMMDDKST } from '../../utils/dateKST';
+import { isRowClosedForUI } from '../../utils/profilePostList';
 
 type OutletCtx = { currentUserId: string };
 interface ProfileLikesProps {
   currentUserId?: string;
 }
-
-const dummyData: { bookmark: BookmarkRow[] } = {
-  bookmark: [
-    {
-      id: '1',
-      deadline: '00.00.00',
-      industry: '소셜네트워크',
-      title:
-        '와글 팀과 함께할 디자이너, 기획자, 백엔드, 프론트엔드, 데브옵스님을 모집합니다.',
-      skills: ['TypeScript', 'TypeScript', 'TypeScript', 'TypeScript'],
-    },
-  ],
-};
 
 const idLabelMap = <T extends { id: string; label: string }>(list: T[]) =>
   list.reduce<Record<string, string>>((acc, cur) => {
@@ -137,6 +131,35 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
 
   const positionLabelMap = useMemo(() => idLabelMap(positions), []);
 
+  const { data, isLoading, error } = useGetBookmarkQuery();
+
+  const { mutate: postBookmark } = usePostBookmarkQuery();
+
+  const industryMap = useMemo(
+    () => new Map(industries.map((o) => [o.id, o.label])),
+    [],
+  );
+  const skillMap = useMemo(
+    () => new Map(skills.map((o) => [o.id, o.label])),
+    [],
+  );
+  const toIndustryLabel = (code?: string) =>
+    (code && industryMap.get(code)) ?? code ?? '';
+  const toSkillLabels = (codes?: string[]) =>
+    (codes ?? []).map((c) => skillMap.get(c) ?? c);
+
+  const applyData: BookmarkRow[] = useMemo(() => {
+    return (data ?? []).map((data) => {
+      return {
+        id: String(data.id),
+        deadline: formatYYMMDDKST(data.recruitment_end_date),
+        industry: toIndustryLabel(data.industry),
+        title: data.title,
+        skills: toSkillLabels(data.skills as string[] | undefined),
+      } as BookmarkRow;
+    });
+  }, [data]);
+
   return (
     <div className="w-[32rem] sm:w-[72rem] md:w-[81.8rem]">
       {/* 상단 폴더 탭 */}
@@ -167,11 +190,29 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
             <BasicSearchBar />
           </div>
 
-          <Table
-            columns={BookmarkColumns}
-            data={dummyData.bookmark}
-            rowKey={(r) => r.id}
-          />
+          {isLoading ? (
+            <div className="flex h-full w-full items-center justify-center text-caption-12_M500 text-black-130">
+              불러오는 중...
+            </div>
+          ) : error ? (
+            <div className="flex h-full w-full items-center justify-center text-red-500">
+              데이터를 불러오지 못했습니다.
+            </div>
+          ) : applyData.length === 0 ? (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-[1.6rem]">
+              <NoBookmarkIcon />
+              <span className="text-caption-16_M500 text-black-70">
+                북마크한 글이 없어요.
+              </span>
+            </div>
+          ) : (
+            <Table
+              columns={BookmarkColumns((id) => postBookmark(id))}
+              data={applyData}
+              rowKey={(r) => r.id}
+              isRowClosed={(row) => isRowClosedForUI(row)}
+            />
+          )}
         </div>
       )}
 
