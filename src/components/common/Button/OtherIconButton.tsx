@@ -1,5 +1,7 @@
 import BellIcon from '../../../assets/icons/ic_bell.svg?react';
 import ProfileIcon from '../../../assets/icons/ic_profile.svg?react';
+import HamburgerIcon from '../../../assets/icons/ic_hamburger.svg?react';
+import LogoutIcon from '../../../assets/icons/nav/ic_nav_logout_large.svg?react';
 import HeartFillIcon from '../../../assets/icons/ic_heart_fill_large.svg?react';
 import HeartStrokeIcon from '../../../assets/icons/ic_heart_stroke_large.svg?react';
 import BookmarkIcon from '../../../assets/icons/nav/ic_nav_bookmark_large.svg?react';
@@ -88,7 +90,7 @@ export const BookmarkButton = ({
   isBookmarked,
   disabled,
 }: BookmarkButtonProps) => {
-  const updateBookmark = usePostBookmarkQuery(projectId!);
+  const updateBookmark = usePostBookmarkQuery();
   const [isActive, setIsActive] = useState(isBookmarked);
   const [isLoginSuggestionModalOpen, setIsLoginSuggestionModalOpen] =
     useState(false);
@@ -101,7 +103,7 @@ export const BookmarkButton = ({
       setIsLoginSuggestionModalOpen(true);
       return;
     }
-    updateBookmark.mutate();
+    updateBookmark.mutate(projectId!);
     setIsActive((prev) => !prev);
   };
 
