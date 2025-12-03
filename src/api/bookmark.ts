@@ -9,7 +9,7 @@ export const postBookmark = async (projectId: number) => {
   return data;
 };
 
-export const myBookmark = async () => {
+export const getBookmark = async () => {
   const { data } = await axiosInstance.get(PROJECTS_BOOKMARK_ME_URL);
-  return data;
+  return data.payload.content;
 };
