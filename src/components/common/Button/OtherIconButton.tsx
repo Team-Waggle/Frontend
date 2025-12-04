@@ -18,10 +18,11 @@ import LoginSuggestionModal from '../../Modal/LoginSuggestionModal';
 interface IconProps {
   onClick?: () => void;
   children?: React.ReactNode;
+  className?: string | undefined;
 }
 
 interface NavigationButtonProps extends IconProps {
-  type: 'bell' | 'profile';
+  type: 'bell' | 'profile' | 'hamburger' | 'logout';
   hasNotification?: boolean;
 }
 
@@ -49,13 +50,22 @@ export const NavigationButton = ({
   type,
   hasNotification = false,
   onClick,
+  className,
 }: NavigationButtonProps) => {
   return (
     <button
-      className="relative flex h-[4.4rem] w-[4.4rem] items-center justify-center hover:bg-black-30"
+      className={`relative flex h-[4.4rem] w-[4.4rem] items-center justify-center hover:bg-black-30 ${className || ''}`}
       onClick={onClick}
     >
-      {type === 'bell' ? <BellIcon /> : <ProfileIcon />}
+      {type === 'bell' ? (
+        <BellIcon />
+      ) : type === 'profile' ? (
+        <ProfileIcon />
+      ) : type === 'hamburger' ? (
+        <HamburgerIcon />
+      ) : (
+        <LogoutIcon />
+      )}
       {hasNotification && (
         <div className="absolute right-[1.2rem] top-[1.2rem] h-[0.6rem] w-[0.6rem] rounded-full border border-solid border-black-10 bg-primary" />
       )}
