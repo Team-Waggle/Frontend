@@ -1,28 +1,18 @@
-import { InPageNavigationProps, NavigationSize } from "../../../types/inPageNavigation";
+import { InPageNavigationProps } from '../../../types/inPageNavigation';
 
 const InPageNavigation = ({
-  size = "xl",
   items,
   isActive = false,
   onClick,
 }: InPageNavigationProps) => {
-  const widthMap: Record<NavigationSize, string> = {
-    xl: "w-[26.4rem]",
-    md: "w-[26.4rem]",
-    sm: "w-[25rem]",
-  };
-
-  const widthStyle = widthMap[size];
-
   return (
     <div
       onClick={onClick}
-      className={`flex ${widthStyle} h-[4rem] min-w-[25rem] max-w-[26.4rem] px-[2.2rem] items-center flex-shrink-0 rounded-[6px]
-      ${isActive ? "bg-black-30" : "hover:bg-black-30 active:bg-black-30"}`}
-      data-active={isActive ? "true" : "false"}
-      aria-current={isActive ? "page" : undefined}
+      className={`flex h-[4rem] w-[25rem] flex-shrink-0 items-center rounded-[6px] px-[2.2rem] ${isActive ? 'bg-black-30' : 'hover:bg-black-30 active:bg-black-30'}`}
+      data-active={isActive ? 'true' : 'false'}
+      aria-current={isActive ? 'page' : undefined}
     >
-      <span className="text-black-130 text-body-14_M500">{items}</span>
+      <span className="text-body-14_M500 text-black-130">{items}</span>
     </div>
   );
 };
