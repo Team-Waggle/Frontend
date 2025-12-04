@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import IconTextArea from '../IconTextArea/BaseIconTextArea';
 import BaseBasicChip from '../../Chip/BasicChip/BaseBasicChip';
 import KeywordChip from '../../Chip/KeywordChip/KeywordChip';
+import { useDebouncedValue } from '../../../../hooks/useDebounced';
 
 // KeywordTextArea
 
@@ -11,6 +12,9 @@ import KeywordChip from '../../Chip/KeywordChip/KeywordChip';
  * items: 선택 가능한 키워드 목록 { id: string, label: string } 형태
  * placeholder: 입력창 플레이스홀더
  * renderChip: 기본 Chip 대신 다른 Chip 사용 가능
+ * onSearchChange: API 호출용
+ * useDebounce: true / false. 기본값: false. (true시 디바운스 사용. SkillField에서 사용하는 KeywordTextArea와 겹쳐 추가해두었습니다.)
+ * debounceDelay: 디바운스 지연 시간 (ms). 기본값: 300(ms)
  */
 
 interface KeywordItem {
@@ -24,6 +28,9 @@ interface KeywordTextAreaProps {
   items: KeywordItem[];
   placeholder?: string;
   renderChip?: (item: KeywordItem, onRemove: () => void) => React.ReactNode;
+  onSearchChange?: (keyword: string) => void;
+  useDebounce?: boolean;
+  debounceDelay?: number;
 }
 
 const KeywordTextArea = ({
@@ -32,6 +39,9 @@ const KeywordTextArea = ({
   items,
   placeholder = '',
   renderChip,
+  onSearchChange,
+  useDebounce = false,
+  debounceDelay = 300,
 }: KeywordTextAreaProps) => {
   const [inputValue, setInputValue] = useState('');
 
@@ -44,13 +54,28 @@ const KeywordTextArea = ({
     onChange(value.filter((v) => v !== id));
   };
 
-  const filterList = items.filter(
-    (item) =>
-      item.label.toLowerCase().includes(inputValue.toLowerCase()) &&
-      !value.includes(item.id),
+  const filterList = useMemo(
+    () =>
+      items.filter(
+        (item) =>
+          item.label.toLowerCase().includes(inputValue.toLowerCase()) &&
+          !value.includes(item.id),
+      ),
+    [items, inputValue, value],
   );
 
-    return (
+  const effectiveKeyword = useDebouncedValue(
+    inputValue,
+    debounceDelay,
+    useDebounce && !!onSearchChange,
+  );
+
+  useEffect(() => {
+    if (!onSearchChange) return;
+    onSearchChange(effectiveKeyword);
+  }, [effectiveKeyword, onSearchChange]);
+
+  return (
     <div className="flex flex-col items-start self-stretch">
       <IconTextArea
         className="w-[32rem] items-center sm:w-[62rem] md:w-[73.4rem]"
