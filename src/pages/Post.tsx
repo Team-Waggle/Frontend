@@ -25,6 +25,7 @@ import {
 import { usePostApply } from '../hooks/useApplicants';
 import { useUser } from '../hooks/useUser';
 import { useAccessTokenStore } from '../stores/authStore';
+import { isClosedKST } from '../utils/dateKST';
 
 interface TextAreaprops {
   subject: string;
@@ -215,11 +216,15 @@ const Post = () => {
                             key={idx}
                             className="flex h-[2.8rem] w-[22.2rem] gap-[4.2rem]"
                           >
-                            <span className="min-w-[6.2rem] max-w-[6.2rem] text-body-14_M500">
+                            <span
+                              className={`min-w-[6.2rem] max-w-[6.2rem] text-body-14_M500 ${isClosedKST(projectData.recruitment_end_date) ? 'text-black-70' : 'text-black-130'}`}
+                            >
                               {getPosition(data?.position)}
                             </span>
                             <div className="flex items-center gap-[1.8rem]">
-                              <span className="flex h-[2.8rem] min-w-[3.5rem] items-center justify-center text-body-14_M500 text-primary">
+                              <span
+                                className={`flex h-[2.8rem] min-w-[3.5rem] items-center justify-center text-body-14_M500 ${isClosedKST(projectData.recruitment_end_date) ? 'text-black-70' : 'text-primary'} `}
+                              >
                                 {projectData.applicant_counts.find(
                                   (applicant) =>
                                     applicant.position === data.position,
@@ -227,8 +232,12 @@ const Post = () => {
                                 /{data.remaining_count}
                               </span>
                               {/* 지원일 경우에만! */}
-                              {data.position ===
-                              projectData.applied_position ? (
+                              {isClosedKST(projectData.recruitment_end_date) ? (
+                                <BaseButton size="sm" disabled>
+                                  마감
+                                </BaseButton>
+                              ) : data.position ===
+                                projectData.applied_position ? (
                                 <BaseButton size="sm" color="primary">
                                   완료
                                 </BaseButton>
@@ -243,8 +252,9 @@ const Post = () => {
                                       setIsLoginSuggestionModalOpen(true);
                                       return;
                                     }
-                                    mutate(data.position);
-                                    setIsModalOpen(true);
+                                    mutate(data.position, {
+                                      onSuccess: () => setIsModalOpen(true),
+                                    });
                                   }}
                                 >
                                   지원
