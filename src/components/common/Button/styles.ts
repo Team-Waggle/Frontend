@@ -12,7 +12,7 @@ export const BUTTON_SIZE_STYLES: Record<ButtonSize, string> = {
 
 export const BUTTON_COLOR_STYLES: Record<ButtonColor, string> = {
   primary:
-    'bg-primary text-black-10 sm:hover:bg-primary-80 active:bg-primary-80 disabled:bg-black-50 disabled:text-black-70',
+    'bg-primary text-black-10 sm:hover:bg-primary-80 active:bg-primary-80 disabled:bg-black-50 disabled:text-black-70 disabled:hover:bg-black-50',
   secondary:
     'bg-primary-10 text-primary-80 sm:hover:bg-primary-20 active:bg-primary-20 border border-solid border-primary-70 disabled:sm:hover:bg-primary-10',
   line: 'bg-black-10 text-black-130 sm:hover:bg-black-30 active:bg-black-30 border border-solid border-black-60 disabled:sm:hover:bg-black-10',
