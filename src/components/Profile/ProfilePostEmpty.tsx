@@ -1,38 +1,27 @@
 import PostEmptyIcon from '../../assets/character/loading/ch_loading_basic_circle_gray_small.svg?react';
 import ApplicantEmptyIcon from '../../assets/character/loading/ch_loading_basic_triangle_gray_small.svg?react';
 import MemberEmptyIcon from '../../assets/character/loading/ch_loading_basic_square_gray_small.svg?react';
+import EmptyState from '../common/ProfileEmptyState/EmptyState';
 
-export type TabKey =
+export type PostTabKey =
   | 'postManagement'
   | 'applicantManagement'
   | 'memberManagement';
 
-export const emptyContentByKey: Record<TabKey, JSX.Element> = {
+export const emptyPostContentByKey: Record<PostTabKey, JSX.Element> = {
   postManagement: (
-    <div
-      data-empty="post"
-      className="flex h-full w-full flex-col items-center justify-center gap-[1.6rem]"
-    >
-      <PostEmptyIcon />
-      <div>
-        <span className="text-caption-16_M500 text-black-70">
-          작성한 모집글이 없어요.
-        </span>
-      </div>
-    </div>
+    <EmptyState
+      icon={<PostEmptyIcon />}
+      dataEmpty="post"
+      children="작성한 모집글이 없어요."
+    />
   ),
   applicantManagement: (
-    <div
-      data-empty="applicants"
-      className="flex h-full w-full flex-col items-center justify-center gap-[1.6rem]"
-    >
-      <ApplicantEmptyIcon />
-      <div>
-        <span className="text-caption-16_M500 text-black-70">
-          아직 지원자가 없어요.
-        </span>
-      </div>
-    </div>
+    <EmptyState
+      icon={<ApplicantEmptyIcon />}
+      dataEmpty="applicants"
+      children="아직 지원자가 없어요."
+    />
   ),
   memberManagement: (
     <div

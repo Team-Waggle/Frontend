@@ -31,6 +31,7 @@ import {
 } from '../../hooks/useBookmark';
 import { formatYYMMDDKST } from '../../utils/dateKST';
 import { isRowClosedForUI } from '../../utils/profilePostList';
+import { emptyFollowContentByTab } from '../../components/Profile/ProfileLikesEmpty';
 
 type OutletCtx = { currentUserId: string };
 interface ProfileLikesProps {
@@ -219,39 +220,47 @@ const ProfileLikes = ({ currentUserId }: ProfileLikesProps) => {
       {/* Following / Follower */}
       {(activeTab === 'following' || activeTab === 'follower') && (
         <div className="flex h-[74.4rem] flex-col items-start gap-[1.8rem] self-stretch rounded-bl-[0.8rem] rounded-br-[0.8rem] border border-solid border-black-50 bg-black-10 px-[2.6rem] pb-[4.6rem] pt-[2.7rem]">
-          {/* Position 필터 LineTab */}
-          <div className="relative flex w-full border border-x-0 border-t-0 border-solid border-black-50">
-            <LineTab
-              key="ALL"
-              isActive={activePosition === null}
-              onClick={() => setActivePosition(null)}
-            >
-              전체
-            </LineTab>
-            {positions.map((pos) => (
-              <LineTab
-                key={pos.id}
-                isActive={activePosition === pos.id}
-                onClick={() => setActivePosition(pos.id)}
-              >
-                {pos.label}
-              </LineTab>
-            ))}
-          </div>
-
           {loading ? (
-            <p>로딩 중...</p>
-          ) : (
-            <div className="grid w-full grid-cols-3 gap-[1rem]">
-              {filteredUsers.map((user) => (
-                <FollowableChip
-                  key={user.userId}
-                  user={user}
-                  activeTab={activeTab}
-                  positionLabelMap={positionLabelMap}
-                />
-              ))}
+            <div className="flex h-full w-full flex-1 items-center justify-center">
+              <p>로딩 중...</p>
             </div>
+          ) : filteredUsers.length === 0 ? (
+            <div className="flex h-full w-full flex-1 items-center justify-center">
+              {emptyFollowContentByTab[activeTab]}
+            </div>
+          ) : (
+            <>
+              {/* Position 필터 LineTab */}
+              <div className="relative flex w-full border border-x-0 border-t-0 border-solid border-black-50">
+                <LineTab
+                  key="ALL"
+                  isActive={activePosition === null}
+                  onClick={() => setActivePosition(null)}
+                >
+                  전체
+                </LineTab>
+                {positions.map((pos) => (
+                  <LineTab
+                    key={pos.id}
+                    isActive={activePosition === pos.id}
+                    onClick={() => setActivePosition(pos.id)}
+                  >
+                    {pos.label}
+                  </LineTab>
+                ))}
+              </div>
+
+              <div className="grid w-full grid-cols-3 gap-[1rem]">
+                {filteredUsers.map((user) => (
+                  <FollowableChip
+                    key={user.userId}
+                    user={user}
+                    activeTab={activeTab}
+                    positionLabelMap={positionLabelMap}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       )}
