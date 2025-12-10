@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import type { CellCtx } from '../../../../types/table';
 
 import bookmarkIc from '../../../../assets/icons/profile/ic_bookmark.svg?react';
@@ -40,6 +40,7 @@ export type IconActionsMeta<T> = {
   deleteConfirmText?: string;
   getId?: (row: T) => number | string;
   confirmWithModal?: boolean;
+  getIsOpen?: (row: T) => boolean;
 };
 
 const PRESET_TEXT: Record<PresetKey, { label: string; title: string }> = {
@@ -71,7 +72,10 @@ export function IconActions<T>({ row, column }: CellCtx<T>) {
     deleteConfirmText = '정말 삭제하시겠습니까?',
     getId,
     confirmWithModal = false,
+    getIsOpen,
   } = (column.meta || {}) as IconActionsMeta<T>;
+
+  const [localOpen, setLocalOpen] = useState(false);
 
   const fromPreset = useMemo(() => {
     return (preset || [])
@@ -112,7 +116,9 @@ export function IconActions<T>({ row, column }: CellCtx<T>) {
 
           if (confirmWithModal) {
             window.dispatchEvent(
-              new CustomEvent('post:delete:open', { detail: { id: numId, row: r } })
+              new CustomEvent('post:delete:open', {
+                detail: { id: numId, row: r },
+              }),
             );
             return;
           }
@@ -123,7 +129,14 @@ export function IconActions<T>({ row, column }: CellCtx<T>) {
       };
       return injected;
     });
-  }, [list, canDeleteAll, deleteConfirmText, confirmWithModal, deleteMutate, getId]);
+  }, [
+    list,
+    canDeleteAll,
+    deleteConfirmText,
+    confirmWithModal,
+    deleteMutate,
+    getId,
+  ]);
 
   return (
     <div className="flex items-center justify-center gap-[1rem]">
@@ -133,16 +146,42 @@ export function IconActions<T>({ row, column }: CellCtx<T>) {
         const disabled =
           (isDelete && (a.canDelete === false || !canDeleteAll)) || isPending;
 
+        const isArrowIcon = a.key === 'arrow';
+
+        let isOpen = false;
+        if (isArrowIcon) {
+          if (typeof getIsOpen === 'function') {
+            isOpen = !!getIsOpen(row);
+          } else if (typeof (row as any)?.getIsExpanded === 'function') {
+            isOpen = !!(row as any).getIsExpanded();
+          } else {
+            isOpen = localOpen;
+          }
+        }
+
         return (
           <button
             key={a.key}
             aria-label={a.ariaLabel}
             title={a.title || a.ariaLabel}
-            onClick={disabled || !a.onClick ? undefined : () => a.onClick!(row)}
+            onClick={
+              disabled || !a.onClick
+                ? undefined
+                : () => {
+                    if (isArrowIcon && typeof getIsOpen !== 'function') {
+                      setLocalOpen((prev) => !prev);
+                    }
+                    a.onClick!(row);
+                  }
+            }
             className={`flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded ${disabled ? 'pointer-events-none opacity-50' : 'hover:bg-black-10'}`}
             type="button"
           >
-            <div className='h-[3.2rem] w-[3.2rem] flex items-center justify-center rounded-[6px] hover:bg-black-40'>
+            <div
+              className={`flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-[6px] transition-transform duration-300 ease-in-out hover:bg-black-40 ${
+                isArrowIcon ? (isOpen ? 'rotate-180' : 'rotate-0') : ''
+              }`}
+            >
               <Icon />
             </div>
           </button>
