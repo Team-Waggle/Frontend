@@ -41,29 +41,27 @@ export function useUser() {
     [setUser],
   );
 
-  // 서버 오류, 500 에러 발생
-  // 백엔드에 이야기 해두고 주석 해제 하도록 하겠습니다.
-  // const deleteUser = useCallback(async () => {
-  //   try {
-  //     const res = await deleteUserMe();
-  //     if (res.success) {
-  //       clearUser();
-  //       clearAccessToken();
-  //       clearRefreshToken();
-  //       return true;
-  //     } else {
-  //       clearUser();
-  //       clearAccessToken();
-  //       clearRefreshToken();
-  //       throw new Error('탈퇴 처리 실패 (서버 응답)');
-  //     }
-  //   } catch (err) {
-  //     clearUser();
-  //     clearAccessToken();
-  //     clearRefreshToken();
-  //     throw err;
-  //   }
-  // }, [clearUser, clearAccessToken, clearRefreshToken]);
+  const deleteUser = useCallback(async () => {
+    try {
+      const res = await deleteUserMe();
+      if (res.success) {
+        clearUser();
+        clearAccessToken();
+        clearRefreshToken();
+        return true;
+      } else {
+        clearUser();
+        clearAccessToken();
+        clearRefreshToken();
+        throw new Error('탈퇴 처리 실패 (서버 응답)');
+      }
+    } catch (err) {
+      clearUser();
+      clearAccessToken();
+      clearRefreshToken();
+      throw err;
+    }
+  }, [clearUser, clearAccessToken, clearRefreshToken]);
 
   const uploadProfileImage = useCallback(
     async (file: File) => {
@@ -82,6 +80,7 @@ export function useUser() {
     user,
     fetchUser,
     updateUser,
+    deleteUser,
     uploadProfileImage,
   };
 }

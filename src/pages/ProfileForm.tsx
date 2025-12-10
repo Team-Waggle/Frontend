@@ -30,9 +30,7 @@ interface LinkRow {
 }
 
 const ProfileForm = () => {
-  // delete User 오류 해결 후 주석 해제
-  // const { user, fetchUser, updateUser, deleteUser } = useUser();
-  const { user, fetchUser, updateUser, uploadProfileImage } = useUser();
+  const { user, fetchUser, updateUser, deleteUser, uploadProfileImage } = useUser();
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
@@ -193,19 +191,19 @@ const ProfileForm = () => {
     }
   };
 
-    // const handleDelete = async () => {
-  //   if (!confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.'))
-  //     return;
+    const handleDelete = async () => {
+    if (!confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.'))
+      return;
 
-  //   try {
-  //     await deleteUser();
-  //     alert('계정이 탈퇴되었습니다.');
-  //     navigate('/'); // 홈 또는 로그인 화면으로 리다이렉트
-  //   } catch (err) {
-  //     console.error('탈퇴 중 오류:', err);
-  //     alert('탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.');
-  //   }
-  // };
+    try {
+      await deleteUser();
+      alert('계정이 탈퇴되었습니다.');
+      navigate('/');
+    } catch (err) {
+      console.error('탈퇴 중 오류:', err);
+      alert('탈퇴 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  };
 
   if (loading) return <div>로딩 중 ...</div>;
 
@@ -371,7 +369,7 @@ const ProfileForm = () => {
         onClose={() => setOpenDeleteConfirm(false)}
         handleDone={() => {
           setOpenDeleteConfirm(false);
-          // handleDelete();
+          handleDelete();
         }}
         title="정말 탈퇴하시겠어요?"
         content="탈퇴 시 데이터가 삭제될 수 있으며 되돌릴 수 없습니다."
