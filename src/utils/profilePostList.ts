@@ -1,5 +1,6 @@
 import type { PostRow } from '../constants/ProfilePostColumns';
 import { industries } from '../constants/formOptions';
+import { isClosedKST } from './dateKST';
 
 export type TabKey = 'postManagement' | 'applicantManagement' | 'memberManagement';
 export type SortKey = 'status' | 'deadline' | 'industry' | 'applicants';
@@ -202,10 +203,12 @@ export function processPosts(rows: PostRow[], sortKey: SortKey, searchText: stri
   return list;
 }
 
-export function isRowClosedForUI(row: any): boolean {
-  return isClosedByRow(row);
-}
+export function isRowClosedForUI(row: { deadline?: string; status?: string }) {
+    if (row.status === '마감') return true;
 
+    if (!row.deadline) return false;
+    return isClosedKST(row.deadline);
+}
 export function normalizeDeadline(input: unknown): string | undefined {
   const d = parseDateLoose(input);
   return d ? d.toISOString() : undefined;
