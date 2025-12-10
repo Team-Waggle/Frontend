@@ -12,7 +12,7 @@ import { profilePostTabs } from '../../constants/ProfilePostColumns';
 import type { PostRow } from '../../constants/ProfilePostColumns';
 import { useUserProjectRows } from '../../hooks/useUserProjectRows';
 import { useProjectsDeleteQuery } from '../../hooks/useProjectPost';
-import { emptyContentByKey } from '../../components/Profile/ProfilePostEmpty';
+import { emptyPostContentByKey } from '../../components/Profile/ProfilePostEmpty';
 
 import {
   type SortKey,
@@ -262,7 +262,7 @@ export default function ProfilePosts() {
           <ProfileSearchBar onSearch={setSearchText} />
         </div>
         {data.length === 0 ? (
-          emptyContentByKey[activeKey]
+          emptyPostContentByKey[activeKey]
         ) : (
           <Table<PostRow>
             columns={activeTab.columns}
