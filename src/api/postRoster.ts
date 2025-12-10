@@ -39,7 +39,16 @@ export async function getPostApplicantsCount(
     const { data } = await axiosInstance.get<ApiEnvelope<any>>(url);
 
     const payload = data?.payload;
-    if (Array.isArray(payload)) return payload.length;
+    
+        if (Array.isArray(payload)) {
+        const count = payload.filter((item: any) => {
+            const status = String(item?.status ?? '').toUpperCase();
+            return status === 'APPROVED' || status === 'PENDING';
+        }).length;
+
+        return count;
+    }
+    
     if (payload && typeof payload === 'object') {
         if (typeof payload.total === 'number') return payload.total;
         if (typeof payload.total_count === 'number') return payload.total_count;
