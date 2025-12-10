@@ -11,7 +11,7 @@ interface DropdownBasicTabProps {
 
 const DropdownBasicTab = ({ introduction, setIntroduction }: DropdownBasicTabProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>(teamPlay[0]);
-  const [openedCategory, setOpenedCategory] = useState<string>(teamPlay[0]); // 하나의 카테고리만 열리도록 설정
+  const [openedCategory, setOpenedCategory] = useState<string>(teamPlay[0]);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 360);
 
   useEffect(() => {
@@ -20,16 +20,12 @@ const DropdownBasicTab = ({ introduction, setIntroduction }: DropdownBasicTabPro
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    if (isMobile) {
-      setOpenedCategory(selectedCategory);
-    } else {
-      setSelectedCategory(openedCategory);
-    }
-  }, [isMobile]);
+  const getCurrentCategory = () => (isMobile ? openedCategory : selectedCategory);
 
   const getSelectedOptions = () => {
-    switch (openedCategory) {
+    const category = getCurrentCategory();
+
+    switch (category) {
       case '소통 스타일':
         return introduction.communication_styles;
       case '협업 성향':
@@ -46,8 +42,10 @@ const DropdownBasicTab = ({ introduction, setIntroduction }: DropdownBasicTabPro
   };
 
   const handleChange = (options: string[]) => {
+    const category = getCurrentCategory();
+
     setIntroduction((prev: Introduction) => {
-      switch (openedCategory) {
+      switch (category) {
         case '소통 스타일':
           return { ...prev, communication_styles: options };
         case '협업 성향':
