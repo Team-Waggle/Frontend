@@ -41,8 +41,6 @@ export function useUser() {
     [setUser],
   );
 
-  // 서버 오류, 500 에러 발생
-  // 백엔드에 이야기 해두고 주석 해제 하도록 하겠습니다.
   const deleteUser = useCallback(async () => {
     try {
       const res = await deleteUserMe();

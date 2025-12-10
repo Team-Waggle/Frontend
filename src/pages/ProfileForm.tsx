@@ -30,7 +30,6 @@ interface LinkRow {
 }
 
 const ProfileForm = () => {
-  // delete User 오류 해결 후 주석 해제
   const { user, fetchUser, updateUser, deleteUser, uploadProfileImage } = useUser();
   const [loading, setLoading] = useState(true);
 
