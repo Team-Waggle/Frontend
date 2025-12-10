@@ -31,9 +31,16 @@ export async function updateUserMe(
   return data;
 }
 
-export async function deleteUserMe(): Promise<UserMeResponse> {
-  const { data } = await axiosInstance.delete<UserMeResponse>(USER_ME_URL);
-  return data;
+type BasicSuccessResponse = { success: boolean };
+
+export async function deleteUserMe(): Promise<BasicSuccessResponse | UserMeResponse> {
+  const res = await axiosInstance.delete(USER_ME_URL);
+
+  if (res.status === 204) {
+    return { success: true };
+  }
+
+  return res.data as UserMeResponse;
 }
 
 export async function uploadUserProfileImage(

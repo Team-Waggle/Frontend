@@ -11,6 +11,7 @@ import InputCheckbox from '../common/Checkbox/InputCheckbox';
 const CancelModal = ({
   // size = 'large', // 기본 크기는 large로 설정
   isOpen,
+  handleDone,
   onClose,
   // CharacterComponent, // SVG 컴포넌트로 캐릭터 이미지 받기
 }: BaseModalProps) => {
@@ -62,7 +63,13 @@ const CancelModal = ({
               <BaseButton onClick={onClose} size="xl" color="line">
                 취소
               </BaseButton>
-              <BaseButton size="xl" color="primary">
+              <BaseButton
+                size="xl"
+                color="primary"
+                onClick={() => {
+                  handleDone?.();
+                }}
+              >
                 확인
               </BaseButton>
             </div>
