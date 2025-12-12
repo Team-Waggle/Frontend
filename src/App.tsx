@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Header from './components/layout/Header';
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
     <>
       <Header />
       <Outlet /> {/* 중첩 라우팅 영역 */}
+      <ScrollRestoration />
     </>
   );
 }
