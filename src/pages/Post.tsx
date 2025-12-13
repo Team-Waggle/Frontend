@@ -347,7 +347,7 @@ const Post = () => {
               <span className="text-caption-13_Sb600">현재 참여중인 팀원</span>
             </div>
             <div className="flex flex-col gap-[1.6rem]">
-              <div className="grid grid-cols-3 gap-[1.2rem] px-[2rem]">
+              <div className="grid grid-cols-1 gap-x-[1.2rem] gap-y-[0.8rem] px-[2rem] sm:grid-cols-2 md:grid-cols-3">
                 {sortedMemberData?.map((data, idx) => (
                   <ProfileTag
                     key={idx}
