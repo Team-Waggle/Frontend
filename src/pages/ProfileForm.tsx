@@ -1,8 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useUser } from '../hooks/useUser';
 import type { UpdateUserDto, Introduction } from '../types/user';
 
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import {
+  useNavigate,
+  useParams,
+  useLocation,
+  useBeforeUnload,
+  useBlocker,
+} from 'react-router-dom';
+import { isEqual } from 'lodash';
 
 import FormLabel from '../components/FormLabel';
 import DropdownBasicTab from '../components/common/Tab/DropdownBasicTab';
@@ -22,6 +29,7 @@ import LinksField from '../components/NewProfile/LinksField';
 import BaseModal from '../components/Modal/BaseModal';
 import ModalIcon from '../assets/character/modal/large/ch_modal_heart_square_yellow_large.svg?react';
 import CancelModal from '../components/Modal/CancelModal';
+import BlockerIcon from '../assets/character/modal/large/ch_modal_basic_triangle_yellow_large.svg?react';
 
 interface LinkRow {
   id: string;
@@ -29,8 +37,26 @@ interface LinkRow {
   url: string;
 }
 
+type ProfileFormData = {
+  nickname: string;
+  email: string;
+  links: LinkRow[];
+  skillKeywords: string[];
+  position: string;
+  yearCount: number | '';
+  selectedIndustries: string[];
+  selectedDays: string[];
+  preferredTime: string;
+  workWay: string;
+  region: string;
+  detail: string;
+  introductions: Introduction;
+  profileImageUrl?: string;
+};
+
 const ProfileForm = () => {
-  const { user, fetchUser, updateUser, deleteUser, uploadProfileImage } = useUser();
+  const { user, fetchUser, updateUser, deleteUser, uploadProfileImage } =
+    useUser();
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
@@ -42,9 +68,6 @@ const ProfileForm = () => {
   const isEditRoute = location.pathname.startsWith('/profile/edit/') && !!id;
 
   const isExistingUser = isEditRoute;
-
-  const [openWelcome, setOpenWelcome] = useState(false);
-  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
 
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
@@ -72,8 +95,31 @@ const ProfileForm = () => {
   const [nicknameRequiredMessage, setNicknameRequiredMessage] = useState(false);
   const [industryRequiredMessage, setIndustryRequiredMessage] = useState(false);
 
+  const [openWelcome, setOpenWelcome] = useState(false);
+  const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false);
+
+  // 1. 초기 상태 저장
+  const initialStateRef = useRef<ProfileFormData>({
+    nickname,
+    email,
+    links,
+    skillKeywords,
+    position,
+    yearCount,
+    selectedIndustries,
+    selectedDays,
+    preferredTime,
+    workWay,
+    region,
+    detail,
+    introductions,
+    profileImageUrl,
+  });
+
+  const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(true);
+
   // 초기값 (get)
-    useEffect(() => {
+  useEffect(() => {
     const loadUser = async () => {
       const userData = await fetchUser();
       if (userData) {
@@ -91,38 +137,122 @@ const ProfileForm = () => {
           typeof userData.year_count === 'number' ? userData.year_count : '',
         );
 
-        setLinks(
+        const nextLinks =
           userData.portfolios && userData.portfolios.length > 0
             ? userData.portfolios.map((p) => ({
                 id: crypto.randomUUID(),
                 site: p.portfolio_type,
                 url: p.url,
               }))
-            : [{ id: crypto.randomUUID(), site: '', url: '' }],
-        );
+            : [{ id: crypto.randomUUID(), site: '', url: '' }];
 
+        setLinks(nextLinks);
+
+        const introductionsFromUser: Introduction = userData.introductions
+          ? {
+              communication_styles:
+                userData.introductions.communication_styles.filter(Boolean),
+              collaboration_styles:
+                userData.introductions.collaboration_styles.filter(
+                  (v) => typeof v === 'string' && v.length > 0,
+                ),
+              work_styles: userData.introductions.work_styles.filter(Boolean),
+              problem_solving_approaches:
+                userData.introductions.problem_solving_approaches.filter(
+                  Boolean,
+                ),
+              mbti: userData.introductions.mbti || '',
+            }
+          : {
+              communication_styles: [],
+              collaboration_styles: [],
+              work_styles: [],
+              problem_solving_approaches: [],
+              mbti: '',
+            };
+
+        setIntroductions(introductionsFromUser);
         setProfileImageUrl(userData.profile_img_url);
 
-        if (userData.introductions) {
-          setIntroductions({
-            communication_styles:
-              userData.introductions.communication_styles.filter(Boolean),
-            collaboration_styles:
-              userData.introductions.collaboration_styles.filter(
-                (v) => typeof v === 'string' && v.length > 0,
-              ),
-            work_styles: userData.introductions.work_styles.filter(Boolean),
-            problem_solving_approaches:
-              userData.introductions.problem_solving_approaches.filter(Boolean),
-            mbti: userData.introductions.mbti || '',
-          });
-        }
+        // 2. 초기 스냅샷 저장
+        initialStateRef.current = {
+          nickname: userData.name,
+          email: userData.email || '',
+          links: nextLinks,
+          skillKeywords: userData.skills || [],
+          position: userData.position || '',
+          yearCount:
+            typeof userData.year_count === 'number' ? userData.year_count : '',
+          selectedIndustries: userData.industries || [],
+          selectedDays: userData.days_of_week || [],
+          preferredTime: userData.preferred_work_time,
+          workWay: userData.preferred_work_way,
+          region: userData.preferred_sido,
+          detail: userData.detail || '',
+          introductions: introductionsFromUser,
+          profileImageUrl: userData.profile_img_url,
+        };
       }
       setLoading(false);
     };
 
     loadUser();
   }, [fetchUser]);
+
+  const getCurrentFormState = useCallback(
+    (): ProfileFormData => ({
+      nickname,
+      email,
+      links,
+      skillKeywords,
+      position,
+      yearCount,
+      selectedIndustries,
+      selectedDays,
+      preferredTime,
+      workWay,
+      region,
+      detail,
+      introductions,
+      profileImageUrl,
+    }),
+    [
+      nickname,
+      email,
+      links,
+      skillKeywords,
+      position,
+      yearCount,
+      selectedIndustries,
+      selectedDays,
+      preferredTime,
+      workWay,
+      region,
+      detail,
+      introductions,
+      profileImageUrl,
+    ],
+  );
+
+  // 3. dirty 여부 계산
+  const isDirty = !isEqual(initialStateRef.current, getCurrentFormState());
+  const blocker = useBlocker(() => isDirty);
+
+  useBeforeUnload(
+    useCallback(
+      (event) => {
+        if (!isDirty) return;
+        event.preventDefault();
+      },
+      [isDirty],
+    ),
+  );
+
+  useEffect(() => {
+    if (blocker.state === 'blocked' && !isLeaveModalOpen) {
+      setIsLeaveModalOpen(true);
+    }
+  }, [blocker.state, isLeaveModalOpen]);
 
   const handleProfileImageUpload = async (file: File) => {
     try {
@@ -179,6 +309,8 @@ const ProfileForm = () => {
 
     try {
       await updateUser(payload);
+      initialStateRef.current = getCurrentFormState();
+
       if (isCreateRoute) {
         setOpenWelcome(true);
       } else {
@@ -191,13 +323,14 @@ const ProfileForm = () => {
     }
   };
 
-    const handleDelete = async () => {
+  const handleDelete = async () => {
     if (!confirm('정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.'))
       return;
 
     try {
       await deleteUser();
       alert('계정이 탈퇴되었습니다.');
+      initialStateRef.current = getCurrentFormState();
       navigate('/');
     } catch (err) {
       console.error('탈퇴 중 오류:', err);
@@ -257,14 +390,14 @@ const ProfileForm = () => {
     );
 
   return (
-    <div className="flex h-[207.4rem] w-[36rem] md:w-[62rem] sm:w-[120rem] flex-col items-center">
+    <div className="flex h-[207.4rem] w-[36rem] flex-col items-center sm:w-[120rem] md:w-[62rem]">
       <ProfileImageField
         ProfileImgFieldUrl={profileImageUrl}
         onFileSelect={handleProfileImageUpload}
       />
       <div className="flex flex-col items-center gap-[1.6rem] self-stretch">
         <div className="flex flex-col items-center gap-[10rem] self-stretch">
-          <div className="flex w-[32rem] sm:w-[62rem] md:w-[73.4rem] flex-col items-start gap-[2.6rem]">
+          <div className="flex w-[32rem] flex-col items-start gap-[2.6rem] sm:w-[62rem] md:w-[73.4rem]">
             {/* 닉네임 */}
             <NickNameField
               nickname={nickname}
@@ -387,6 +520,24 @@ const ProfileForm = () => {
         title="Waggle과 함께해요!"
         content="저장하고 회원가입을 마무리 해보아요."
       />
+
+      {blocker.state === 'blocked' ? (
+        <BaseModal
+          size="large"
+          CharacterComponent={BlockerIcon}
+          title="저장하지 않고 나가시겠습니까?"
+          content="저장하지 않고 나가면 작성 중인 글이 사라져요."
+          isOpen={isLeaveModalOpen}
+          handleDone={() => {
+            setIsLeaveModalOpen(false);
+            blocker.proceed?.();
+          }}
+          onClose={() => {
+            setIsLeaveModalOpen(false);
+            blocker.reset?.();
+          }}
+        />
+      ) : null}
     </div>
   );
 };
